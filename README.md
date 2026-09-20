@@ -5,7 +5,7 @@ of its main width comparison, and a blueprint for Theorem 1.1. The manuscript
 and the Lean proof use different recursive constructions. The blueprint states
 the exact scope of the correspondence.
 
-- [Read the blueprint](docs/index.html).
+- [Read the blueprint](https://lnz.github.io/sparse-incidence-homomorphisms/).
 - [Read the paper](docs/paper.pdf), or its flattened [LaTeX source](main.tex)
   with the generated [bibliography](main.bbl).
 
