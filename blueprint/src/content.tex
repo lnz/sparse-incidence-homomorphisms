@@ -1,0 +1,526 @@
+\section{Scope}
+
+The main path follows Theorem~1.1 of \texttt{main.tex}. Lean proves the final
+comparison by a different recursion, recorded in Section~\ref{sec:lean-route}.
+Checkmarks identify checked Lean declarations. The article's algorithmic and
+complexity results are outside this blueprint.
+
+\printbreak
+\section{Finite hypergraphs and structural parameters}
+
+\begin{definition}[Hypergraphs]
+\label{def:hypergraph}
+\lean{Paper.Hypergraph, Paper.Hypergraph.induce, Paper.Hypergraph.primal, Paper.Hypergraph.incidence}
+A manuscript hypergraph is finite, has nonempty edges, and has no isolated
+vertices. Its edges form a set of vertex sets. The input convention takes $H$
+to be nonempty and connected, while restrictions may be empty or disconnected.
+The primal graph joins distinct vertices in a common edge, and the incidence
+graph joins a vertex to an edge containing it. For $W\subseteq V(H)$,
+$H[W]$ intersects each edge with $W$, discards empty intersections, and merges
+equal intersections. Lean instead retains distinct edge labels that describe
+the same vertex set, including after restriction.
+\end{definition}
+
+In Lean the finite label sets are subsets of the natural numbers. Values of
+the edge map on inactive labels are immaterial. In particular, transferring
+from $H[V(H)]$ to $H$ uses agreement on active edges, not literal equality
+of the entire edge-map structures.
+
+\begin{definition}[Incidence degeneracy and primal independence]
+\label{def:structure}
+\lean{Paper.Hypergraph.components, Paper.Hypergraph.Connected, Paper.Hypergraph.degeneracy, Paper.Hypergraph.independenceNumber, Paper.Hypergraph.structuralFactor}
+\uses{def:hypergraph}\leanok
+Let $\cc(H)$ consist of the nonempty primal connected components, let $d(H)$
+be the degeneracy of the incidence graph, and let $\alpha(H)$ be the maximum
+size of a primal independent set. In the manuscript, $d(H)$ is denoted
+$\mu(H)$. Lean's auxiliary structural factor is
+$A(H)=1+\min\{d(H),\ln(2+\alpha(H))\}$.
+\end{definition}
+
+\begin{definition}[The manuscript parameter]
+\label{eq:lambda-intro}
+\lean{Paper.Hypergraph.componentFactor, Paper.Hypergraph.lambda}\uses{def:structure}\leanok
+\[
+ \lambda(H)=\min\{\mu(H),\max\{1,\log_2\alpha(H)\}\}.
+\]
+All unqualified logarithms in the manuscript are binary. Lean also uses
+\[
+ L(H)=1+\max_{K\in\cc(H)}
+  \min\{d(H[K]),\ln(2+\alpha(H[K]))\},
+\]
+with maximum zero when $H$ is empty. For nonempty $H$ it proves
+$L(H)\le A(H)\le4\lambda(H)$. The componentwise factor is internal to the
+Lean proof and is not the manuscript's $\lambda$.
+\end{definition}
+
+\begin{lemma}[Structural heredity]
+\label{eq:hereditary-structure}
+\lean{Paper.Hypergraph.structure_hereditary}
+\uses{def:structure}\leanok
+For every restriction, $d(H[W])\le d(H)$ and
+$\alpha(H[W])\le\alpha(H)$.
+\end{lemma}
+\begin{proof}\uses{def:hypergraph}\leanok
+Embed the restricted incidence graph into the original graph and use the
+induced-subgraph characterization of degeneracy. A primal independent set
+of a restriction remains independent in the original hypergraph. Thus
+$\lambda(H[W])\le\lambda(H)$ whenever the parameters are defined.
+\end{proof}
+
+\section{Covers, tree decompositions, and widths}
+
+\begin{definition}[Fractional edge-cover cost]
+\label{def:cover}
+\lean{Paper.Hypergraph.Cover, Paper.Hypergraph.coverCost, Paper.Hypergraph.indicator, Paper.Hypergraph.setCoverCost, Paper.Hypergraph.ModularWeight, Paper.Hypergraph.modularValue}
+\uses{def:hypergraph}\leanok
+For a demand $x$, a cover is a nonnegative edge vector $y$ with
+$\sum_{e\ni v}y_e\ge x(v)$ for every vertex. Its optimum cost is
+\[
+ \rho_H^*(x)=\inf_y\sum_e y_e,
+ \qquad \rho_H^*(X)=\rho_H^*(\mathbf1_X).
+\]
+An edge-dominated modular weighting is a nonnegative vertex vector $w$ with
+$\sum_{v\in e}w_v\le1$ on each hyperedge; write
+$b_w(X)=\sum_{v\in X}w_v$.
+\end{definition}
+
+\begin{lemma}[Cover duality]
+\label{eq:cover-dual}
+\lean{Paper.Hypergraph.cover_duality}\uses{def:cover}\leanok
+For a unit demand $x:V(H)\to[0,1]$ there is an edge-dominated modular $w$
+such that
+\[
+ \rho_H^*(x)=\sum_v w_vx(v),
+ \qquad \sum_v w'_vx(v)\le\rho_H^*(x)
+ \quad\hbox{for every admissible }w'.
+\]
+\end{lemma}
+\begin{proof}\uses{def:cover}\leanok
+Construct a supporting linear functional for the sublinear cover-cost
+functional. Its values on singleton vectors yield $w$. Feasible covers give
+the reverse inequality by exchanging the two finite sums.
+\end{proof}
+
+\begin{lemma}[Restriction preserves cover cost]
+\label{eq:cover-restriction}
+\lean{Paper.Hypergraph.cover_restriction}\uses{def:cover}\leanok
+If $X\subseteq W$, then $\rho_{H[W]}^*(X)=\rho_H^*(X)$.
+\end{lemma}
+\begin{proof}\uses{def:hypergraph}\leanok
+In the manuscript, aggregate weights on edges with equal nonempty
+intersections with $W$, and lift a restricted cover by choosing one original
+edge for each restricted edge. For Lean's labelled edges, retain surviving
+labels and extend the other weights by zero.
+\end{proof}
+
+\begin{definition}[Tree decompositions and width parameters]
+\label{def:widths}
+\lean{Paper.Hypergraph.TreeDecomposition, Paper.Hypergraph.TreeDecomposition.bagWidth, Paper.Hypergraph.optimalWidth, Paper.Hypergraph.fhw, Paper.Hypergraph.adw, Paper.Hypergraph.subw, Paper.Hypergraph.SubmodularWeight}
+\uses{def:cover}\leanok
+A tree decomposition is a finite nonempty tree with vertex-subset bags,
+covering every hyperedge and vertex, such that the bags containing any fixed
+vertex form a connected subtree. For a bag cost $b$, set
+\[
+ \operatorname{opt}_H(b)=\inf_D\max_{t\in D}b(B_t).
+\]
+Then $\fhw(H)=\operatorname{opt}_H(\rho_H^*)$ and
+$\adw(H)=\sup_w\operatorname{opt}_H(b_w)$ over admissible modular weights.
+For $\subw(H)$ take the supremum instead over normalized, monotone,
+submodular, edge-dominated set functions.
+\end{definition}
+
+\begin{lemma}[Width hierarchy and heredity]
+\label{prop:width-hierarchy}
+\lean{Paper.Hypergraph.width_hierarchy, Paper.Hypergraph.width_hereditary}
+\uses{def:widths}\leanok
+One has $\adw(H)\le\subw(H)\le\fhw(H)$, and
+$\adw(H[W])\le\adw(H)$ and $\fhw(H[W])\le\fhw(H)$.
+\end{lemma}
+\begin{proof}\uses{eq:cover-restriction,def:cover}\leanok
+Modular functions are submodular. Supporting modular weights bound each
+submodular bag value by its fractional cover cost. Restricting decompositions
+and extending admissible weights gives heredity.
+\end{proof}
+
+\begin{lemma}[Component reduction]
+\label{lem:components}
+\lean{Paper.Hypergraph.component_reduction}
+\uses{def:widths,def:structure}\leanok
+Each of $\fhw(H)$ and $\adw(H)$ is the maximum of its values on $H[K]$ for
+$K\in\cc(H)$, with value zero in the empty case.
+\end{lemma}
+\begin{proof}\uses{prop:width-hierarchy}\leanok
+Join the disjoint component trees, retaining their bags and internal paths.
+A hyperedge lies in a single component. Heredity gives the reverse bounds;
+passing to infima avoids requiring optimal decompositions to be attained.
+\end{proof}
+
+\section{Balanced separators}
+
+\begin{definition}[Fractional and integral balance]
+\label{eq:fractional-balance}
+\lean{Paper.Hypergraph.UnitDemand, Paper.Hypergraph.EdgeWeight, Paper.Hypergraph.vertexDistance, Paper.Hypergraph.edgeDistance, Paper.Hypergraph.FractionalBalanced, Paper.Hypergraph.IntegralBalanced}
+\uses{def:hypergraph,def:structure}\leanok
+Let $\gamma:E(H)\to[0,1]$ have positive total mass $M=\sum_e\gamma_e$.
+For a unit demand $x$, the distance between vertices is the minimum of $1$
+and the $x$-length of a simple primal path, counting both endpoints; absent
+paths have distance $1$. The distance $d_x(e,f)$ is the minimum over endpoint
+choices in $e$ and $f$.
+The vector $x$ is fractionally $(\gamma,\theta)$-balanced if
+\[
+ \sum_f\gamma_fd_x(e,f)\ge(1-\theta)M \qquad(e\in E(H)).
+\]
+A set $S\subseteq V(H)$ is integrally balanced if every component $K$ of
+$H[V(H)\setminus S]$ satisfies
+\[
+ \sum_{e:e\cap K\ne\varnothing}\gamma_e\le\theta M.
+\]
+\end{definition}
+
+\begin{definition}[Hereditary separator costs]
+\label{def:separator-costs}
+\lean{Paper.Hypergraph.beta, Paper.Hypergraph.integralOptimum, Paper.Hypergraph.fsep, Paper.Hypergraph.sep}
+\uses{eq:fractional-balance,def:cover}\leanok
+Let $\beta_H^\theta(\gamma)$ be the infimum of $\rho_H^*(x)$ over fractional
+balanced separators. Define $\fsep_\theta(H)$ by taking the supremum over
+all $H[W]$ and admissible positive edge weights. Define $\isep_\theta(H)$
+analogously using integral separators and their fractional cover cost.
+Both hereditary suprema explicitly include zero.
+\end{definition}
+
+\begin{lemma}[Convex fractional separators]
+\label{lem:fractional-separator-convexity}
+\uses{eq:fractional-balance}
+For a nonzero weighting $\gamma$ and $0<\theta<1$, the set of fractional
+$(\gamma,\theta)$-balanced separators is nonempty, compact, and convex.
+\end{lemma}
+\begin{proof}\uses{eq:fractional-balance}
+The truncated edge distance is the minimum of $1$ and finitely many path
+costs. Each path cost is $\sum_{v\in V(Q)}x(v)$, so the distance is
+continuous and concave in $x$.
+Each balance constraint is a closed convex superlevel set in
+$[0,1]^{V(H)}$. The all-one vector satisfies every constraint.
+Lean proves these properties inside its minimax argument but has no
+standalone declaration with this statement.
+\end{proof}
+
+\begin{lemma}[Indicator equivalence]
+\label{lem:indicator-equivalence}
+\lean{Paper.Hypergraph.indicator_equivalence}
+\uses{eq:fractional-balance}\leanok
+For $S\subseteq V(H)$, admissible $\gamma$, and $0<\theta<1$,
+$S$ is integrally $(\gamma,\theta)$-balanced exactly when $\mathbf1_S$ is
+fractionally $(\gamma,\theta)$-balanced.
+\end{lemma}
+\begin{proof}\uses{def:structure}\leanok
+Indicator distances detect connectivity after deleting $S$. For an edge
+meeting a surviving component, its weighted distance sum is total mass minus
+the mass of edges meeting that component. Edges wholly deleted have distance
+one to every edge.
+\end{proof}
+
+\begin{lemma}[Balanced bag]
+\label{lem:balanced-bag}
+\lean{Paper.Hypergraph.balanced_bag}
+\uses{def:widths,eq:fractional-balance}\leanok
+Every tree decomposition and every admissible $\gamma$ have a bag that is an
+integral $(\gamma,1/2)$-balanced separator.
+\end{lemma}
+\begin{proof}\uses{def:structure}\leanok
+Assign every edge's mass to one covering bag and choose a weighted median
+of the tree. A residual primal component can meet bags in only one branch
+of the tree after deleting the median.
+\end{proof}
+
+\begin{lemma}[Recursive separator decomposition]
+\label{lem:recursive-decomposition}
+\uses{def:separator-costs,def:widths}
+Suppose $0<\eta<1$ and $r\ge0$. If every restriction $H[W]$ and every
+nonzero edge weighting on $H[W]$ admit an integral $(\gamma,\eta)$-balanced
+separator $S$ with $\rho_{H[W]}^*(S)\le r$, then
+\[
+ \fhw(H)\le\frac{2(2-\eta)}{1-\eta}r.
+\]
+\end{lemma}
+\begin{proof}\uses{eq:cover-restriction,def:cover}
+Put $\Lambda=2r/(1-\eta)$ and induct on $|W\setminus Z|$ for
+$Z\subseteq W\subseteq V(H)$ with $\rho_H^*(Z)\le\Lambda$. Construct a
+decomposition of $H[W]$ containing $Z$ in one bag and with every bag of
+$H$-cover cost at most $\Lambda+2r$. If $W=Z$, one bag suffices.
+
+Otherwise, if $Z\ne\varnothing$, cover $Z$ optimally and use the resulting
+edge weights $\gamma$ to choose a separator $S$ of cost at most $r$.
+If $Z=\varnothing$, take $S=\varnothing$. Choose for each
+$v\in W\setminus Z$ an incident edge $e_v$ and put
+\[
+ \pi(e)=\frac{|\{v\in W\setminus Z:e_v=e\}|}{|W\setminus Z|}.
+\]
+The weighting $\pi$ has total mass $1$. Choose a $(\pi,\eta)$-balanced
+separator $R$ of cost at most $r$ and set $B=Z\cup S\cup R$.
+Then $\rho_H^*(B)\le\Lambda+2r$.
+
+For each component $K$ of $H[W]-B$ set
+$Z_K=B\cap N_{P(H[W])}(K)$ and $W_K=K\cup Z_K$.
+If $Z=\varnothing$, $Z_K\subseteq R$, so $\rho_H^*(Z_K)\le r\le\Lambda$.
+Otherwise let $C$ be the component of $H[W]-S$ containing $K$.
+The inclusion $Z_K\subseteq S\cup R\cup(Z\cap C)$ and the balance of $S$
+give
+\[
+ \rho_H^*(Z_K)\le 2r+\eta\rho_H^*(Z)
+ \le2r+\eta\Lambda=\Lambda.
+\]
+If $D$ is the component of $H[W]-R$ containing $K$, the balance of $R$
+gives $|K|/|W\setminus Z|\le\sum_{e\cap D\ne\varnothing}\pi(e)
+\le\eta<1$. Hence $|W_K\setminus Z_K|=|K|<|W\setminus Z|$.
+Apply induction to each $(W_K,Z_K)$ and attach its designated bag to the
+new bag $B$. Running intersection follows from $B\cap W_K=Z_K$.
+An edge not contained in $B$ lies in one child because it is a primal clique.
+Finally apply the invariant with $(W,Z)=(V(H),\varnothing)$ to obtain
+$\Lambda+2r=2(2-\eta)r/(1-\eta)$.
+\end{proof}
+
+\section{Adaptive width controls fractional separators}
+
+\begin{lemma}[Fractional-cover minimax]
+\label{lem:cover-minimax}
+\lean{Paper.Hypergraph.fractional_cover_minimax}
+\uses{def:separator-costs,def:cover,lem:fractional-separator-convexity}\leanok
+For admissible $\gamma$ and $0<\theta<1$, there is an admissible modular
+weight $w$ such that every fractional $(\gamma,\theta)$-balanced $x$ obeys
+\[
+ \beta_H^\theta(\gamma)\le\sum_v w_vx(v).
+\]
+\end{lemma}
+\begin{proof}\uses{eq:cover-dual}\leanok
+Express path distances as finite minima over path supports, with an extra
+constant-one option. The feasible separator set is compact and convex by
+Lemma~\ref{lem:fractional-separator-convexity}. The modular-weight cube is
+also compact and convex. Apply Sion's minimax theorem to the bilinear pairing
+and use cover duality to identify the optimum.
+\end{proof}
+
+\begin{lemma}[Hereditary fractional separator bound]
+\label{thm:fsep-adw}
+\lean{Paper.Hypergraph.beta_le_adw, Paper.Hypergraph.fractional_separators_le_adw}
+\uses{def:separator-costs,def:widths}\leanok
+In particular, for $\theta=1/2$,
+\[
+ \fsep_{1/2}(H)\le\adw(H).
+\]
+The Lean declaration proves this for every $1/2\le\theta<1$.
+\end{lemma}
+\begin{proof}\uses{lem:cover-minimax,lem:balanced-bag,lem:indicator-equivalence,prop:width-hierarchy}\leanok
+Use the minimax modular weight and a balanced bag in any decomposition to
+bound the local fractional optimum. Pass to the decomposition infimum, then
+use adaptive-width heredity and take the hereditary supremum.
+\end{proof}
+
+\section{Rounding and its consequences}
+\label{sec:rounding}
+
+\begin{theorem}[The proved rounding input]
+\label{thm:external-rounding}
+\lean{Paper.Hypergraph.ExternalRounding, Paper.Hypergraph.external_rounding}
+\uses{eq:fractional-balance,def:cover,def:structure}\leanok
+Let $0<\varphi<1$, let $0\le\gamma_e\le1$, and let $x$ be fractionally
+$(\gamma,\varphi)$-balanced. Put $c=\rho_H^*(x)$,
+$T=\{v\in V(H):x(v)\ne0\}$, and
+$\eta=(1+3\varphi)/(2+2\varphi)$. Assume the empty set is not already
+integrally $(\gamma,\eta)$-balanced. Then there is $S\subseteq T$ that is
+integrally $(\gamma,\eta)$-balanced with
+\[
+ \rho_H^*(S)\le
+ \bigl(\min\{8+4\ln\alpha(H[T]),\,6\mu(H)\}+1\bigr)
+ \frac{44+8\log_2(c/(1-\varphi))}{1-\varphi}\,c.
+\]
+\end{theorem}
+
+\begin{proof}\leanok
+The Lean proof establishes the existence conclusion of Theorem 5.6 in
+Korchemna--Lokshtanov--Saurabh--Surianarayanan--Xue,
+\href{https://arxiv.org/abs/2409.20172v1}{arXiv:2409.20172v1}.
+The nontrivial-branch hypothesis is an additional restriction of our use of
+the cited result. It avoids the
+printed expression's negative-logarithm issue at small positive costs.
+The proof includes both bounds in their two-terminal Theorem 4.1.
+It repairs the radius budget in Lemma 5.9 while preserving the constants.
+The cited running-time guarantee is not formalized here.
+\end{proof}
+
+\begin{proposition}[The manuscript's rounding bound]
+\label{thm:rounding}
+\uses{thm:external-rounding,lem:indicator-equivalence,eq:lambda-intro}
+There is a universal $C_0>0$ such that for every $J$, nonzero weighting
+$\gamma:E(J)\to[0,1]$, and fractional $(\gamma,1/2)$-balanced $x$,
+there is an integral $(\gamma,5/6)$-balanced $S\subseteq V(J)$ with
+\[
+ \rho_J^*(S)\le C_0\lambda(J)\rho_J^*(x)
+      \log_2\max\{2,\rho_J^*(x)\}.
+\]
+\end{proposition}
+\begin{proof}\uses{thm:external-rounding}
+If $\varnothing$ is already balanced, take $S=\varnothing$. Otherwise
+$q=\rho_J^*(x)>0$, since $q=0$ forces $x=0$ and
+Lemma~\ref{lem:indicator-equivalence} makes $\varnothing$ balanced.
+Specialize Theorem~\ref{thm:external-rounding} to $\varphi=1/2$. Its
+structural factor is at most $7\mu(J)$ and at most
+$9+4\ln\alpha(J)$, hence at most a constant times $\lambda(J)$.
+Also $88+16\log_2(2q)=O(\log_2\max\{2,q\})$ on this nontrivial branch.
+This sharper specialization is the manuscript's argument. Lean proves the
+rounding input and a regularized consequence, but has no separate declaration
+for this displayed bound.
+\end{proof}
+
+\printbreak
+\section{The main comparison}
+
+\begin{theorem}[Theorem 1.1: main width comparison]
+\label{thm:intro-width}
+\lean{Paper.Hypergraph.MainWidthComparison, Paper.Hypergraph.main_width_comparison}
+\uses{def:widths,eq:lambda-intro}\leanok
+There is a universal constant $C>0$ such that every input hypergraph $H$
+with $\adw(H)\ge2$ satisfies
+\[
+ \fhw(H)\le C\lambda(H)\adw(H)\log_2\adw(H).
+\]
+When $\adw(H)<2$, $\fhw(H)\le C\lambda(H)$ with the same constant.
+The Lean statement assumes nonemptiness and does not require connectivity.
+\end{theorem}
+\begin{proof}\uses{lem:recursive-decomposition,thm:fsep-adw,thm:rounding,eq:hereditary-structure,lem:fractional-separator-convexity}
+This is the manuscript's proof. Put $a=\max\{2,\adw(H)\}$. For any
+$J=H[W]$ and nonzero $\gamma$, compactness and continuity give a minimizing
+fractional half-balanced separator $x$. Lemma~\ref{thm:fsep-adw} gives
+\[
+ \rho_J^*(x)=\beta_{J,1/2}(\gamma)
+ \le\fsep_{1/2}(H)\le\adw(H)\le a.
+\]
+Structural heredity gives $\lambda(J)\le\lambda(H)$.
+Proposition~\ref{thm:rounding} supplies an integral $5/6$-balanced
+separator of cost at most $r=C_0\lambda(H)a\log_2 a$.
+This follows from monotonicity of $q\log_2\max\{2,q\}$ for $q\ge0$.
+The recursive lemma with $\eta=5/6$ yields
+\[
+ \fhw(H)\le14r=14C_0\lambda(H)a\log_2 a.
+\]
+For $\adw(H)\ge2$ this is the first case. For $\adw(H)<2$ it is a
+constant times $\lambda(H)$. Lean proves the theorem statement through
+the alternative route in Section~\ref{sec:lean-route}. This proof has no
+separate Lean completion marker.
+\end{proof}
+
+\section{The Lean route to the same comparison}
+\label{sec:lean-route}
+
+The checked Lean argument uses a regularized rounding estimate and a
+separator-plus-one-vertex recursion. Its intermediate inequality differs
+from Lemma~\ref{lem:recursive-decomposition}. The manuscript's two-separator
+induction and the sharper specialization in Proposition~\ref{thm:rounding}
+have no one-to-one Lean declarations.
+
+\begin{lemma}[Regularized balanced-separator rounding]
+\label{lem:regularized-rounding}
+\lean{Paper.Hypergraph.balanced_separator_rounding}
+\uses{thm:external-rounding}\leanok
+There is a universal $C_0>0$ such that a fractional
+$(\gamma,1/2)$-balanced $x$ admits an integral $(\gamma,5/6)$-balanced
+$S\subseteq\supp x$ with
+\[
+ \rho_H^*(S)\le C_0
+ \bigl(1+\min\{d(H),\ln(2+\alpha(H[\supp x]))\}\bigr)
+ (\rho_H^*(x)+1)\ln(2+\rho_H^*(x)).
+\]
+\end{lemma}
+\begin{proof}\uses{thm:external-rounding}\leanok
+Use the empty separator when it is balanced. In the other case specialize
+the proved rounding input at $\varphi=1/2$ and bound its factors. Lean
+chooses $C_0=9(120/\ln2)$.
+\end{proof}
+
+\begin{lemma}[Lean's rooted recursion]
+\label{lem:rooted-invariant}
+\lean{Paper.Hypergraph.recursive_rooted_decomposition, Paper.Hypergraph.recursive_bag_step, Paper.Hypergraph.child_geometry, Paper.Hypergraph.child_card_lt, Paper.Hypergraph.edge_in_child, Paper.Hypergraph.rooted_forest_tree, Paper.Hypergraph.glue_rooted_bags}
+\uses{def:separator-costs,def:widths}\leanok
+Fix $0<\eta<1$ and $r>\isep_\eta(H)$, and put
+$\Lambda=(r+1)/(1-\eta)$. For $Z\subseteq W\subseteq V(H)$ with
+$\rho_H^*(Z)\le\Lambda$, there is a decomposition of $H[W]$ with one bag
+containing $Z$ and all bags of $H$-cover cost at most $\Lambda+r+1$.
+\end{lemma}
+\begin{proof}\uses{eq:cover-restriction,def:cover}\leanok
+Induct on $|W\setminus Z|$. If $W=Z$, take one bag. Otherwise choose
+$u\in W\setminus Z$ and an integral separator $S$ of cost below $r$
+from an optimal cover of $Z$, taking $S=\varnothing$ if $Z$ is empty.
+Set $B=Z\cup S\cup\{u\}$. For each component $K$ of $H[W]-B$, set
+$Z_K=B\cap N_{P(H[W])}(K)$ and $W_K=K\cup Z_K$. Balance gives
+$\rho_H^*(Z_K)\le r+1+\eta\Lambda=\Lambda$.
+The pivot makes $|K|<|W\setminus Z|$, so induction applies to each child.
+Join child roots to the bag $B$.
+\end{proof}
+
+\begin{lemma}[Lean's recursive separator bound]
+\label{lem:lean-recursive-decomposition}
+\lean{Paper.Hypergraph.recursive_separator_decomposition}
+\uses{lem:rooted-invariant}\leanok
+For $0<\eta<1$,
+\[
+ \fhw(H)\le\frac{2-\eta}{1-\eta}(\isep_\eta(H)+1).
+\]
+\end{lemma}
+\begin{proof}\uses{lem:rooted-invariant}\leanok
+Apply the rooted invariant to $W=V(H)$ and $Z=\varnothing$, then let
+$r$ decrease to $\isep_\eta(H)$.
+\end{proof}
+
+\begin{lemma}[Hereditary rounding in Lean]
+\label{lem:round-hereditary}
+\lean{Paper.Hypergraph.round_hereditary}
+\uses{lem:regularized-rounding,eq:hereditary-structure,eq:cover-restriction}\leanok
+There is a universal $C_1>0$ such that every connected $H$ satisfies
+\[
+ \isep_{5/6}(H)\le C_1 A(H)
+ (\fsep_{1/2}(H)+1)\ln(2+\fsep_{1/2}(H)).
+\]
+\end{lemma}
+\begin{proof}\uses{lem:regularized-rounding}\leanok
+Apply rounding in each restriction, use structural heredity, and pass to
+the infimum by continuity and monotonicity. Then take the hereditary
+supremum.
+\end{proof}
+
+\begin{theorem}[Regularized Lean comparison]
+\label{thm:regularized-comparison}
+\lean{Paper.Hypergraph.regularized_main_width_comparison, Paper.Hypergraph.componentFactor_le_structuralFactor, Paper.Hypergraph.structuralFactor_le_lambda}
+\uses{lem:lean-recursive-decomposition,thm:fsep-adw,lem:round-hereditary,lem:components}\leanok
+There is a universal $C'>0$ such that every $H$ satisfies
+\[
+ \fhw(H)\le C'L(H)(\adw(H)+1)\ln(2+\adw(H)).
+\]
+For nonempty $H$, $L(H)\le A(H)\le4\lambda(H)$. These inequalities,
+with separate estimates for $\adw(H)\ge2$ and $\adw(H)<2$, give the
+statement of Theorem~\ref{thm:intro-width}.
+\end{theorem}
+\begin{proof}\uses{lem:lean-recursive-decomposition,thm:fsep-adw,lem:round-hereditary,lem:components}\leanok
+First prove the connected bound and pass to primal components. Replace the
+component factor by $4\lambda(H)$. Bound $(a+1)\ln(2+a)$ by a constant
+times $a\log_2 a$ for $a\ge2$, and by a constant for $a<2$.
+The declaration \texttt{main\_width\_comparison} applies the proved
+rounding input to this deduction.
+\end{proof}
+
+\begin{corollary}[Auxiliary quantitative reverse comparison]
+\label{cor:quantitative-reverse}
+\lean{Paper.Hypergraph.quantitative_reverse_comparison}
+\uses{def:widths,eq:lambda-intro}\leanok
+There is a universal constant $c>0$ such that every finite hypergraph $H$
+satisfies
+\[
+ \subw(H)+1\ge\adw(H)+1
+ \ge c\frac{\fhw(H)}{L(H)\ln(2+\fhw(H))}.
+\]
+\end{corollary}
+\begin{proof}\uses{thm:regularized-comparison,prop:width-hierarchy}
+\leanok
+The parameterized Lean deduction uses the proved rounding theorem.
+The width hierarchy gives the first inequality and permits replacing
+$\ln(2+\adw(H))$ by $\ln(2+\fhw(H))$ in the upper comparison. Divide
+by the positive factors and take $c=C^{-1}$.
+\end{proof}

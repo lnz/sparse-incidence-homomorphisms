@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = {
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adaptive width controls fractional separators</title>
+<link rel="next" href="sec-rounding.html" title="Rounding and its consequences" />
+<link rel="prev" href="sect0004.html" title="Balanced separators" />
+<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Scope</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Finite hypergraphs and structural parameters</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Covers, tree decompositions, and widths</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">4</span> <span class="toc_entry">Balanced separators</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0005.html"><span class="toc_ref">5</span> <span class="toc_entry">Adaptive width controls fractional separators</span></a>
+ </li>
+<li class="">
+  <a href="sec-rounding.html"><span class="toc_ref">6</span> <span class="toc_entry">Rounding and its consequences</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">7</span> <span class="toc_entry">The main comparison</span></a>
+ </li>
+<li class="">
+  <a href="sec-lean-route.html"><span class="toc_ref">8</span> <span class="toc_entry">The Lean route to the same comparison</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000006">5 Adaptive width controls fractional separators</h1>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:cover-minimax">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">5.1</span>
+    <span class="lemma_thmtitle">Fractional-cover minimax</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0005.html#lem:cover-minimax">#</a>
+
+    <a class="icon proof" href="sect0005.html#a0000000029"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#def:separator-costs">Definition 4.2</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+          <li><a href="sect0004.html#lem:fractional-separator-convexity">Lemma 4.3</a></li>
+
+          <li><a href="sect0003.html#eq:cover-dual">Lemma 3.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.fractional_cover_minimax" class="lean_decl">Paper.Hypergraph.fractional_cover_minimax</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For admissible \(\gamma \) and \(0{\lt}\theta {\lt}1\), there is an admissible modular weight \(w\) such that every fractional \((\gamma ,\theta )\)-balanced \(x\) obeys </p>
+<div class="displaymath" id="a0000000030">
+  \[  \beta _H^\theta (\gamma )\le \sum _v w_vx(v).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000029">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Express path distances as finite minima over path supports, with an extra constant-one option. The feasible separator set is compact and convex by Lemma&#160;<a href="sect0004.html#lem:fractional-separator-convexity">4.3</a>. The modular-weight cube is also compact and convex. Apply Sion’s minimax theorem to the bilinear pairing and use cover duality to identify the optimum. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="thm:fsep-adw">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">5.2</span>
+    <span class="lemma_thmtitle">Hereditary fractional separator bound</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0005.html#thm:fsep-adw">#</a>
+
+    <a class="icon proof" href="sect0005.html#a0000000031"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#def:separator-costs">Definition 4.2</a></li>
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0005.html#lem:cover-minimax">Lemma 5.1</a></li>
+
+          <li><a href="sect0004.html#lem:balanced-bag">Lemma 4.5</a></li>
+
+          <li><a href="sect0004.html#lem:indicator-equivalence">Lemma 4.4</a></li>
+
+          <li><a href="sect0003.html#prop:width-hierarchy">Lemma 3.5</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.beta_le_adw" class="lean_decl">Paper.Hypergraph.beta_le_adw</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.fractional_separators_le_adw" class="lean_decl">Paper.Hypergraph.fractional_separators_le_adw</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   In particular, for \(\theta =1/2\), </p>
+<div class="displaymath" id="a0000000032">
+  \[  \mathsf{fsep}_{1/2}(H)\le \mathsf{adw}(H).  \]
+</div>
+<p> The Lean declaration proves this for every \(1/2\le \theta {\lt}1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000031">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Use the minimax modular weight and a balanced bag in any decomposition to bound the local fractional optimum. Pass to the decomposition infimum, then use adaptive-width heredity and take the hereditary supremum. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0004.html" title="Balanced separators"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sec-rounding.html" title="Rounding and its consequences"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

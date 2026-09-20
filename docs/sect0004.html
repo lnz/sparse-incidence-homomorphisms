@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = {
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Balanced separators</title>
+<link rel="next" href="sect0005.html" title="Adaptive width controls fractional separators" />
+<link rel="prev" href="sect0003.html" title="Covers, tree decompositions, and widths" />
+<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Scope</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Finite hypergraphs and structural parameters</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Covers, tree decompositions, and widths</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0004.html"><span class="toc_ref">4</span> <span class="toc_entry">Balanced separators</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">5</span> <span class="toc_entry">Adaptive width controls fractional separators</span></a>
+ </li>
+<li class="">
+  <a href="sec-rounding.html"><span class="toc_ref">6</span> <span class="toc_entry">Rounding and its consequences</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">7</span> <span class="toc_entry">The main comparison</span></a>
+ </li>
+<li class="">
+  <a href="sec-lean-route.html"><span class="toc_ref">8</span> <span class="toc_entry">The Lean route to the same comparison</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000005">4 Balanced separators</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="eq:fractional-balance">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">4.1</span>
+    <span class="definition_thmtitle">Fractional and integral balance</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#eq:fractional-balance">#</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0002.html#def:hypergraph">Definition 2.1</a></li>
+
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.UnitDemand" class="lean_decl">Paper.Hypergraph.UnitDemand</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.EdgeWeight" class="lean_decl">Paper.Hypergraph.EdgeWeight</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.vertexDistance" class="lean_decl">Paper.Hypergraph.vertexDistance</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.edgeDistance" class="lean_decl">Paper.Hypergraph.edgeDistance</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.FractionalBalanced" class="lean_decl">Paper.Hypergraph.FractionalBalanced</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.IntegralBalanced" class="lean_decl">Paper.Hypergraph.IntegralBalanced</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   Let \(\gamma :E(H)\to [0,1]\) have positive total mass \(M=\sum _e\gamma _e\). For a unit demand \(x\), the distance between vertices is the minimum of \(1\) and the \(x\)-length of a simple primal path, counting both endpoints; absent paths have distance \(1\). The distance \(d_x(e,f)\) is the minimum over endpoint choices in \(e\) and \(f\). The vector \(x\) is fractionally \((\gamma ,\theta )\)-balanced if </p>
+<div class="displaymath" id="a0000000020">
+  \[  \sum _f\gamma _fd_x(e,f)\ge (1-\theta )M \qquad (e\in E(H)).  \]
+</div>
+<p> A set \(S\subseteq V(H)\) is integrally balanced if every component \(K\) of \(H[V(H)\setminus S]\) satisfies </p>
+<div class="displaymath" id="a0000000021">
+  \[  \sum _{e:e\cap K\ne \varnothing }\gamma _e\le \theta M.  \]
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:separator-costs">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">4.2</span>
+    <span class="definition_thmtitle">Hereditary separator costs</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#def:separator-costs">#</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.beta" class="lean_decl">Paper.Hypergraph.beta</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.integralOptimum" class="lean_decl">Paper.Hypergraph.integralOptimum</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.fsep" class="lean_decl">Paper.Hypergraph.fsep</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.sep" class="lean_decl">Paper.Hypergraph.sep</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   Let \(\beta _H^\theta (\gamma )\) be the infimum of \(\rho _H^*(x)\) over fractional balanced separators. Define \(\mathsf{fsep}_\theta (H)\) by taking the supremum over all \(H[W]\) and admissible positive edge weights. Define \(\mathsf{sep}_\theta (H)\) analogously using integral separators and their fractional cover cost. Both hereditary suprema explicitly include zero. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:fractional-separator-convexity">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">4.3</span>
+    <span class="lemma_thmtitle">Convex fractional separators</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:fractional-separator-convexity">#</a>
+
+    <a class="icon proof" href="sect0004.html#a0000000022"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For a nonzero weighting \(\gamma \) and \(0{\lt}\theta {\lt}1\), the set of fractional \((\gamma ,\theta )\)-balanced separators is nonempty, compact, and convex. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000022">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> The truncated edge distance is the minimum of \(1\) and finitely many path costs. Each path cost is \(\sum _{v\in V(Q)}x(v)\), so the distance is continuous and concave in \(x\). Each balance constraint is a closed convex superlevel set in \([0,1]^{V(H)}\). The all-one vector satisfies every constraint. Lean proves these properties inside its minimax argument but has no standalone declaration with this statement. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:indicator-equivalence">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">4.4</span>
+    <span class="lemma_thmtitle">Indicator equivalence</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:indicator-equivalence">#</a>
+
+    <a class="icon proof" href="sect0004.html#a0000000023"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.indicator_equivalence" class="lean_decl">Paper.Hypergraph.indicator_equivalence</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For \(S\subseteq V(H)\), admissible \(\gamma \), and \(0{\lt}\theta {\lt}1\), \(S\) is integrally \((\gamma ,\theta )\)-balanced exactly when \(\mathbf1_S\) is fractionally \((\gamma ,\theta )\)-balanced. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000023">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Indicator distances detect connectivity after deleting \(S\). For an edge meeting a surviving component, its weighted distance sum is total mass minus the mass of edges meeting that component. Edges wholly deleted have distance one to every edge. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:balanced-bag">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">4.5</span>
+    <span class="lemma_thmtitle">Balanced bag</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:balanced-bag">#</a>
+
+    <a class="icon proof" href="sect0004.html#a0000000024"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.balanced_bag" class="lean_decl">Paper.Hypergraph.balanced_bag</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   Every tree decomposition and every admissible \(\gamma \) have a bag that is an integral \((\gamma ,1/2)\)-balanced separator. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000024">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Assign every edge’s mass to one covering bag and choose a weighted median of the tree. A residual primal component can meet bags in only one branch of the tree after deleting the median. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:recursive-decomposition">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">4.6</span>
+    <span class="lemma_thmtitle">Recursive separator decomposition</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0004.html#lem:recursive-decomposition">#</a>
+
+    <a class="icon proof" href="sect0004.html#a0000000025"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#def:separator-costs">Definition 4.2</a></li>
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0003.html#eq:cover-restriction">Lemma 3.3</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   Suppose \(0{\lt}\eta {\lt}1\) and \(r\ge 0\). If every restriction \(H[W]\) and every nonzero edge weighting on \(H[W]\) admit an integral \((\gamma ,\eta )\)-balanced separator \(S\) with \(\rho _{H[W]}^*(S)\le r\), then </p>
+<div class="displaymath" id="a0000000026">
+  \[  \mathsf{fhw}(H)\le \frac{2(2-\eta )}{1-\eta }r.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000025">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> Put \(\Lambda =2r/(1-\eta )\) and induct on \(|W\setminus Z|\) for \(Z\subseteq W\subseteq V(H)\) with \(\rho _H^*(Z)\le \Lambda \). Construct a decomposition of \(H[W]\) containing \(Z\) in one bag and with every bag of \(H\)-cover cost at most \(\Lambda +2r\). If \(W=Z\), one bag suffices. </p>
+<p>Otherwise, if \(Z\ne \varnothing \), cover \(Z\) optimally and use the resulting edge weights \(\gamma \) to choose a separator \(S\) of cost at most \(r\). If \(Z=\varnothing \), take \(S=\varnothing \). Choose for each \(v\in W\setminus Z\) an incident edge \(e_v\) and put </p>
+<div class="displaymath" id="a0000000027">
+  \[  \pi (e)=\frac{|\{ v\in W\setminus Z:e_v=e\} |}{|W\setminus Z|}.  \]
+</div>
+<p> The weighting \(\pi \) has total mass \(1\). Choose a \((\pi ,\eta )\)-balanced separator \(R\) of cost at most \(r\) and set \(B=Z\cup S\cup R\). Then \(\rho _H^*(B)\le \Lambda +2r\). </p>
+<p>For each component \(K\) of \(H[W]-B\) set \(Z_K=B\cap N_{P(H[W])}(K)\) and \(W_K=K\cup Z_K\). If \(Z=\varnothing \), \(Z_K\subseteq R\), so \(\rho _H^*(Z_K)\le r\le \Lambda \). Otherwise let \(C\) be the component of \(H[W]-S\) containing \(K\). The inclusion \(Z_K\subseteq S\cup R\cup (Z\cap C)\) and the balance of \(S\) give </p>
+<div class="displaymath" id="a0000000028">
+  \[  \rho _H^*(Z_K)\le 2r+\eta \rho _H^*(Z) \le 2r+\eta \Lambda =\Lambda .  \]
+</div>
+<p> If \(D\) is the component of \(H[W]-R\) containing \(K\), the balance of \(R\) gives \(|K|/|W\setminus Z|\le \sum _{e\cap D\ne \varnothing }\pi (e) \le \eta {\lt}1\). Hence \(|W_K\setminus Z_K|=|K|{\lt}|W\setminus Z|\). Apply induction to each \((W_K,Z_K)\) and attach its designated bag to the new bag \(B\). Running intersection follows from \(B\cap W_K=Z_K\). An edge not contained in \(B\) lies in one child because it is a primal clique. Finally apply the invariant with \((W,Z)=(V(H),\varnothing )\) to obtain \(\Lambda +2r=2(2-\eta )r/(1-\eta )\). </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0003.html" title="Covers, tree decompositions, and widths"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0005.html" title="Adaptive width controls fractional separators"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

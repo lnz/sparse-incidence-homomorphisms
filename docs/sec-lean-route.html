@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = {
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Lean route to the same comparison</title>
+<link rel="prev" href="sect0006.html" title="The main comparison" />
+<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Scope</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Finite hypergraphs and structural parameters</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Covers, tree decompositions, and widths</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">4</span> <span class="toc_entry">Balanced separators</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">5</span> <span class="toc_entry">Adaptive width controls fractional separators</span></a>
+ </li>
+<li class="">
+  <a href="sec-rounding.html"><span class="toc_ref">6</span> <span class="toc_entry">Rounding and its consequences</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">7</span> <span class="toc_entry">The main comparison</span></a>
+ </li>
+<li class=" active current">
+  <a href="sec-lean-route.html"><span class="toc_ref">8</span> <span class="toc_entry">The Lean route to the same comparison</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:lean-route">8 The Lean route to the same comparison</h1>
+
+<p>The checked Lean argument uses a regularized rounding estimate and a separator-plus-one-vertex recursion. Its intermediate inequality differs from Lemma&#160;<a href="sect0004.html#lem:recursive-decomposition">4.6</a>. The manuscript’s two-separator induction and the sharper specialization in Proposition&#160;<a href="sec-rounding.html#thm:rounding">6.2</a> have no one-to-one Lean declarations. </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:regularized-rounding">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">8.1</span>
+    <span class="lemma_thmtitle">Regularized balanced-separator rounding</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#lem:regularized-rounding">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000041"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sec-rounding.html#thm:external-rounding">Theorem 6.1</a></li>
+
+          <li><a href="sec-rounding.html#thm:external-rounding">Theorem 6.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.balanced_separator_rounding" class="lean_decl">Paper.Hypergraph.balanced_separator_rounding</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   There is a universal \(C_0{\gt}0\) such that a fractional \((\gamma ,1/2)\)-balanced \(x\) admits an integral \((\gamma ,5/6)\)-balanced \(S\subseteq \operatorname {supp}x\) with </p>
+<div class="displaymath" id="a0000000042">
+  \[  \rho _H^*(S)\le C_0 \bigl(1+\min \{ d(H),\ln (2+\alpha (H[\operatorname {supp}x]))\} \bigr) (\rho _H^*(x)+1)\ln (2+\rho _H^*(x)).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000041">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Use the empty separator when it is balanced. In the other case specialize the proved rounding input at \(\varphi =1/2\) and bound its factors. Lean chooses \(C_0=9(120/\ln 2)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:rooted-invariant">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">8.2</span>
+    <span class="lemma_thmtitle">Lean’s rooted recursion</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#lem:rooted-invariant">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000043"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#def:separator-costs">Definition 4.2</a></li>
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0003.html#eq:cover-restriction">Lemma 3.3</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.recursive_rooted_decomposition" class="lean_decl">Paper.Hypergraph.recursive_rooted_decomposition</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.recursive_bag_step" class="lean_decl">Paper.Hypergraph.recursive_bag_step</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.child_geometry" class="lean_decl">Paper.Hypergraph.child_geometry</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.child_card_lt" class="lean_decl">Paper.Hypergraph.child_card_lt</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.edge_in_child" class="lean_decl">Paper.Hypergraph.edge_in_child</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.rooted_forest_tree" class="lean_decl">Paper.Hypergraph.rooted_forest_tree</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.glue_rooted_bags" class="lean_decl">Paper.Hypergraph.glue_rooted_bags</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   Fix \(0{\lt}\eta {\lt}1\) and \(r{\gt}\mathsf{sep}_\eta (H)\), and put \(\Lambda =(r+1)/(1-\eta )\). For \(Z\subseteq W\subseteq V(H)\) with \(\rho _H^*(Z)\le \Lambda \), there is a decomposition of \(H[W]\) with one bag containing \(Z\) and all bags of \(H\)-cover cost at most \(\Lambda +r+1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000043">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Induct on \(|W\setminus Z|\). If \(W=Z\), take one bag. Otherwise choose \(u\in W\setminus Z\) and an integral separator \(S\) of cost below \(r\) from an optimal cover of \(Z\), taking \(S=\varnothing \) if \(Z\) is empty. Set \(B=Z\cup S\cup \{ u\} \). For each component \(K\) of \(H[W]-B\), set \(Z_K=B\cap N_{P(H[W])}(K)\) and \(W_K=K\cup Z_K\). Balance gives \(\rho _H^*(Z_K)\le r+1+\eta \Lambda =\Lambda \). The pivot makes \(|K|{\lt}|W\setminus Z|\), so induction applies to each child. Join child roots to the bag \(B\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:lean-recursive-decomposition">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">8.3</span>
+    <span class="lemma_thmtitle">Lean’s recursive separator bound</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#lem:lean-recursive-decomposition">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000044"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sec-lean-route.html#lem:rooted-invariant">Lemma 8.2</a></li>
+
+          <li><a href="sec-lean-route.html#lem:rooted-invariant">Lemma 8.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.recursive_separator_decomposition" class="lean_decl">Paper.Hypergraph.recursive_separator_decomposition</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   For \(0{\lt}\eta {\lt}1\), </p>
+<div class="displaymath" id="a0000000045">
+  \[  \mathsf{fhw}(H)\le \frac{2-\eta }{1-\eta }(\mathsf{sep}_\eta (H)+1).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000044">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Apply the rooted invariant to \(W=V(H)\) and \(Z=\varnothing \), then let \(r\) decrease to \(\mathsf{sep}_\eta (H)\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:round-hereditary">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">8.4</span>
+    <span class="lemma_thmtitle">Hereditary rounding in Lean</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#lem:round-hereditary">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000046"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sec-lean-route.html#lem:regularized-rounding">Lemma 8.1</a></li>
+
+          <li><a href="sect0002.html#eq:hereditary-structure">Lemma 2.4</a></li>
+
+          <li><a href="sect0003.html#eq:cover-restriction">Lemma 3.3</a></li>
+
+          <li><a href="sec-lean-route.html#lem:regularized-rounding">Lemma 8.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.round_hereditary" class="lean_decl">Paper.Hypergraph.round_hereditary</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   There is a universal \(C_1{\gt}0\) such that every connected \(H\) satisfies </p>
+<div class="displaymath" id="a0000000047">
+  \[  \mathsf{sep}_{5/6}(H)\le C_1 A(H) (\mathsf{fsep}_{1/2}(H)+1)\ln (2+\mathsf{fsep}_{1/2}(H)).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000046">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Apply rounding in each restriction, use structural heredity, and pass to the infimum by continuity and monotonicity. Then take the hereditary supremum. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:regularized-comparison">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">8.5</span>
+    <span class="theorem_thmtitle">Regularized Lean comparison</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#thm:regularized-comparison">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000048"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sec-lean-route.html#lem:lean-recursive-decomposition">Lemma 8.3</a></li>
+
+          <li><a href="sect0005.html#thm:fsep-adw">Lemma 5.2</a></li>
+
+          <li><a href="sec-lean-route.html#lem:round-hereditary">Lemma 8.4</a></li>
+
+          <li><a href="sect0003.html#lem:components">Lemma 3.6</a></li>
+
+          <li><a href="sec-lean-route.html#lem:lean-recursive-decomposition">Lemma 8.3</a></li>
+
+          <li><a href="sect0005.html#thm:fsep-adw">Lemma 5.2</a></li>
+
+          <li><a href="sec-lean-route.html#lem:round-hereditary">Lemma 8.4</a></li>
+
+          <li><a href="sect0003.html#lem:components">Lemma 3.6</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.regularized_main_width_comparison" class="lean_decl">Paper.Hypergraph.regularized_main_width_comparison</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.componentFactor_le_structuralFactor" class="lean_decl">Paper.Hypergraph.componentFactor_le_structuralFactor</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.structuralFactor_le_lambda" class="lean_decl">Paper.Hypergraph.structuralFactor_le_lambda</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   There is a universal \(C'{\gt}0\) such that every \(H\) satisfies </p>
+<div class="displaymath" id="a0000000049">
+  \[  \mathsf{fhw}(H)\le C'L(H)(\mathsf{adw}(H)+1)\ln (2+\mathsf{adw}(H)).  \]
+</div>
+<p> For nonempty \(H\), \(L(H)\le A(H)\le 4\lambda (H)\). These inequalities, with separate estimates for \(\mathsf{adw}(H)\ge 2\) and \(\mathsf{adw}(H){\lt}2\), give the statement of Theorem&#160;<a href="sect0006.html#thm:intro-width">7.1</a>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000048">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>First prove the connected bound and pass to primal components. Replace the component factor by \(4\lambda (H)\). Bound \((a+1)\ln (2+a)\) by a constant times \(a\log _2 a\) for \(a\ge 2\), and by a constant for \(a{\lt}2\). The declaration <span class="ttfamily">main_width_comparison</span> applies the proved rounding input to this deduction. </p>
+
+  </div>
+</div>
+<div class="corollary_thmwrapper theorem-style-plain" id="cor:quantitative-reverse">
+  <div class="corollary_thmheading">
+    <span class="corollary_thmcaption">
+    Corollary
+    </span>
+    <span class="corollary_thmlabel">8.6</span>
+    <span class="corollary_thmtitle">Auxiliary quantitative reverse comparison</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-lean-route.html#cor:quantitative-reverse">#</a>
+
+    <a class="icon proof" href="sec-lean-route.html#a0000000050"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0002.html#eq:lambda-intro">Definition 2.3</a></li>
+
+          <li><a href="sec-lean-route.html#thm:regularized-comparison">Theorem 8.5</a></li>
+
+          <li><a href="sect0003.html#prop:width-hierarchy">Lemma 3.5</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.quantitative_reverse_comparison" class="lean_decl">Paper.Hypergraph.quantitative_reverse_comparison</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="corollary_thmcontent">
+  <p>   There is a universal constant \(c{\gt}0\) such that every finite hypergraph \(H\) satisfies </p>
+<div class="displaymath" id="a0000000051">
+  \[  \mathsf{subw}(H)+1\ge \mathsf{adw}(H)+1 \ge c\frac{\mathsf{fhw}(H)}{L(H)\ln (2+\mathsf{fhw}(H))}.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000050">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> The parameterized Lean deduction uses the proved rounding theorem. The width hierarchy gives the first inequality and permits replacing \(\ln (2+\mathsf{adw}(H))\) by \(\ln (2+\mathsf{fhw}(H))\) in the upper comparison. Divide by the positive factors and take \(c=C^{-1}\). </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0006.html" title="The main comparison"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

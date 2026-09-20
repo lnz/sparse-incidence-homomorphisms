@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amssymb,amsthm,amsmath}
+\usepackage{hyperref}
+\usepackage[showmore,dep_graph]{blueprint}
+\input{macros/common}
+\input{macros/web}
+\theoremstyle{plain}
+\newtheorem*{homepagewidth}{Theorem 1.1}
+\home{index.html}
+\dochome{lean}
+\title{Theorem 1.1: a formalization blueprint}
+\author{Sparse-incidence width comparison}
+\begin{document}
+% Reproduce the displayed statement of thm:intro-width in the frozen manuscript.
+\begin{homepagewidth}
+There is a universal constant $C>0$ such that every finite hypergraph $H$
+with $\adw(H)\ge2$ satisfies
+\[
+  \fhw(H)\le C\lambda(H)\adw(H)\log_2\adw(H).
+\]
+When $\adw(H)<2$, $\fhw(H)\le C\lambda(H)$.
+\end{homepagewidth}
+\noindent\href{lean/Paper/TrustBoundary.html\#Paper.Hypergraph.MainWidthComparison}{Lean statement}
+\quad\href{lean/Paper/RoundingComplete.html\#Paper.Hypergraph.main_width_comparison}{Lean proof}
+\input{content}
+\end{document}

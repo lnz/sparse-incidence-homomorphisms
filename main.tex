@@ -1,0 +1,1604 @@
+%
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{aliascnt}
+\usepackage{enumitem}
+\usepackage{tabularx,environ,caption}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+
+\usepackage{todonotes}
+
+\makeatletter
+\newcolumntype{\expand}{}
+\long\@namedef{NC@rewrite@\string\expand}{\expandafter\NC@find}
+
+\NewEnviron{problem}[2][]{%
+  \def\problem@arg{#1}%
+  \def\problem@framed{framed}%
+  \def\problem@lined{lined}%
+  \def\problem@doublelined{doublelined}%
+  \ifx\problem@arg\@empty
+    \def\problem@hline{}%
+  \else
+    \ifx\problem@arg\problem@doublelined
+      \def\problem@hline{\hline\hline}%
+    \else
+      \def\problem@hline{\hline}%
+    \fi
+  \fi
+  \ifx\problem@arg\problem@framed
+    \def\problem@tablelayout{|>{\itshape}lX|c}%
+    \def\problem@title{\multicolumn{2}{|l|}{%
+        \raisebox{-\fboxsep}{\textsc{#2}}%
+      }}%
+  \else
+    \def\problem@tablelayout{>{\itshape}lXc}%
+    \def\problem@title{\multicolumn{2}{l}{%
+        \raisebox{-\fboxsep}{\textsc{\large #2}}%
+      }}%
+  \fi
+  \par\noindent
+  \renewcommand{\arraystretch}{1.0}%
+  \begin{center}
+  \begin{tabularx}{0.9\columnwidth}{\expand\problem@tablelayout}%
+    \problem@hline
+    \problem@title\\[2\fboxsep]
+    \BODY\\\problem@hline
+  \end{tabularx}%
+  \end{center}
+  \par
+}
+\makeatother
+
+
+%
+%
+\setlength{\abovedisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\belowdisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\abovedisplayshortskip}{5pt plus 2pt}
+\setlength{\belowdisplayshortskip}{6pt plus 2pt minus 2pt}
+\setlist[enumerate]{topsep=.4em,itemsep=.1em,parsep=0pt,partopsep=0pt}
+
+\newtheorem{theorem}{Theorem}[section]
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+
+\usepackage{thm-restate}
+
+\crefname{theorem}{theorem}{theorems}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{proposition}{proposition}{propositions}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{definition}{definition}{definitions}
+\crefname{example}{example}{examples}
+\crefname{remark}{remark}{remarks}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\Hom}{\mathsf{Hom}}
+\newcommand{\pHom}{p\text{-}\mathsf{Hom}}
+\newcommand{\ghw}{\mathsf{ghw}}
+\newcommand{\fhw}{\mathsf{fhw}}
+\newcommand{\adw}{\mathsf{adw}}
+\newcommand{\subw}{\mathsf{subw}}
+\newcommand{\sharpsubw}{\mathsf{\#subw}}
+\newcommand{\fsep}{\mathsf{fsep}}
+\newcommand{\FPT}{\mathsf{FPT}}
+\newcommand{\PTIME}{\mathsf{PTIME}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\QP}{\mathsf{QP}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\cc}{\mathcal C}
+
+\newif\ifaidisclosure
+\aidisclosuretrue
+
+\title{FPT $=$ PTIME for Homomorphism Problems\\
+on Sparse-Incidence and Bounded-Independence Patterns}
+\author{Matthias Lanzinger\\
+Institute of Logic and Computation, TU Wien}
+\date{}
+
+
+\providecommand{\adw}{\operatorname{adw}}
+\providecommand{\subw}{\operatorname{subw}}
+\providecommand{\fhw}{\operatorname{fhw}}
+\providecommand{\FPT}{\mathsf{FPT}}
+\providecommand{\PTIME}{\mathsf{PTIME}}
+\providecommand{\ETH}{\mathsf{ETH}}
+\makeatletter
+\@ifundefined{theorem}{\newtheorem{theorem}{Theorem}[section]}{}
+\@ifundefined{corollary}{\newtheorem{corollary}[theorem]{Corollary}}{}
+\@ifundefined{lemma}{\newtheorem{lemma}[theorem]{Lemma}}{}
+\@ifundefined{proposition}{\newtheorem{proposition}[theorem]{Proposition}}{}
+\@ifundefined{remark}{\newtheorem{remark}[theorem]{Remark}}{}
+\makeatother
+
+\begin{document}
+
+%
+\pagenumbering{arabic}
+\maketitle
+
+\begin{abstract}
+Assuming the Exponential Time Hypothesis (ETH), fixed-parameter tractability and polynomial-time solvability coincide for homomorphism problems specified by classes of pattern hypergraphs of bounded incidence degeneracy or bounded primal independence number. In both cases, tractability is characterised by bounded fractional hypertree width. Grohe (JACM 2007) established the corresponding FPT--PTIME equivalence under bounded arity. Our result allows unbounded arity and covers important cases such as bounded-degree patterns and patterns whose incidence graphs exclude a fixed minor.
+%
+Building on the recent fractional balanced-separator framework and rounding theorem
+of Korchemna et al. (FOCS 2024), we prove a near-linear bound on fractional
+hypertree width ($\fhw$) in terms of adaptive width ($\adw$). For every
+hypergraph $H$ with $\adw(H)\ge2$,
+\[
+\fhw(H)=O\!\left(\lambda(H)\adw(H)\log\adw(H)\right),
+\]
+where $\lambda(H)=\min\{\mu(H),\max\{1,\log\alpha(H)\}\}$, with
+$\mu(H)$ denoting incidence degeneracy and $\alpha(H)$ the independence
+number of the primal graph.
+%
+As a further consequence, we obtain a corresponding FPT--PTIME collapse for
+exact homomorphism counting on every bounded-$\lambda$ class. More generally,
+for every recursively enumerable class of pattern hypergraphs,
+fixed-parameter tractability of the parameterised homomorphism problem
+implies quasipolynomial-time solvability of the corresponding unparameterised
+problem, assuming ETH.
+\end{abstract}
+
+%
+\section{Introduction}
+\label{sec:introduction}
+
+
+We study the homomorphism problem between relational structures. For relational structures $A,B$ over the same vocabulary, a homomorphism from $A$ to $B$ is a map from the domain of $A$ to the domain of $B$ that preserves every relation. We write $A \to B$ when such a map exists.
+This is known to generalise a wide range of common algorithmic problems. For instance, on graph structures, if $B$ is fixed to be the $k$-clique $K_k$, then deciding $A \to K_k$ is equivalent to $k$-colourability of $A$. On the other hand, fixing $A=K_k$, we have that $K_k \to B$ is equivalent to the $k$-clique problem, and $K_k \to \bar B$ is the $k$-independent set problem.
+
+
+In general, the problem is NP-complete. As the examples already suggest, it is of major interest to understand under which restrictions on the left-hand side (the \emph{patterns}), or on the right-hand side (the \emph{hosts} or \emph{templates}), the problem is tractable. To simplify further discussion, we refer to the setting in which the templates belong to a fixed class as the constraint satisfaction problem (CSP).
+The complexity of restricting either side has been studied extensively, and for CSP this has culminated in a dichotomy theorem that precisely characterises for which classes of templates there are tractable algorithms, and for which the problem is NP-hard~\cite{Bulatov2017,Zhuk2020}.
+Restricting the left-hand side is an entirely different problem. For instance, Bodirsky and
+Grohe~\cite{BodirskyGrohe2008} showed that no analogous dichotomy exists for
+arbitrary pattern classes. In this paper we study restrictions to the left-hand sides. Formally, for a class of hypergraphs $\cH$ and $H_A$ denoting the hypergraph structure of $A$:
+%
+\begin{problem}{$\Hom(\cH)$}
+Input & Finite relational structures $A$ and $B$
+with $H_A\in\cH$.\\
+Question & Does $A\to B$?
+\end{problem}
+
+We write $\pHom(\cH)$ for the parameterisation of $\Hom(\cH)$ by the
+pattern $A$. In the database literature and in logic, $\Hom(\cH)$ corresponds to
+the Boolean conjunctive query problem, with $A$ being the query and $B$ the
+database on which it is evaluated~\cite{ChandraMerlin77}.
+
+While there is no $\PTIME$ vs. $\NP$-complete dichotomy for $\Hom(\cH)$, there are still results on the limits of tractability. In a landmark result Grohe~\cite{DBLP:journals/jacm/Grohe07} proved that, for every
+recursively enumerable class of bounded-arity structures, the problem is fixed-parameter tractable exactly when it is feasible in polynomial time, assuming
+$\FPT\ne\mathsf{W}[1]$.
+%
+Grohe's theorem leaves open the case of unbounded arity, where treewidth
+no longer captures tractability. A structure consisting of a single tuple
+with $r$ distinct entries has treewidth $r-1$, although its homomorphism
+problem is easy.
+
+This motivated more ``hypergraph-native'' variants of treewidth, beginning
+with hypertree width and generalised hypertree
+width ($\ghw$)~\cite{DBLP:journals/jcss/GottlobLS02}, and then fractional
+hypertree width ($\fhw$)~\cite{fhw}.
+These notions are still based on tree decompositions, but introduce more complex cost functions for bags (in contrast to cardinality of the bag for treewidth). In particular, fractional hypertree width at most $k$ means that there is a tree decomposition such that every bag has fractional edge-cover number at most $k$ (formal definitions follow in \Cref{sec:preliminaries}). Analogously, generalised hypertree width ($\ghw$) uses integral edge covers instead.
+Bounded fractional hypertree width
+remains the most general known sufficient condition on the pattern
+side for $\Hom(\cH)\in\PTIME$~\cite{fhw}.
+
+
+The tractability boundary extends further in the parameterised setting.
+Marx introduced \emph{adaptive width} ($\adw$) and \emph{submodular width} ($\subw$)~\cite{adw,Marx13}.
+Treewidth and the hypertree widths have a single decomposition as a witness, with a small cardinality or cover in every bag. Adaptive and submodular width instead
+choose a decomposition separately for each cost function. This additional layer of quantification over sets of functions makes connecting the two kinds of width notions technically challenging.
+Remarkably, assuming ETH, $\pHom(\cH)$ is in $\FPT$ exactly when $\cH$ has bounded submodular width, or equivalently bounded adaptive width~\cite{Marx13}.
+
+
+%
+%
+%
+%
+ %
+ %
+ %
+ %
+ %
+ %
+%
+%
+The standard inequalities are~\cite{adw,Marx13,fhw}
+\[
+ \adw(H)\le\subw(H)\le\fhw(H)\le\ghw(H).
+\]
+The reverse direction is much less understood. The additional quantification over functions, and the possibility of a different tree decomposition witness for each function,
+make adaptive and submodular width difficult to technically connect to $\fhw$.
+Moreover, there are
+classes of bounded adaptive width and unbounded fractional hypertree
+width~\cite{adw}, so a reverse bound requires additional structure.
+
+Few such comparisons are known. For hypergraphs of maximum vertex degree
+two, where each element occurs in at most two tuples,
+Lanzinger~\cite{LanzingerPODS22} showed under ETH that bounded fractional
+hypertree width and bounded submodular width coincide for structures with degree 2, i.e., every domain element occurs in at most 2 tuples. This conclusion follows through the complexity characterisations and gives
+no explicit quantitative bound between the widths. More recently, Lanzinger~\cite{Lanzinger2026Cuts} gives quantitative comparisons in the form $\ghw(H) = O(\subw(H)\log \subw(H))$
+under two newly introduced structural conditions \emph{bounded edge excess} and \emph{private intersections}. For a detailed discussion of the connections to our main results, see~\Cref{sec:related-work}. Furthermore, even small values of
+submodular width on graphs have required substantial analysis. A recent
+example is the work of Bringmann and Gorbachev~\cite{BringmannGorbachev2025}, which classifies graph patterns of subquadratic complexity and relates their optimal exponents to submodular width.
+
+Our main theorem gives a bound that closely couples $\fhw$ and $\adw$, connecting these two different branches of hypergraph width measures. The two are linked via a factor $\lambda(H)$ that is the minimum of the incidence degeneracy and the truncated logarithm of the independence number of the primal graph.
+\begin{restatable}{theorem}{mainwidththeorem}
+\label{thm:intro-width}
+There is a universal constant $C>0$ such that every finite hypergraph $H$
+with $\adw(H)\ge2$ satisfies
+\[
+ \fhw(H)\le C\lambda(H)\adw(H)\log\adw(H).
+\]
+When $\adw(H)<2$, $\fhw(H)\le C\lambda(H)$.
+\end{restatable}
+On a technical level we build on recent work of Korchemna et al.~\cite{KorchemnaEtAl2024}. They introduce a framework of fractional balanced separators and an accompanying rounding theorem to convert fractional separators into integral separators in order to compute approximations of $\fhw$ efficiently.
+We instead observe that the space of fractional balanced separators is compact and convex. Through a minimax argument we then bound fractional balanced separators in terms of adaptive width. From this we are eventually able to show constructively that a tree decomposition adhering to the bound in \Cref{thm:intro-width} always exists.
+
+
+%
+%
+%
+%
+
+
+\Cref{thm:intro-width} supplies the missing quantitative link between two
+well-developed theories. On classes of bounded $\lambda$, fractional
+hypertree width is within a logarithmic factor of adaptive width. For
+arbitrary hypergraphs, the bound
+$\lambda(H)\le O(\log|V(H)|)$ still gives a polylogarithmic comparison
+when adaptive width is bounded.
+
+This link allows us to combine classical tractability results based on
+fractional hypertree width with parameterised complexity results
+characterised by adaptive and submodular width. It also transfers bounds
+across the intermediate polymatroid width measures. As a result, we
+obtain the following consequences by combining results from the
+substantial bodies of work on the two sides of this comparison.
+
+
+
+\paragraph{1) $\FPT=\PTIME$ for bounded-$\lambda$ hypergraph classes} Together with the width hierarchy, the theorem shows that bounded fractional hypertree width, bounded submodular width, and bounded adaptive width are equivalent up to a $\log \adw$ factor on every class with bounded $\lambda$.
+Since bounded $\subw$ is equivalent to the existence of an $\FPT$ algorithm and bounded $\fhw$ implies a polynomial-time algorithm, the two boundaries collapse.
+%
+%
+%
+%
+%
+%
+%
+
+\begin{theorem}
+\label{thm:intro-collapse}
+Let $\cH$ be a recursively enumerable hypergraph class of bounded
+$\lambda$. Assuming ETH,
+\[
+ \pHom(\cH)\in\FPT
+ \quad\Longleftrightarrow\quad
+ \Hom(\cH)\in\PTIME.
+\]
+These conditions hold exactly when $\cH$ has bounded fractional hypertree
+width.
+\end{theorem}
+We discuss properties studied in the literature that ensure bounded $\lambda$ in the technical sections. For now, note that these include the widely studied case of bounded degree as well as all classes with sparse incidence graphs, i.e., bounded incidence degeneracy.
+
+
+\paragraph{2) $\FPT$ implies quasipolynomial time}
+Since $\lambda(H)\le\log|V(H)|$ for $|V(H)|\ge2$, the main comparison turns a
+constant adaptive-width bound into an $O(\log|V(H)|)$ fractional
+hypertree-width bound. This gives the following consequence.
+Write $\QP$ for quasipolynomial time.
+\begin{theorem}
+\label{thm:intro-hypergraph-fpt-to-qp}
+Let $\cH$ be a recursively enumerable hypergraph class.
+Assuming ETH,
+\[
+\pHom(\cH) \in \FPT \Rightarrow \Hom(\cH) \in \QP.
+\]
+\end{theorem}
+
+
+
+
+\paragraph{3) Exact counting on bounded-$\lambda$ classes}
+It is open in general whether fixed-parameter tractability of deciding
+$A\to B$ implies fixed-parameter tractability of counting all
+homomorphisms from $A$ to $B$. We settle this question for
+bounded-$\lambda$ hypergraph classes under ETH and obtain the stronger
+conclusion that both are equivalent to polynomial-time homomorphism counting. Write
+$\mathsf{\#Hom}(\cH)$ for the problem of counting all homomorphisms from patterns in
+$\cH$, and write $p\text{-}\mathsf{\#Hom}(\cH)$ for its parameterisation
+by the pattern. For every recursively enumerable class
+$\cH$ of bounded $\lambda$, assuming ETH,
+\[
+ \pHom(\cH)\in\FPT
+ \quad\Longleftrightarrow\quad
+ p\text{-}\mathsf{\#Hom}(\cH)\in\FPT
+ \quad\Longleftrightarrow\quad
+ \mathsf{\#Hom}(\cH)\in\PTIME.
+\]
+Additionally, our main result addresses open questions regarding the relationship between the various intermediate widths defined from
+normal, entropic, almost-entropic, and sharp-submodular polymatroids. These
+quantities arise in database theory in the analysis of query algorithms,
+semiring aggregation, and degree-aware worst-case join-size bounds
+\cite{KhamisEtAl2019FAQAI,KhamisEtAl2024LpBounds,Suciu2023InformationInequalities}.
+On bounded-$\lambda$ classes, they all lie within a logarithmic factor of the width over the modular polymatroid (the adaptive width).
+
+\paragraph{Organisation of the paper.}
+\Cref{sec:preliminaries} introduces technical preliminaries, the parameter $\lambda$, and the width measures used throughout the paper.
+\Cref{sec:separators} proves \Cref{thm:intro-width}.
+\Cref{sec:consequences} derives the complexity-theoretic consequences for hypergraph classes and extends them to classes of structures.
+\Cref{sec:discussion} develops the consequences for exact homomorphism counting and the polymatroid width hierarchy.
+\Cref{sec:related-work} discusses the relationship of our results to closely related works in the literature.
+\Cref{sec:conclusion} concludes with open problems.
+ %
+\section{Preliminaries}
+\label{sec:preliminaries}
+All logarithms are to base two unless otherwise specified.
+
+\subsection{Relational Structures and Hypergraphs}
+
+A hypergraph is a pair $H=(V(H),E(H))$, with $E(H) \subseteq 2^{V(H)}$. We refer to $V(H)$ as the vertices of $H$ and $E(H)$ as the edges of $H$. All hypergraphs are finite, have no empty edges, and have every vertex contained in an edge. We assume input hypergraphs are nonempty and connected, but allow induced subhypergraphs to be empty or disconnected. The \emph{rank} $\rank(H)$ is
+the maximum hyperedge size.  The \emph{(vertex) degree} $\Delta(H)$ is
+the largest number of hyperedges containing one vertex.
+
+For $W\subseteq V(H)$, the \emph{induced subhypergraph} $H[W]$ has vertex
+set $W$ and hyperedge set
+\[
+ E(H[W])=\{e\cap W \mid e\in E(H),\ e\cap W\ne\emptyset\}.
+\]
+Note that this differs from other common subhypergraph notions where partial edges are not retained. In the context of relational structures, this corresponds to projecting the structure to some subset of the domain elements.
+
+
+A finite relational signature $\tau$ assigns an arity $r_R$ to each relation
+symbol $R$. A finite $\tau$-structure $A$ consists of a finite domain
+$V(A)$ and a relation $R^A\subseteq V(A)^{r_R}$ for every $R\in\tau$.
+Relations are represented by explicit lists of tuples, and $\lVert A\rVert$
+denotes the encoding length. A homomorphism $h:A\to B$ is a map
+$V(A)\to V(B)$ such that
+\[
+ (a_1,\ldots,a_{r_R})\in R^A
+ \quad\Longrightarrow\quad
+ (h(a_1),\ldots,h(a_{r_R}))\in R^B
+\]
+for every $R\in\tau$.
+
+A relational structure naturally induces a hypergraph that captures the connections between its elements. The hypergraph $H_A$ has one vertex for each domain element occurring in a tuple. For every tuple $\mathbf a\in R^A$, it has the hyperedge consisting of the entries of $\mathbf a$. Different tuples that induce the same set contribute one hyperedge.
+
+\paragraph{The $\lambda(H)$ parameter}
+We move on to defining the parameter $\lambda(H)$ in \Cref{thm:intro-width}. It is the minimum of two independent hypergraph invariants and originates in a technical result in~\cite{KorchemnaEtAl2024}.
+
+The \emph{primal graph} $P(H)$ has vertex set $V(H)$ and joins two distinct
+vertices when they occur together in a hyperedge. Write $\alpha(H)$ for the
+independence number of $P(H)$, i.e., the maximum number of vertices such that no two vertices are in the same hyperedge. The \emph{incidence graph} $I(H)$ is the bipartite graph with
+parts $V(H)$ and $E(H)$ and incidence as adjacency. Define
+\[
+ \mu(H)=\max_{\substack{F\subseteq I(H)\\V(F)\ne\emptyset}}
+          \min_{x\in V(F)}\deg_F(x).
+\]
+Thus $\mu(H)$ is the least integer $d$ such that every nonempty subgraph
+of $I(H)$ has a vertex of degree at most $d$, called the
+\emph{incidence degeneracy} of $H$~\cite{MatulaBeck1983}.
+Then define
+\begin{equation}
+ \lambda(H)=\min\{\mu(H),\max\{1,\log\alpha(H)\}\}.
+ \label{eq:lambda-intro}
+\end{equation}
+Note that both $\mu$ and $\alpha$ are nonincreasing under taking induced subhypergraphs.
+
+
+\subsection{Tree Decompositions and Width Functions}
+%
+A tree decomposition of a hypergraph $H$ is a pair $(T,B)$, where $T$ is a tree and $B : V(T)\to 2^{V(H)}$ such that:
+\begin{enumerate}
+\item for each $e \in E(H)$ there is a node $u \in V(T)$ such that $e \subseteq B(u)$.
+\item for every vertex $v \in V(H)$, the set of nodes $\{u \in V(T) \mid v \in B(u)\}$ is nonempty and forms a connected subgraph of $T$.
+\end{enumerate}
+Write
+$\mathcal T(H)$ for the set of tree decompositions of $H$ and
+$\operatorname{width}_b(T,B)=\max_{t\in V(T)}b(B_t)$ for the width of a
+decomposition under a function $b:2^{V(H)}\to\R_{\ge0}$. For a nonempty family
+$\mathcal F$ of such functions, its \emph{$\mathcal F$-width} is
+\begin{equation}
+ \operatorname{width}_{\mathcal F}(H)
+ :=\sup_{b\in\mathcal F}\min_{(T,B)\in\mathcal T(H)}
+                         \max_{t\in V(T)}b(B_t).
+ \label{eq:F-width}
+\end{equation}
+
+For $X\subseteq V(H)$, the \emph{fractional edge-cover number} $\rho_H^*(X)$ is the minimum of
+$\sum_e y_e$ over $y_e\ge0$ satisfying $\sum_{e\ni v}y_e\ge1$ for every
+$v\in X$. Requiring $y_e\in\{0,1\}$ gives the integral edge-cover number
+$\rho_H(X)$. Fractional and generalised hypertree width are
+\[
+ \fhw(H)=\operatorname{width}_{\{\rho_H^*\}}(H),
+ \qquad
+ \ghw(H)=\operatorname{width}_{\{\rho_H\}}(H).
+\]
+Treewidth is
+$\operatorname{width}_{\{X\mapsto|X|\}}(H)-1$.
+A fractional hypertree decomposition (FHD) supplies each bag with a
+fractional edge cover. We use optimum bag covers and write
+$\operatorname{width}(\mathcal D)=\operatorname{width}_{\rho_H^*}(T,B)$
+for $\mathcal D=(T,B)$.
+
+A \emph{polymatroid} is a function $b:2^{V(H)}\to\R_{\ge0}$ with
+$b(\emptyset)=0$ that is monotone and submodular. That is,
+\[
+ b(X)\le b(Y) \quad\text{whenever }X\subseteq Y,
+ \qquad\text{and}\qquad
+ b(X\cup Y)+b(X\cap Y) \le b(X)+b(Y)
+\]
+for all $X,Y\subseteq V(H)$.
+It is \emph{edge-dominated} if $b(e)\le1$ for every $e\in E(H)$.
+Let $\mathcal S_H$ be the family of edge-dominated polymatroids and let
+$\mathcal M_H\subseteq\mathcal S_H$ consist of the modular functions
+$b(X)=\sum_{v\in X}w_v$, where $w_v\ge0$ and
+$\sum_{v\in e}w_v\le1$ for every hyperedge $e$. We call such a vector $w$
+an \emph{edge-dominated modular weighting}. Adaptive width and submodular
+width are defined by~\cite{adw,Marx13}
+\[
+ \adw(H)=\operatorname{width}_{\mathcal M_H}(H),
+ \qquad
+ \subw(H)=\operatorname{width}_{\mathcal S_H}(H).
+\]
+
+It is well known that
+$\adw(H)\le\subw(H)\le\fhw(H)\le\ghw(H)$~\cite{adw,Marx13,fhw}.
+For $X\subseteq W\subseteq V(H)$, fractional cover cost satisfies
+\begin{equation}
+ \rho_{H[W]}^*(X)=\rho_H^*(X).
+ \label{eq:induced-cover-cost}
+\end{equation}
+Indeed, a fractional cover of $H$ induces one of $H[W]$ by aggregating the
+weights of all hyperedges with the same nonempty intersection with $W$ and
+discarding hyperedges disjoint from $W$. Conversely, a fractional cover of
+$H[W]$ lifts to $H$ by choosing, for every $f\in E(H[W])$, one hyperedge
+$e_f\in E(H)$ with $e_f\cap W=f$ and assigning the weight of $f$ to $e_f$.
+The first operation does not increase total weight, and the second preserves
+it, which proves \eqref{eq:induced-cover-cost}.
+Moreover, it is straightforward that adaptive width is nonincreasing under taking induced subhypergraphs, since modular
+weightings extend by zero and tree decompositions restrict to vertex subsets.
+ %
+\section{Fractional Separators and Adaptive Width}
+\label{sec:separators}
+
+Abo Khamis et al.~\cite{KhamisNgoSuciu2025PANDA} observed that fractional edge-cover duality lets us naturally view adaptive width and fractional hypertree
+width as opposite orders of optimisation.
+\[
+ \adw(H)=\max_{b\in\mathcal M_H}\min_{(T,B)\in\mathcal T(H)}
+                  \operatorname{width}_b(T,B),
+ \qquad
+ \fhw(H)=\min_{(T,B)\in\mathcal T(H)}\max_{b\in\mathcal M_H}
+                  \operatorname{width}_b(T,B).
+\]
+Here $\mathcal M_H$ is the family of edge-dominated modular functions.
+Weak minimax recovers only the familiar inequality
+$\adw(H)\le\fhw(H)$.
+Strong minimax does not apply directly. The space of tree decompositions has
+no useful convex structure, and
+$\operatorname{width}_b(T,B)=\max_{t\in V(T)}b(B_t)$ is the maximum of
+linear functions of $b$, hence convex rather than concave in the
+maximising variable.
+
+The difference between the two optimisation orders is that adaptive
+width allows us to choose a different decomposition for each $b$, whereas
+fractional hypertree width asks for one decomposition whose bags are cheap
+for every $b$. Our proof bridges this difference through balanced
+separators. They are simpler objects than decompositions, but retain the
+two properties we need. A decomposition supplies a balanced separator,
+and suitable balanced separators can be assembled recursively into a
+decomposition. We will do so through a relaxed version of balanced separators that provides us with the appropriate properties for a minimax argument connecting to $\adw$.
+
+In \Cref{sec:separator-definitions}, we recall fractional balanced separators and their fractional edge-cover cost.
+In \Cref{sec:adaptive}, we use minimax to show that adaptive width bounds the cost of such fractional balanced separators in every induced subhypergraph.
+In \Cref{sec:rounding}, we round these separators and assemble them
+recursively into a tree decomposition, proving \Cref{thm:intro-width}.
+
+
+\subsection{Fractional Balanced Separators}
+\label{sec:separator-definitions}
+
+We first recall the hypergraph fractional balanced-separator relaxation of Korchemna
+et al.~\cite[Definition~5.2]{KorchemnaEtAl2024}. It is a hyperedge-weighted
+analogue of the spreading-metric formulation of $\rho$-separators due to Even,
+Naor, Rao, and Schieber~\cite{EvenNaorRaoSchieber1999}, building on the metric
+and region-growing framework of Leighton and Rao~\cite{LeightonRao1999}.
+
+
+In the following, we consider functions $x : V(J) \to [0,1]$ of vertex demands that we interpret as \emph{fractional separators} on a hypergraph $J$. This relaxes the classical notion of a separator, in which vertices either belong to the separator or do not. For $S \subseteq V(J)$, we write $\mathbf 1_S$ for the vertex-demand function that maps vertices in $S$ to $1$ and all other vertices to $0$. For vertex demands $x$, define
+\[
+ \rho_J^*(x)
+ :=\min\left\{
+   \sum_{e\in E(J)}y(e):
+   y:E(J)\to\mathbb R_{\ge0},\quad
+   \sum_{e\ni v}y(e)\ge x(v)\ \forall v\in V(J)
+ \right\}.
+\]
+Thus a fractional edge cover need only satisfy the vertex demand $x(v)$, rather than $\sum_{e\ni v}y(e)\ge 1$ uniformly. When $x$ is a fractional separator, this will eventually correspond to the ``cost'' of the separator.
+
+For vertices $u,v$, let $\mathsf{paths}(P(J);u,v)$ be the set of simple
+paths in $P(J)$ with endpoints $u$ and $v$.
+We are interested in the minimum-demand path between any pair of vertices. To that end, define
+\[
+ \operatorname{dist}_{J,x}(u,v)
+ :=\min_{Q\in\mathsf{paths}(P(J);u,v)}\sum_{z\in V(Q)}x(z),
+ \qquad
+ \operatorname{dist}_{J,x}^*(u,v)
+ :=\min\{1,\operatorname{dist}_{J,x}(u,v)\}.
+\]
+Note that the sum includes both endpoints and we consider the minimum of the empty set to be $\infty$. When $x$ is seen as a fractional separator, the distance between $u$ and $v$ is a measure of how separated they are, with values above 1 meaning they are fully separated.
+We therefore use the auxiliary quantity $\operatorname{dist}_{J,x}^*$, which is the truncation of $\operatorname{dist}_{J,x}$ to $[0,1]$. Note that if
+$x=\mathbf 1_S$ for some $S\subseteq V(J)$, then
+$\operatorname{dist}_{J,x}^*(u,v)=0$ exactly when $u$ and $v$ are connected in $P(J)-S$, and it equals $1$ otherwise.
+%
+We extend this distance to hyperedges naturally. For hyperedges $e,f$, define
+\(
+ \operatorname{dist}_{J,x}^*(e,f)
+ :=\min_{u\in e,\,v\in f}\operatorname{dist}_{J,x}^*(u,v).
+\)
+
+
+We also consider a weighting $\gamma:E(J)\to[0,1]$ that records the contribution of each edge to the balance condition.
+In particular, let $\gamma:E(J)\to[0,1]$ be nonzero and write
+$\Gamma=\sum_e\gamma(e)$.  For $\theta\in(0,1)$, a function
+$x:V(J)\to[0,1]$ is a \emph{fractional $(\gamma,\theta)$-balanced separator}
+if
+\begin{equation}
+ \sum_{f\in E(J)}
+ \gamma(f)\operatorname{dist}_{J,x}^*(e,f)
+ \ge (1-\theta)\Gamma
+ \qquad\forall e\in E(J).
+ \label{eq:fractional-balance}
+\end{equation}
+Intuitively, the left-hand side can be read as a measure of how strongly edge $e$ is separated from all other edges $f$ (weighted by $\gamma$) by the fractional separator $x$.
+
+
+When the separator is not fractional, i.e., it is a set $S\subseteq V(J)$, we say that $S$ is \emph{$(\gamma,\theta)$-balanced} if
+every component $C$ of $J-S$ satisfies
+\begin{equation}
+ \sum_{\substack{e\in E(J)\\e\cap C\ne\emptyset}}\gamma(e)
+ \le \theta\Gamma.
+ \label{eq:integral-balance}
+\end{equation}
+
+\begin{lemma}[{\cite[Fact~5.4]{KorchemnaEtAl2024}}]
+\label{lem:indicator-equivalence}
+Let $J$ be a hypergraph, $S\subseteq V(J)$,
+$\gamma:E(J)\to[0,1]$ nonzero, and $\theta\in(0,1)$.
+Then $\mathbf 1_S$ is a fractional
+$(\gamma,\theta)$-balanced separator if and only if $S$ is $(\gamma,\theta)$-balanced.
+\end{lemma}
+
+
+
+So far, we have followed the definitions of~\cite{KorchemnaEtAl2024}. The linear-programming dual form of $\rho^*$ will also be important for our result. It is
+\begin{equation}
+ \rho_J^*(x)
+ =\max\left\{
+  \sum_{v\in V(J)}w_vx(v):
+  w_v\ge0,\quad
+  \sum_{v\in e}w_v\le1\ \forall e\in E(J)
+ \right\}.
+ \label{eq:cover-dual}
+\end{equation}
+Moreover, we will be interested in the least $\rho^*$ necessary for a $(\gamma,\theta)$-balanced fractional separator, for fixed $\gamma,\theta$. Define the optimum fractional cost of one separator instance by
+\[
+ \beta_{J,\theta}(\gamma)
+ :=
+ \min\left\{
+  \rho_J^*(x) \mid
+  x\text{ is a fractional }(\gamma,\theta)\text{-balanced separator}
+ \right\}.
+\]
+Finally, we use fractional balanced separators as an intermediate object between
+adaptive width and fractional hypertree width. The recursive construction
+of a tree decomposition requires such separators in every induced
+subhypergraph and for every weighting of its hyperedges. For this process, we define
+\[
+ \fsep_\theta(H)
+ :=
+ \sup_{\substack{W\subseteq V(H)\\
+                  0\ne\gamma:E(H[W])\to[0,1]}}
+ \beta_{H[W],\theta}(\gamma).
+\]
+Equivalently, $\fsep_\theta(H)$ is the least $b$ such that every induced
+subhypergraph $J$ of $H$ and every nonzero hyperedge weighting $\gamma$
+admit a fractional $(\gamma,\theta)$-balanced separator $x$ with
+$\rho_J^*(x)\le b$.
+
+\subsection{Adaptive Width and Fractional Separators}
+\label{sec:adaptive}
+
+The convexity of fractional balanced separators allows minimax to compare
+their optimum cost with adaptive width. We prove
+$\fsep_{1/2}(H)\le\adw(H)$.
+
+\begin{lemma}
+\label{lem:fractional-separator-convexity}
+Let $J$ be a hypergraph, let $\gamma:E(J)\to[0,1]$ be nonzero, and let
+$\theta\in(0,1)$. The set of fractional
+$(\gamma,\theta)$-balanced separators is nonempty, compact, and convex.
+\end{lemma}
+
+\begin{proof}
+For $e,f\in E(J)$, let $\mathcal P(e,f)$ be the set of simple paths in
+$P(J)$ joining a vertex of $e$ to a vertex of $f$, including paths of
+length zero. By definition,
+\[
+ \operatorname{dist}_{J,x}^*(e,f)
+ =\min\left(
+    \{1\}\cup
+    \left\{\sum_{v\in V(Q)}x(v)\mid Q\in\mathcal P(e,f)\right\}
+   \right).
+\]
+Thus $x\mapsto\operatorname{dist}_{J,x}^*(e,f)$ is continuous and concave,
+since it is the minimum of finitely many affine functions. Since $\gamma\ge0$,
+the left-hand side of each balance constraint~\eqref{eq:fractional-balance}
+is also continuous and concave. Each constraint therefore defines a closed
+convex subset of $[0,1]^{V(J)}$. Their intersection is convex and is a closed
+subset of the compact cube $[0,1]^{V(J)}$, hence compact. It is nonempty
+because it contains the all-one vector.
+\end{proof}
+
+\begin{lemma}
+\label{lem:cover-minimax}
+Let $J$ be a hypergraph, let $\gamma:E(J)\to[0,1]$ be nonzero, and let
+$\theta\in(0,1)$.  There
+is $b \in \mathcal{M}_J$ such that
+\[
+ \sum_{v\in V(J)}b(\{v\})x(v)
+ \ge \beta_{J,\theta}(\gamma)
+\]
+for every fractional $(\gamma,\theta)$-balanced separator $x$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal X$ be the set of fractional
+$(\gamma,\theta)$-balanced separators. Identify each $b\in\mathcal M_J$
+with its singleton values $(b(\{v\}))_{v\in V(J)}$. By \Cref{eq:cover-dual},
+\[
+ \beta_{J,\theta}(\gamma)
+ =\min_{x\in\mathcal X}\max_{b\in\mathcal M_J}\sum_vb(\{v\})x(v).
+\]
+By \Cref{lem:fractional-separator-convexity}, $\mathcal X$ is nonempty,
+compact, and convex. In these coordinates, $\mathcal M_J$ is a closed convex
+polytope containing the zero vector. Every vertex lies in a hyperedge, so
+$\mathcal M_J\subseteq[0,1]^{V(J)}$ and $\mathcal M_J$ is compact. Furthermore, the map
+$(x,b)\mapsto\sum_vb(\{v\})x(v)$ is continuous and bilinear. A standard
+application of the minimax theorem over convex sets~\cite{Sion58} thus gives
+\begin{equation}
+ \beta_{J,\theta}(\gamma)
+ =\max_{b\in\mathcal M_J}\min_{x\in\mathcal X}\sum_vb(\{v\})x(v).
+ \label{eq:separator-minimax}
+\end{equation}
+Any maximising $b$ has the required property.
+\end{proof}
+
+\begin{lemma}
+\label{thm:fsep-adw}
+For every hypergraph $H$,
+\(
+ \fsep_{1/2}(H)\le\adw(H).
+\)
+\end{lemma}
+
+\begin{proof}
+Fix $W\subseteq V(H)$, let $J=H[W]$, and fix a nonzero weighting
+$\gamma:E(J)\to[0,1]$. Write $\Gamma=\sum_{e\in E(J)}\gamma(e)$ and
+$\beta=\beta_{J,1/2}(\gamma)$. Choose $b\in\mathcal M_J$ from
+\Cref{lem:cover-minimax}, so that
+$\sum_{v\in V(J)}b(\{v\})x(v)\ge\beta$ for every fractional
+$(\gamma,1/2)$-balanced separator $x$.
+
+Let $(T,B)$ be any tree decomposition of $J$. For each $e\in E(J)$,
+choose one node $a(e)\in V(T)$ with $e\subseteq B_{a(e)}$. Give each
+node $s$ weight $q(s)=\sum_{e\in E(J),\,a(e)=s}\gamma(e)$, adding the
+weights of all hyperedges assigned to $s$. Thus
+$\sum_{s\in V(T)}q(s)=\Gamma$.
+
+
+We first show that there is a node $t$ such that every component $K$ of $T-t$ satisfies
+$$\sum_{s\in V(K)}q(s)\le\Gamma/2.$$ To construct $t$, start at any
+node $s$. Whenever a component of $T-s$ has total $q$-weight greater
+than $\Gamma/2$, move to the neighbour of $s$ in that component.
+After a move from $s$ to $s'$, the component of $T-s'$ containing $s$
+has weight less than $\Gamma/2$, so the next move cannot return to $s$.
+A walk in a tree that never immediately reverses an edge cannot revisit
+a node. Since $T$ is finite, the process terminates at a node $t$ with
+the required property.
+
+We next show that $B_t$ is $(\gamma,1/2)$-balanced. Let $C$ be the vertex
+set of a component of $P(J)-B_t$. For each $v\in C$, the set
+$T_v=\{s\in V(T)\mid v\in B_s\}$ is connected and avoids $t$, so it
+lies in one component of $T-t$. If $u,v\in C$ are adjacent in $P(J)$,
+some hyperedge contains both, and a bag containing that hyperedge
+belongs to $T_u\cap T_v$. Since $C$ is connected, all sets $T_v$ with
+$v\in C$ lie in a single component $K$ of $T-t$. For every hyperedge
+$e$ meeting $C$, choose $v\in e\cap C$. Then
+$a(e)\in T_v\subseteq V(K)$, since $e\subseteq B_{a(e)}$. Therefore
+$$\sum_{e\in E(J),\,e\cap C\ne\emptyset}\gamma(e)
+\le\sum_{s\in V(K)}q(s)\le\Gamma/2$$
+as required by \eqref{eq:integral-balance}.
+
+By \Cref{lem:indicator-equivalence}, $\mathbf 1_{B_t}$ is a fractional
+$(\gamma,1/2)$-balanced separator. The choice of $b$ gives
+$b(B_t)=\sum_{v\in V(J)}b(\{v\})\mathbf 1_{B_t}(v)\ge\beta$.
+Since $(T,B)$ was arbitrary and $b\in\mathcal M_J$, we obtain
+\[
+ \beta
+ \le\min_{(T,B)\in\mathcal T(J)}\max_{s\in V(T)}b(B_s)
+ \le\adw(J)\le\adw(H).
+\]
+Taking the supremum over $W$ and $\gamma$
+gives $\fsep_{1/2}(H)\le\adw(H)$.
+\end{proof}
+
+\subsection{Rounding Fractional Separators and Decompositions}
+\label{sec:rounding}
+
+Korchemna et al.~\cite{KorchemnaEtAl2024} round fractional half-balanced
+separators to integral separators with controlled fractional edge-cover
+number. Combined with $\fsep_{1/2}(H)\le\adw(H)$, their result supplies the
+separators needed for the recursive decomposition.
+
+\begin{proposition}[{\cite[Theorem~5.6]{KorchemnaEtAl2024}}]
+\label{thm:rounding}
+Let $J$ be a hypergraph, let $0\ne\gamma:E(J)\to[0,1]$, and let $x$ be a
+fractional $(\gamma,1/2)$-balanced separator. There is an integral
+$(\gamma,5/6)$-balanced separator $S\subseteq V(J)$ satisfying
+\[
+ \rho_J^*(S)\le
+ C_0\, \lambda(J)\,
+ \rho_J^*(x)\log\max\{2,\rho_J^*(x)\}
+\]
+for a universal constant $C_0$.
+\end{proposition}
+
+\begin{proof}
+If $\emptyset$ is $(\gamma,5/6)$-balanced, take $S=\emptyset$.
+Otherwise set $r=\rho_J^*(x)$. If $r=0$, then $x=0$, so
+$\mathbf 1_\emptyset=x$ is fractionally $(\gamma,1/2)$-balanced.
+By \Cref{lem:indicator-equivalence}, $\emptyset$ is integrally
+$(\gamma,1/2)$-balanced and hence $(\gamma,5/6)$-balanced, a contradiction.
+Thus $r>0$.
+Write $\supp x=\{v\in V(J)\mid x(v)>0\}$.
+The cited theorem with $\varphi=1/2$ produces a $(\gamma,5/6)$-balanced
+separator and gives
+\[
+ \rho_J^*(S)
+ \le
+ \bigl(\min\{8+4\ln\alpha(J[\supp x]),6\mu(J)\}+1\bigr)
+ \bigl(88+16\log(2r)\bigr)r.
+\]
+Put $A=\alpha(J[\supp x])$. Then $A\le\alpha(J)$. Since $\mu(J)\ge1$,
+the first factor is at most $7\mu(J)$ and at most
+$9+4\ln\alpha(J)$. It is therefore $O(\lambda(J))$. Moreover,
+\[
+ 88+16\log(2r)
+ \le 88+16\max\{0,\log(2r)\}
+ =O(\log\max\{2,r\}).
+\]
+Absorbing the constants into $C_0$ proves the claim.
+\end{proof}
+
+The parameter $\lambda$ enters only through this rounding step. Any
+alternative rounding bound would propagate through the same recursion.
+
+We now turn these rounded separators into a tree decomposition using the
+recursive framework of Robertson and Seymour~\cite{RobertsonSeymour1995}.
+A related separator lemma for monotone subadditive set functions appears in
+Marx~\cite[Section~5.2]{adw}.
+
+
+\begin{lemma}
+\label{lem:recursive-decomposition}
+Let $H$ be a hypergraph, let $\eta\in(0,1)$, and let $r\ge0$.
+Suppose that for every $W\subseteq V(H)$ and every nonzero
+$\gamma:E(H[W])\to[0,1]$, there is a $(\gamma,\eta)$-balanced separator
+$S\subseteq W$ with $\rho_{H[W]}^*(S)\le r$. Then
+\[
+ \fhw(H)\le\frac{2(2-\eta)}{1-\eta}r.
+\]
+\end{lemma}
+\begin{proof}
+Set $\Lambda=2r/(1-\eta)$. We prove by induction on $|W\setminus Z|$ that whenever $Z\subseteq W\subseteq V(H)$ and $\rho_H^*(Z)\le\Lambda$, the hypergraph $H[W]$ has a tree decomposition with a bag containing $Z$ and every bag $B_t$ satisfying
+$\rho_H^*(B_t)\le\Lambda+2r$.
+The set $Z$ is the boundary through which this decomposition will attach
+to its parent. We use a separator $S$ to control the cover cost of each
+child boundary and a separator $R$ to ensure that each child has fewer
+vertices outside its boundary.
+
+If $W=Z$, take the one-bag decomposition with bag $Z$. Its bag cost is at
+most $\Lambda$, so the claim holds. Suppose that $W\ne Z$ and let $J=H[W]$.
+If $Z=\emptyset$, set
+$S=\emptyset$. If $Z\ne\emptyset$, choose an optimum
+fractional edge cover $\gamma:E(J)\to[0,1]$ of $Z$. Because $Z \subseteq V(J)$ and fractional cover cost is invariant under taking induced subhypergraphs,
+\[
+ \sum_{e\in E(J)}\gamma(e)=\rho_J^*(Z)=\rho_H^*(Z).
+\]
+Since $Z\ne\emptyset$, the weighting $\gamma$ is nonzero, and by the assumption in the statement there is a
+$(\gamma,\eta)$-balanced separator $S\subseteq W$ with
+$\rho_J^*(S)\le r$ and thus also $\rho_H^*(S)\le r$.
+
+For each $v\in W\setminus Z$, choose $e_v\in E(J)$ with $v\in e_v$, and
+define $\pi:E(J)\to[0,1]$ by
+\[
+ \pi(e)=\frac{|\{v\in W\setminus Z : e_v=e\}|}{|W\setminus Z|}.
+\]
+Since $\sum_e\pi(e)=1$, the assumption in the statement gives a
+$(\pi,\eta)$-balanced separator $R\subseteq W$ with $\rho_J^*(R)\le r$.
+Therefore also $\rho_H^*(R)\le r$.
+%
+Set $B=Z\cup S\cup R$. Subadditivity of $\rho^*$ gives us
+\[
+ \rho_H^*(B)
+ \le \rho_H^*(Z)+\rho_H^*(S)+\rho_H^*(R)
+ \le \Lambda+2r.
+\]
+
+We move on to constructing our tree decomposition by separating $J$ by $B$.
+For each component $K$ of $J-B$, define its boundary and child vertex set as
+\[
+ Z_K
+ :=B\cap N_{P(J)}(K),
+ \qquad
+ W_K:=K\cup Z_K.
+\]
+For our application of the induction hypothesis we will want to bound $\rho_H^*(Z_K)$ for each $K$ by $\Lambda$.
+%
+If $Z=\emptyset$, then
+$B=R$ and $Z_K\subseteq R$ and therefore directly
+\(
+ \rho_H^*(Z_K)\le r\le\Lambda
+\).
+
+If instead $Z\ne\emptyset$, let $C$ be the component of $J-S$
+containing $K$. We have $K\subseteq C$, but equality need not hold because
+vertices of $Z\cup R$ can join several components of $J-B$ in $J-S$.
+Moreover, we have
+\(
+ Z_K\subseteq S\cup R\cup(Z\cap C).
+\)
+Indeed, if $z\in Z_K\setminus(S\cup R)$, then
+$z\in B\setminus(S\cup R)\subseteq Z$, and adjacency to $K\subseteq C$
+in $J-S$ implies $z\in C$.
+
+Restricting $\gamma$ to edges meeting $C$ still covers $Z\cap C$, since
+every edge containing a vertex of $Z\cap C$ meets $C$.
+The $(\gamma,\eta)$-balance of $S$ therefore gives
+\[
+ \rho_H^*(Z\cap C)
+ \le\sum_{e\cap C\ne\emptyset}\gamma(e)
+ \le \eta\sum_{e\in E(J)}\gamma(e)
+ =\eta\rho_H^*(Z)
+ \le\eta\Lambda.
+\]
+Consequently,
+\[
+ \rho_H^*(Z_K)
+ \le \rho_H^*(S)+\rho_H^*(R)+\rho_H^*(Z\cap C)
+ \le 2r+\eta\Lambda
+ =\Lambda,
+\]
+where the last equality follows from $\Lambda=2r/(1-\eta)$.
+
+Let $D$ be the component of $J-R$ containing $K$. Every $v\in K$ belongs
+to $W\setminus Z$ and has $e_v\cap D\ne\emptyset$. Thus
+\[
+ \frac{|K|}{|W\setminus Z|}
+ \le\sum_{e\cap D\ne\emptyset}\pi(e)
+ \le\eta<1.
+\]
+Hence $|W_K\setminus Z_K|=|K|<|W\setminus Z|$. Since
+$\rho_H^*(Z_K)\le\Lambda$, the induction hypothesis applied to
+$(W_K,Z_K)$ gives a tree decomposition $(T_K,B^K)$ of $H[W_K]$ containing
+an attachment node $u_K$ whose bag includes $Z_K$. Every bag of this decomposition
+has fractional cover cost at most $\Lambda+2r$.
+
+Take disjoint copies of the trees $T_K$. Add a new node $t$ with bag $B$ and
+join $t$ to the attachment node $u_K$ of $T_K$. The resulting graph is
+a tree. Every
+vertex of $W\setminus B$ belongs to exactly one component $K$ and hence to
+exactly one child instance. Every vertex of $B$ occurs at $t$. If it also
+occurs in the child for $K$, then it belongs to
+$B\cap W_K=Z_K$ and hence occurs at the attachment node. It is straightforward to verify that this newly constructed decomposition satisfies the connectedness condition.
+
+Let $e\in E(J)$. If $e\subseteq B$,
+then the new bag covers $e$. Otherwise, the vertices of $e\setminus B$ lie
+in one component $K$ of $J-B$, since a hyperedge is a clique in $P(J)$.
+Every vertex of $e\cap B$ lies in $Z_K$, so $e\subseteq W_K$. Hence $e$ is
+a hyperedge of $H[W_K]$ and is covered by the corresponding child
+decomposition. This proves the induction claim.
+
+Apply the induction with $W=V(H)$ and $Z=\emptyset$. The resulting width is
+at most
+\[
+ \Lambda+2r
+ =\frac{2(2-\eta)}{1-\eta}r.
+\]
+\end{proof}
+
+\mainwidththeorem*
+
+\begin{proof}[Proof of \Cref{thm:intro-width}]
+Set $a=\max\{2,\adw(H)\}$. Fix $W\subseteq V(H)$, put $J=H[W]$, and fix a
+nonzero weighting $\gamma:E(J)\to[0,1]$. Let $x$ be a fractional
+$(\gamma,1/2)$-balanced separator satisfying
+\(
+ \rho_J^*(x)=\beta_{J,1/2}(\gamma).
+\)
+Such an $x$ exists by \Cref{lem:fractional-separator-convexity} and
+continuity of $\rho_J^*$. By the definition of $\fsep_{1/2}$ and
+\Cref{thm:fsep-adw},
+\[
+ \rho_J^*(x)
+ =\beta_{J,1/2}(\gamma)
+ \le\fsep_{1/2}(H)
+ \le\adw(H)
+ \le a.
+\]
+Since $P(J)=P(H)[W]$, every independent set of $P(J)$ is independent in
+$P(H)$, and hence $\alpha(J)\le\alpha(H)$. Moreover, $I(J)$ is isomorphic to
+a subgraph of $I(H)$. To see this, choose for each $f\in E(J)$ an edge
+$e_f\in E(H)$ with $f=e_f\cap W$. Distinct edges of $J$ have distinct chosen
+preimages, and the map fixing the vertices in $W$ and sending $f$ to $e_f$
+preserves every incidence. Thus $\mu(J)\le\mu(H)$. Together with the bound on
+$\alpha(J)$, this gives
+\[
+ \lambda(J)
+ =\min\{\mu(J),\max\{1,\log\alpha(J)\}\}
+ \le\min\{\mu(H),\max\{1,\log\alpha(H)\}\}
+ =\lambda(H).
+\]
+As $a\ge2$, \Cref{thm:rounding} tells us that
+\(
+ \rho_J^*(S)\le C_0\lambda(H)
+ a\log a
+\)
+for some $(\gamma,5/6)$-balanced separator $S$.
+The choices of $W$ and $\gamma$ were arbitrary, so
+\Cref{lem:recursive-decomposition} applies with $\eta=5/6$ and
+$r=C_0\lambda(H)a\log a$. Therefore
+\[
+ \fhw(H)\le14r
+ \le C\lambda(H)a\log a.
+\]
+For $\adw(H)\ge2$ this is the stated bound,
+and for $\adw(H)<2$ it gives $\fhw(H)=O(\lambda(H))$.
+\end{proof}
+
+Since $\alpha(H)\le |V(H)|$, and hence $\lambda(H) \le \log |V(H)|$, we also obtain the following surprising corollary.
+
+\begin{corollary}
+\label{cor:stoc-universal-bridge}
+For every $n$-vertex hypergraph $H$ with $\adw(H)\ge2$,
+\[
+ \fhw(H)\le C\adw(H)\log\adw(H)\log n
+\]
+for a universal constant $C$.
+\end{corollary}
+ %
+\section{Complexity Consequences}
+\label{sec:consequences}
+
+We now translate \Cref{thm:intro-width} into complexity statements for
+homomorphism problems. For hypergraph classes, fixed-parameter tractability
+is characterised by bounded submodular width, while the standard
+polynomial-time algorithms require bounded fractional hypertree width.
+These results do not combine directly, since $\subw\le\fhw$ and the reverse
+inequality fails in general. Our width comparison supplies the missing
+reverse bound under control of $\lambda$. It yields an $\FPT=\PTIME$
+collapse on bounded-$\lambda$ classes and a quasipolynomial algorithm for
+every $\FPT$ hypergraph class. We then treat structure classes of bounded
+incidence degeneracy, where the relevant widths are those of the cores but
+computing the core itself is intractable.
+
+\subsection{Hypergraph Classes}
+
+First, recall that, given an FHD $\mathcal D$ of width $k$ for $H_A$, deciding $A\to B$
+takes time
+$\operatorname{poly}(\lVert A\rVert+|\mathcal D|+\lVert B\rVert)\,\lVert B\rVert^{O(k)}$~\cite{fhw}. Computing an optimum FHD is $\NP$-hard even when the width is bounded by a fixed constant~\cite{DBLP:journals/jacm/GottlobLPR21}. However, Marx's cubic approximation computes an FHD of width $O(k^3)$ in time $\lVert H_A\rVert^{O(k^3)}$ whenever $\fhw(H_A)\le k$~\cite[Theorem~4.1]{MarxFHW2010}. At the cost of a cubic overhead in the exponent, one still obtains a polynomial-time algorithm for every fixed $k$.
+
+
+On classes of bounded $\lambda$, \Cref{thm:intro-width}
+and the width hierarchy make bounded fractional hypertree width equivalent
+to bounded submodular width, which characterises fixed-parameter
+tractability under ETH~\cite{Marx13}. \Cref{thm:intro-width} directly yields the $\FPT=\PTIME$ collapse in this setting.
+
+
+
+\begin{theorem}
+\label{thm:bounded-lambda-collapse}
+Let $\cH$ be a recursively enumerable hypergraph class with bounded
+$\lambda$.  Assuming ETH, the following are equivalent.
+\begin{enumerate}[label=(\roman*)]
+ \item $\cH$ has bounded fractional hypertree width.
+ \item $\cH$ has bounded submodular width.
+ \item $\pHom(\cH)\in\FPT$.
+ \item $\Hom(\cH)\in\PTIME$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The width hierarchy $\adw(H)\le\subw(H)\le\fhw(H)$ together with
+\Cref{thm:intro-width} gives (i)$\Leftrightarrow$(ii).
+Marx~\cite{Marx13} showed that
+(ii)$\Leftrightarrow$(iii) under ETH.
+For (i)$\Rightarrow$(iv), Grohe and Marx prove directly that
+$\Hom(\cH)\in\PTIME$~\cite[Corollary~4.11]{fhw}.
+Every polynomial-time algorithm is fixed-parameter tractable, giving
+(iv)$\Rightarrow$(iii).
+\end{proof}
+
+This also proves \Cref{thm:intro-collapse}.
+
+\begin{proof}[Proof of \Cref{thm:intro-hypergraph-fpt-to-qp}]
+Assume ETH and $\pHom(\cH)\in\FPT$. By~\cite{Marx13}, $\cH$ has bounded submodular
+width, and hence bounded adaptive width. Let $c$ be some constant bound on the adaptive width of $\cH$.
+
+ On input $(A,B)$ with
+$H_A\in\cH$, let $N=\lVert A\rVert+\lVert B\rVert$.
+By \Cref{thm:intro-width} and $\lambda(H_A)=O(\log N)$,
+we have $\fhw(H_A) \le c'\log N$ where $c'$ depends on $c$.
+The approximation algorithm from~\cite[Theorem~4.1]{MarxFHW2010} constructs an FHD of
+width $O(k^3)$ in time $\lVert H_A\rVert^{O(k^3)}$ whenever
+    $\fhw(H_A)\le k$. Taking $k=c'\log N$ and evaluating $(A,B)$
+using the resulting decomposition gives total running time
+$N^{O(\log^3 N)}$.
+\end{proof}
+
+\subsection{Widths of Cores and Structure Classes}
+In the following, for a relational structure $A$ and a hypergraph width function $w$,
+we write $w(A)$ for $w(H_A)$.
+
+An endomorphism of $A$ is a homomorphism from $A$ to itself.
+A \emph{core} of $A$ is an endomorphic image of minimum domain
+cardinality. It is unique up to isomorphism, and we denote it by
+$\operatorname{core}(A)$ (see also~\cite{ChandraMerlin77}).
+Since $A$ and $\operatorname{core}(A)$ are homomorphically equivalent,
+\[
+ A\to B \quad\Longleftrightarrow\quad \operatorname{core}(A)\to B.
+\]
+Their widths can nevertheless differ arbitrarily. For example, the
+undirected $n\times n$ grid with $n\ge2$ has a single edge as its core, even though its
+fractional hypertree width grows with $n$.
+
+Observe that in the $\Hom(\cH)$ setting this has no effect, as every hypergraph $H$ admits a structure $A$ with $H_A=H$ where $A$ is a core. This motivates an alternative version of the problem where we restrict the patterns to a class $\cA$ of finite relational structures.
+
+\begin{problem}{$\Hom(\cA)$}
+Input & Finite relational structures $A$ and $B$ over the same signature,
+with $A\in\cA$.\\
+Question & Does $A\to B$?
+\end{problem}
+
+We write $\pHom(\cA)$ for the parameterisation of $\Hom(\cA)$ by the pattern $A$ and write $\operatorname{core}(\cA)$ for the class of cores of structures
+in $\cA$.
+Grohe~\cite{DBLP:journals/jacm/Grohe07} showed that,
+for any recursively enumerable class $\cA$ of structures of bounded arity, bounded treewidth
+of $\operatorname{core}(\cA)$ characterises both polynomial-time solvability and
+fixed-parameter tractability, assuming $\FPT\ne\mathsf{W}[1]$.
+We extend this characterisation to bounded incidence degeneracy using
+fractional hypertree width of the cores.
+
+The main challenge over the hypergraph setting is the upper bound. Recall that the efficient algorithm for deciding $A\to B$ with exponent $O(k)$ requires an explicit width-$k$ decomposition for $A$. Even in the $\Hom(\cH)$ setting, obtaining such a decomposition in polynomial time requires an approximation algorithm. In the $\Hom(\cA)$ setting, this is not feasible as finding the core itself is already $\NP$-hard~\cite{ChandraMerlin77}.
+
+To avoid this issue, Dalmau, Kolaitis, and Vardi~\cite{DalmauKolaitisVardi2002}
+showed how to use existential pebble games to decide $A\to B$ in polynomial time
+when the cores have bounded treewidth, without having to compute the cores.
+Chen and Dalmau~\cite{ChenDalmau2005} extend this approach to bounded
+$\ghw$ of the cores. To apply it to fractional
+hypertree width, we need to bound the number of edges needed to cover
+each bag, rather than just their total fractional weight.
+Chen et al.~\cite[Section~4]{ChenGottlobLanzingerPichler2020} use
+bounds on the integrality gap of edge covers to show that, under bounded
+VC dimension, bounded $\fhw$ implies bounded $\ghw$.
+This transfers the upper bound without constructing a decomposition of
+the core. Bounded incidence degeneracy ensures bounded VC dimension,
+giving the following proposition.
+
+
+
+\begin{proposition}
+\label{prop:sparse-core-fhw-ptime}
+Let $\cA$ be a class of finite relational structures of bounded incidence
+degeneracy. If
+$\operatorname{core}(\cA)$ has bounded fractional hypertree width, then
+$\Hom(\cA)\in\PTIME$.
+\end{proposition}
+
+\begin{proof}
+By \cite[Lemma~2 and Section~4, Corollary~1]{ChenGottlobLanzingerPichler2020},
+bounded VC dimension of $\{H_A:A\in\cA\}$ and bounded fractional
+hypertree width of $\operatorname{core}(\cA)$ imply $\Hom(\cA)\in\PTIME$.
+Let an integer $d$ bound the incidence degeneracy. The incidence graphs
+contain no $K_{d+1,d+1}$, so
+$\operatorname{VCdim}(H_A)\le d+\lceil\log_2(d+1)\rceil$ for every
+$A\in\cA$ by \cite[Table~1 and Appendix~B]{BringmannKozmaMoranNarayanaswamy2016}.
+\end{proof}
+
+Importantly, the proposition requires bounded incidence degeneracy, and we do not know whether it holds for bounded $\lambda$ in general.
+%
+This remains an interesting gap between the following \Cref{thm:semantic-incidence-collapse} and \Cref{thm:bounded-lambda-collapse}.
+
+\begin{theorem}
+\label{thm:semantic-incidence-collapse}
+Let $\cA$ be a recursively enumerable class of finite relational structures
+with bounded incidence degeneracy. Assuming ETH, the following are equivalent.
+\begin{enumerate}[label=(\roman*)]
+ \item $\operatorname{core}(\cA)$ has bounded fractional hypertree width.
+ \item $\operatorname{core}(\cA)$ has bounded submodular width.
+ \item $\pHom(\cA)\in\FPT$.
+ \item $\Hom(\cA)\in\PTIME$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+For $A\in\cA$, set $C=\operatorname{core}(A)$ and let $d$ bound the incidence
+degeneracy of $\cA$. We may choose $C$ as a substructure of $A$.
+Thus $I(H_{C})$ is a subgraph of $I(H_A)$, and
+$\lambda(H_{C})\le\mu(H_{C})\le d$.
+For $\subw(C)\ge2$, the width hierarchy and \Cref{thm:intro-width} give
+\[
+ \subw(C)\le\fhw(C)
+ \le O_d\!\left(
+ \subw(C)\log\subw(C)
+ \right).
+\]
+For $\subw(C)<2$, the same theorem gives $\fhw(C)=O_d(1)$.
+This proves (i)$\Leftrightarrow$(ii). By Chen et al.~\cite[Theorem~1 and Lemma~2]{ChenGottlobLanzingerPichler2020},
+$\pHom(\cA)\in\FPT$ if and only if $\operatorname{core}(\cA)$ has bounded
+submodular width under ETH, giving (ii)$\Leftrightarrow$(iii).
+\Cref{prop:sparse-core-fhw-ptime} gives (i)$\Rightarrow$(iv).
+Every polynomial-time algorithm is fixed-parameter tractable, giving
+(iv)$\Rightarrow$(iii).
+\end{proof}
+
+Bounded incidence degeneracy includes both bounded rank and bounded
+vertex degree, and also allows both to be unbounded when the incidence
+graphs are sparse. The following corollary gives several standard
+settings in which the characterisation applies.
+
+\begin{corollary}
+\label{cor:sparse-incidence-classes}
+Let $\cA$ be a recursively enumerable class of finite relational structures.
+Each of the following conditions implies the equivalences in
+\Cref{thm:semantic-incidence-collapse}, assuming ETH.
+\begin{enumerate}[label=(\roman*)]
+ \item The hypergraphs $H_A$ have bounded rank.
+ \item The hypergraphs $H_A$ have bounded maximum vertex degree.
+ \item The hypergraphs $H_A$ are Zykov-planar, i.e., the
+ incidence graphs $I(H_A)$ are planar (see~\cite{Zykov1974}).
+ \item The incidence graphs $I(H_A)$ exclude a fixed graph as a topological minor.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+For every hypergraph $H$, its incidence degeneracy is at most its rank
+and at most its maximum vertex degree. Thus (i) and (ii) bound incidence
+degeneracy. In (iii), every incidence subgraph is planar and bipartite.
+Euler's formula gives average degree less than $4$ in every nonempty
+such subgraph, so the incidence graphs are $3$-degenerate.
+For (iv), let $F$ be the excluded topological minor and set $t=|V(F)|$.
+Bollob\'as and Thomason~\cite{BollobasThomason1998} proved that, for a
+universal constant $c$, every graph of average degree at least $c\,t^2$
+contains a subdivision of $K_t$, and hence of $F$.
+Every nonempty subgraph of an incidence graph therefore has average
+degree less than $ct^2$, giving bounded incidence degeneracy.
+\end{proof}
+ %
+\section{Implications for Counting and the Polymatroid Width Hierarchy}
+\label{sec:discussion}
+
+We apply the main width theorem to open questions in exact counting
+and the polymatroid width hierarchy. The comparison bounds the gap
+between the widths used by PANDA and \#PANDA by a multiplicative
+$O(\lambda\log\max\{2,\subw\})$ factor. On bounded-$\lambda$ classes,
+it follows that fixed-parameter tractability of decision implies
+polynomial-time exact counting. We then show that the intermediate
+polymatroid widths lie within the same multiplicative band.
+
+The counting question asks whether fixed-parameter tractability of
+deciding $A\to B$ implies fixed-parameter tractability of counting all
+homomorphisms from $A$ to $B$. For hypergraph restrictions, Marx's
+theorem reduces this question to whether bounded submodular width
+suffices for exact counting. This remains open in general.
+
+Throughout this section, counting means counting all homomorphisms,
+or equivalently all answers to a full conjunctive query. Write
+$\mathsf{\#Hom}(\cH)$ for this counting problem on patterns whose
+hypergraphs lie in $\cH$, and $p\text{-}\mathsf{\#Hom}(\cH)$ for its
+parameterisation by the pattern.
+
+The algorithmic gap appears in PANDA, which evaluates Boolean queries
+in time $\widetilde O(N^{\subw(H)})$ for a fixed query hypergraph $H$
+and database size $N$~\cite{KhamisNgoSuciu2025PANDA}.
+PANDA uses different decompositions for different parts of the data.
+The resulting sets of satisfying assignments can overlap, which is
+harmless for decision but prevents us from simply summing their counts.
+Whether exact counting can achieve the same exponent remains open
+\cite[Section~8]{KoutrisEtAl2025FasterJoins}.
+The weaker question of whether bounded $\subw$ suffices for
+fixed-parameter counting also remains open in general
+\cite{KhamisEtAl2019FAQAI,KoutrisEtAl2025FasterJoins,jaguar}.
+
+Abo Khamis et al.~\cite{KhamisEtAl2019FAQAI} introduce
+\#PANDA, which ensures that each satisfying assignment contributes
+through exactly one decomposition. Its exponent is sharp-submodular
+width $\sharpsubw$. This condition is obtained by restricting the
+submodularity inequalities available to the algorithm. Let
+$\mathcal S_H^\sharp$ consist of the nonnegative, monotone,
+edge-dominated functions $b$ with $b(\emptyset)=0$ satisfying
+\[
+ b(X\cup Y)+b(X\cap Y)\le b(X)+b(Y)
+ \quad\text{whenever }X\cap Y\subseteq e
+ \text{ for some }e\in E(H).
+\]
+Then $\sharpsubw(H)=\operatorname{width}_{\mathcal S_H^\sharp}(H)$,
+and \#PANDA evaluates scalar aggregates over a commutative semiring
+in $\widetilde O(N^{\sharpsubw(H)})$ semiring operations for fixed
+$H$~\cite{KhamisEtAl2019FAQAI}.
+
+Requiring submodularity only for intersections contained in an edge
+\emph{enlarges} the family of functions over which width is maximised.
+Thus the stronger algorithmic requirement for counting is reflected
+in a potentially larger width. The known inequalities are
+\cite[Proposition~3.15]{KhamisEtAl2019FAQAI}
+\[
+ \subw(H)\le\sharpsubw(H)\le\fhw(H).
+\]
+These inequalities alone do not bound $\sharpsubw$ in terms of
+$\subw$, since bounded submodular width can coexist with unbounded
+fractional hypertree width~\cite{adw,Marx13}.
+Our comparison bounds the gap once $\lambda(H)$ is taken into account.
+
+\begin{corollary}
+\label{cor:stoc-sharp-submodular-width}
+For every hypergraph $H$ with $s=\subw(H)$,
+\[
+ s\le\sharpsubw(H)\le\fhw(H)
+ \le C\lambda(H)s\log\max\{2,s\}
+\]
+for a universal constant $C$.
+\end{corollary}
+
+%
+%
+%
+%
+
+Thus, for $\adw(H)\ge 2$, the ratio between the widths governing \#PANDA and PANDA satisfies
+\[
+ \frac{\sharpsubw(H)}{\subw(H)}
+ \le C\lambda(H)\log \adw(H).
+\]
+This bounds the exponent needed for exact counting by an
+$O(\lambda(H)\log\adw(H))$ factor relative to PANDA's decision exponent.
+On bounded-$\lambda$ classes, it also settles the corresponding
+tractability question. Bounded submodular width implies polynomial-time
+exact counting.
+
+\begin{corollary}
+\label{cor:bounded-lambda-counting}
+Let $\cH$ be a recursively enumerable hypergraph class of bounded
+$\lambda$. Assuming ETH, the following are equivalent.
+\begin{enumerate}[label=(\roman*)]
+ \item $\cH$ has bounded submodular width.
+ \item $\pHom(\cH)\in\FPT$.
+ \item $p\text{-}\mathsf{\#Hom}(\cH)\in\FPT$.
+ \item $\mathsf{\#Hom}(\cH)\in\PTIME$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+As in \Cref{thm:bounded-lambda-collapse}, (i)$\Leftrightarrow$(ii) under ETH.
+For (i)$\Rightarrow$(iv), \Cref{thm:intro-width} gives bounded
+fractional hypertree width. A decomposition of bounded width can be
+found in polynomial time~\cite{MarxFHW2010}, and dynamic programming
+on it counts all homomorphisms in polynomial
+time~\cite{PichlerSkritek2013,DurandMengel2015}.
+The implication (iv)$\Rightarrow$(iii) is immediate, and
+(iii)$\Rightarrow$(ii) follows by testing whether the count is positive.
+\end{proof}
+
+On bounded-$\lambda$ classes, the implications
+(i)$\Rightarrow$(iv)$\Rightarrow$(iii)$\Rightarrow$(ii) hold unconditionally.
+ETH is used only for (ii)$\Rightarrow$(i). The corollary applies to all the
+structural classes in \Cref{cor:sparse-incidence-classes}.
+
+
+%
+
+The same bound also controls the intermediate polymatroid widths.
+Let $\mathcal N_H$ be the edge-dominated normal polymatroids, namely
+nonnegative combinations of the functions
+$h_S(X)=\mathbf 1_{X\cap S\ne\emptyset}$ for
+$\emptyset\ne S\subseteq V(H)$~\cite{KhamisEtAl2020BagContainment}.
+Let $\mathcal E_H$ be the edge-dominated entropy functions of finite
+discrete random variables, and let $\overline{\mathcal E}_H$ consist
+of the edge-dominated limits of entropy functions. We have
+\[
+ \mathcal M_H\subseteq\mathcal N_H\subseteq\mathcal E_H
+ \subseteq\overline{\mathcal E}_H\subseteq\mathcal S_H
+ \subseteq\mathcal S_H^\sharp.
+\]
+Each of these function families defines a width parameter through
+$\operatorname{width}_{\mathcal F}(H)$, just as modular and submodular
+functions define adaptive and submodular width.
+The intermediate cones are not merely formal interpolations. Abo Khamis
+et al.~\cite{KhamisEtAl2024LpBounds} use normal, almost-entropic, and
+polymatroid optimisation to obtain join-size bounds from $\ell_p$-norms
+of degree sequences. These choices expose a trade-off between realisable
+worst-case instances, asymptotic tightness, and efficient LP computation.
+For simple degree sequences all three bounds coincide, with normal
+relations witnessing tightness. Almost-entropic optimisation also gives
+the entropic width introduced with PANDA~\cite{pandaexpress}, whose
+attainment as a query-evaluation exponent remains open~\cite{jaguar}.
+Normal polymatroids also underlie decidable cases of bag query
+containment~\cite{KhamisEtAl2020BagContainment} and the computation of
+polymatroid bounds under simple degree
+constraints~\cite{ImEtAl2025SimpleDegree}.
+Our comparison bounds how far the decomposition widths obtained from
+these function families can lie apart.
+
+\begin{corollary}
+\label{cor:width-hierarchy-band}
+For every hypergraph $H$ with $a=\adw(H) \ge 2$,
+\begin{equation}
+\begin{aligned}
+ a
+ &\le\operatorname{width}_{\mathcal N_H}(H)
+ \le\operatorname{width}_{\mathcal E_H}(H)
+ \le\operatorname{width}_{\overline{\mathcal E}_H}(H)\\
+ &\le\subw(H)\le\sharpsubw(H)\le\fhw(H)
+ \le C\lambda(H)\, a\log a.
+\end{aligned}
+\label{eq:width-hierarchy-band}
+\end{equation}
+\end{corollary}
+
+The proof is once again immediate from the inclusions and \Cref{thm:intro-width}.
+Since every term is at least $a$, the entire hierarchy lies within an
+$O(\lambda(H)\,\log a)$ multiplicative band. Marx's bound
+$\subw(H)=O(a^4)$~\cite{Marx13} already links the boundedness of the
+widths through $\subw$ without dependence on the hypergraph. This is already considered surprising, as modular functions can somehow always certify large width attained by submodular functions. Indeed, so far no clear explanation for this phenomenon (beyond the technical argument that yielded the bound) is known.
+In the bounded-$\lambda$ setting, our results show that the gap is much smaller than quartic. In general, the bound provides additional insight into which structural factors play a role in this connection between modular and submodular functions.
+ %
+\section{Related Work}
+\label{sec:related-work}
+\paragraph{Previous work on $\adw$/$\fhw$ comparisons}
+Lanzinger~\cite{LanzingerPODS22} characterises tractability for recursively
+enumerable classes of hypergraphs of maximum degree two by bounded
+generalised hypertree width, assuming $\FPT\ne\mathsf W[1]$.
+Together with Marx's characterisation~\cite{Marx13}, this implies, under
+ETH, that bounded fractional hypertree width and bounded submodular width
+coincide on such classes. This comparison is qualitative and follows
+through the complexity characterisations.
+
+In recent work, Lanzinger~\cite{Lanzinger2026Cuts} uses multicommodity
+flows to obtain, for $\adw(H)\ge2$,
+\[
+ \ghw(H)=O\!\left(\adw(H)\log\adw(H)\right)
+\]
+on classes of bounded edge excess and on hypergraphs with private
+intersections. The constants may depend on the edge-excess bound.
+Although the main statements use submodular width, the modular
+witnesses in~\cite[Section~6.1]{Lanzinger2026Cuts} give the same lower
+bound for adaptive width. We write the equivalent upper bound on
+$\ghw$ to make the comparison with \Cref{thm:intro-width} explicit.
+Bounded edge excess here means that, in each hyperedge, the
+sum of the amounts by which vertex degrees exceed two is bounded by a
+fixed constant. A hypergraph has private intersections if every nonempty
+intersection of two distinct hyperedges contains a vertex belonging to
+exactly those two hyperedges.
+
+\Cref{thm:intro-width} gives an unconditional quantitative comparison
+for every bounded-degree class and, more generally, every class of
+bounded incidence degeneracy. For $\adw(H)\ge2$,
+\[
+ \fhw(H)=O\!\left(\Delta(H)\,\adw(H)\log\adw(H)\right).
+\]
+Thus our result extends the degree-two and bounded-edge-excess
+comparisons to every bounded-degree class. The two bounds control
+different widths, but
+\[
+ \fhw(H)\le\ghw(H)\le\Delta(H)\fhw(H).
+\]
+Indeed, in a fractional cover, each covered vertex belongs to an edge
+of weight at least $1/\Delta(H)$. Choosing all such edges gives an
+integral cover of at most $\Delta(H)$ times the fractional cost.
+Bounded edge excess implies bounded degree, whereas bounded degree
+allows arbitrarily many degree-three vertices in one hyperedge.
+
+The private intersection case remains
+complementary, since that condition permits unbounded incidence
+degeneracy and unbounded $\lambda$. Its degree-two witnesses need not
+survive vertex restriction, whereas our separator recursion requires
+rounding guarantees on every induced subhypergraph. The flow and
+separator arguments therefore apply under different structural
+conditions. We discuss this obstruction in
+\Cref{sec:stoc-open-problems}.
+
+\paragraph{Connections to Korchemna et al.~\cite{KorchemnaEtAl2024}}
+Finally, \Cref{thm:intro-width} relies on important results of Korchemna et al.~\cite{KorchemnaEtAl2024}. They derive these results while developing a novel polynomial-time approximation algorithm for fractional hypertree width. For a width bound
+$k\ge2$, their guarantee includes a decomposition of width
+$O(\lambda(H)k\log k)$ whenever $\fhw(H)\le k$.
+Their proof introduces the fractional balanced-separator relaxation and
+the rounding theorem used in \Cref{sec:separators}. Korchemna et al. combine
+this rounding theorem with a recursive separator construction to approximate
+$\fhw$, using $\fhw(H)$ itself to bound the optimum separator cost. Our
+minimax argument instead bounds that cost by $\adw(H)$ uniformly over all
+induced subhypergraphs and hyperedge weightings, which turns their rounding
+theorem into a direct comparison between the two widths. In particular, the
+incidence degeneracy and primal independence terms in $\lambda(H)$ come
+from their rounding analysis. We prove
+$\fsep_{1/2}(H)\le\adw(H)$ by minimax and the balanced-bag property of
+tree decompositions.
+ %
+\section{Conclusion}
+\label{sec:conclusion}
+
+We proved that every hypergraph $H$ with $\adw(H)\ge2$ satisfies
+\[
+ \fhw(H)=O\!\left(\lambda(H)\adw(H)\log\adw(H)\right).
+\]
+Together with the known width and complexity characterisations, this shows
+that on recursively enumerable hypergraph classes of bounded $\lambda$,
+bounded adaptive width, bounded submodular width, bounded fractional
+hypertree width, fixed-parameter tractability of $\pHom$, and polynomial-time
+solvability of $\Hom$ are equivalent under ETH. The same characterisation
+holds for recursively enumerable classes of structures with bounded
+incidence degeneracy after taking cores. The width bound also gives
+polynomial-time exact counting on bounded-$\lambda$ classes of bounded
+submodular width. Without a bound on $\lambda$, it gives a quasipolynomial-time
+algorithm for $\Hom$ whenever $\pHom$ is fixed-parameter tractable, assuming
+ETH.
+
+\subsection{Open Problems}
+\label{sec:stoc-open-problems}
+
+\paragraph{Unifying the flow and separator proofs.}
+Our separator argument and the multicommodity-flow argument
+of~\cite{Lanzinger2026Cuts} give closely related comparisons under
+incomparable structural hypotheses. For $\adw(H)\ge2$, they yield
+\[
+ \fhw(H)=O(\lambda(H)\adw(H)\log\adw(H))
+\]
+and, for hypergraphs with private intersections
+\[
+ \ghw(H)=O(\adw(H)\log\adw(H)).
+\]
+The private intersections condition permits unbounded $\lambda$ and is not
+preserved by vertex restriction. Indeed, every
+hypergraph is an induced subhypergraph of one with private intersections,
+obtained by adding, for each pair of intersecting edges, a new vertex
+belonging to exactly those two edges.
+Thus a rounding guarantee depending only on fractional separator cost
+and valid on every induced subhypergraph cannot account for the
+private-intersection result. A common proof would instead have to use the
+private witnesses globally, or replace recursive restriction by a
+decomposition principle compatible with both vertex separators and edge
+cuts.
+
+The logarithmic losses also enter at different points. In our proof they
+come entirely from rounding a fractional balanced separator of cost $r$
+to an integral separator of cost
+$O(\lambda(H)r\log r)$. The subsequent separator recursion loses only a
+constant factor. In the flow argument the logarithm comes from the
+$O(\log m)$ node-capacitated flow--cut gap for product demands on a
+well-linked set of size $m$. It is unlikely that either approach can be strengthened to avoid the additional logarithmic factor.
+
+No example is currently known in which either logarithmic loss is
+necessary. This leaves open the possibility that
+\(
+ \fhw(H)=O(\lambda(H)\adw(H))
+\)
+holds for all hypergraphs and that
+\(
+ \ghw(H)=O(\adw(H))
+\)
+holds for hypergraphs with private intersections. Proving either bound
+appears to require a more direct structural argument. Conversely, a
+matching logarithmic separation would identify a genuine obstruction
+shared by the two settings.
+
+\paragraph{Further classes admitting separator rounding.}
+The inequality $\fsep_{1/2}(H)\le\adw(H)$ holds for every hypergraph.
+A broader problem is to identify structural conditions beyond bounded
+$\lambda$ that permit effective rounding of these fractional separators.
+If a class admits a nondecreasing
+function $g$ and a fixed $\eta\in[1/2,1)$ such that every fractional
+$(\gamma,1/2)$-balanced separator $x$ in every induced subhypergraph
+$J$ can be rounded to a $(\gamma,\eta)$-balanced separator $S$ with
+$\rho_J^*(S)\le g(\rho_J^*(x))$, then the separator recursion from
+\Cref{sec:rounding} gives
+\[
+ \fhw(H)\le\frac{2(2-\eta)}{1-\eta}
+       g(\adw(H)).
+\]
+Thus further rounding theorems would yield new width comparisons and
+new classes on which FPT decision implies polynomial-time exact
+counting, by the argument of \Cref{cor:bounded-lambda-counting}.
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+%
+%
+%
+ %
+ %
+%
+%
+%
+%
+%
+%
+%
+%
+%
+ %
+ %
+ %
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+%
+\ifaidisclosure
+\paragraph{Generative-AI disclosure.}
+OpenAI's ChatGPT 5.6 Sol and Codex systems were used to assist with copy-editing, literature discovery, and mathematical development. In particular, for many lemmas, a  proof sketch was provided to an LLM for completion. The author independently reviewed, simplified and edited the mathematical content and proofs and takes full responsibility for their correctness and originality.
+\fi
+
+\bibliographystyle{plainnat}
+\input{main.bbl}
+
+\end{document}

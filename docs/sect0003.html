@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = {
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Covers, tree decompositions, and widths</title>
+<link rel="next" href="sect0004.html" title="Balanced separators" />
+<link rel="prev" href="sect0002.html" title="Finite hypergraphs and structural parameters" />
+<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Scope</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Finite hypergraphs and structural parameters</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Covers, tree decompositions, and widths</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">4</span> <span class="toc_entry">Balanced separators</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">5</span> <span class="toc_entry">Adaptive width controls fractional separators</span></a>
+ </li>
+<li class="">
+  <a href="sec-rounding.html"><span class="toc_ref">6</span> <span class="toc_entry">Rounding and its consequences</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">7</span> <span class="toc_entry">The main comparison</span></a>
+ </li>
+<li class="">
+  <a href="sec-lean-route.html"><span class="toc_ref">8</span> <span class="toc_entry">The Lean route to the same comparison</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000004">3 Covers, tree decompositions, and widths</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="def:cover">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.1</span>
+    <span class="definition_thmtitle">Fractional edge-cover cost</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:cover">#</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0002.html#def:hypergraph">Definition 2.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.Cover" class="lean_decl">Paper.Hypergraph.Cover</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.coverCost" class="lean_decl">Paper.Hypergraph.coverCost</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.indicator" class="lean_decl">Paper.Hypergraph.indicator</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.setCoverCost" class="lean_decl">Paper.Hypergraph.setCoverCost</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.ModularWeight" class="lean_decl">Paper.Hypergraph.ModularWeight</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.modularValue" class="lean_decl">Paper.Hypergraph.modularValue</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   For a demand \(x\), a cover is a nonnegative edge vector \(y\) with \(\sum _{e\ni v}y_e\ge x(v)\) for every vertex. Its optimum cost is </p>
+<div class="displaymath" id="a0000000013">
+  \[  \rho _H^*(x)=\inf _y\sum _e y_e, \qquad \rho _H^*(X)=\rho _H^*(\mathbf1_X).  \]
+</div>
+<p> An edge-dominated modular weighting is a nonnegative vertex vector \(w\) with \(\sum _{v\in e}w_v\le 1\) on each hyperedge; write \(b_w(X)=\sum _{v\in X}w_v\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="eq:cover-dual">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.2</span>
+    <span class="lemma_thmtitle">Cover duality</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#eq:cover-dual">#</a>
+
+    <a class="icon proof" href="sect0003.html#a0000000014"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.cover_duality" class="lean_decl">Paper.Hypergraph.cover_duality</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>  For a unit demand \(x:V(H)\to [0,1]\) there is an edge-dominated modular \(w\) such that </p>
+<div class="displaymath" id="a0000000015">
+  \[  \rho _H^*(x)=\sum _v w_vx(v), \qquad \sum _v w'_vx(v)\le \rho _H^*(x) \quad \hbox{for every admissible }w'.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000014">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Construct a supporting linear functional for the sublinear cover-cost functional. Its values on singleton vectors yield \(w\). Feasible covers give the reverse inequality by exchanging the two finite sums. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="eq:cover-restriction">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.3</span>
+    <span class="lemma_thmtitle">Restriction preserves cover cost</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#eq:cover-restriction">#</a>
+
+    <a class="icon proof" href="sect0003.html#a0000000016"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+          <li><a href="sect0002.html#def:hypergraph">Definition 2.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.cover_restriction" class="lean_decl">Paper.Hypergraph.cover_restriction</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>  If \(X\subseteq W\), then \(\rho _{H[W]}^*(X)=\rho _H^*(X)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000016">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>In the manuscript, aggregate weights on edges with equal nonempty intersections with \(W\), and lift a restricted cover by choosing one original edge for each restricted edge. For Lean’s labelled edges, retain surviving labels and extend the other weights by zero. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:widths">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3.4</span>
+    <span class="definition_thmtitle">Tree decompositions and width parameters</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#def:widths">#</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.TreeDecomposition" class="lean_decl">Paper.Hypergraph.TreeDecomposition</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.TreeDecomposition.bagWidth" class="lean_decl">Paper.Hypergraph.TreeDecomposition.bagWidth</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.optimalWidth" class="lean_decl">Paper.Hypergraph.optimalWidth</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.fhw" class="lean_decl">Paper.Hypergraph.fhw</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.adw" class="lean_decl">Paper.Hypergraph.adw</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.subw" class="lean_decl">Paper.Hypergraph.subw</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.SubmodularWeight" class="lean_decl">Paper.Hypergraph.SubmodularWeight</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   A tree decomposition is a finite nonempty tree with vertex-subset bags, covering every hyperedge and vertex, such that the bags containing any fixed vertex form a connected subtree. For a bag cost \(b\), set </p>
+<div class="displaymath" id="a0000000017">
+  \[  \operatorname {opt}_H(b)=\inf _D\max _{t\in D}b(B_t).  \]
+</div>
+<p> Then \(\mathsf{fhw}(H)=\operatorname {opt}_H(\rho _H^*)\) and \(\mathsf{adw}(H)=\sup _w\operatorname {opt}_H(b_w)\) over admissible modular weights. For \(\mathsf{subw}(H)\) take the supremum instead over normalized, monotone, submodular, edge-dominated set functions. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="prop:width-hierarchy">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.5</span>
+    <span class="lemma_thmtitle">Width hierarchy and heredity</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#prop:width-hierarchy">#</a>
+
+    <a class="icon proof" href="sect0003.html#a0000000018"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0003.html#eq:cover-restriction">Lemma 3.3</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.width_hierarchy" class="lean_decl">Paper.Hypergraph.width_hierarchy</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.width_hereditary" class="lean_decl">Paper.Hypergraph.width_hereditary</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   One has \(\mathsf{adw}(H)\le \mathsf{subw}(H)\le \mathsf{fhw}(H)\), and \(\mathsf{adw}(H[W])\le \mathsf{adw}(H)\) and \(\mathsf{fhw}(H[W])\le \mathsf{fhw}(H)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000018">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Modular functions are submodular. Supporting modular weights bound each submodular bag value by its fractional cover cost. Restricting decompositions and extending admissible weights gives heredity. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:components">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.6</span>
+    <span class="lemma_thmtitle">Component reduction</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0003.html#lem:components">#</a>
+
+    <a class="icon proof" href="sect0003.html#a0000000019"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
+
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
+
+          <li><a href="sect0003.html#prop:width-hierarchy">Lemma 3.5</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.component_reduction" class="lean_decl">Paper.Hypergraph.component_reduction</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>   Each of \(\mathsf{fhw}(H)\) and \(\mathsf{adw}(H)\) is the maximum of its values on \(H[K]\) for \(K\in \mathcal C(H)\), with value zero in the empty case. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000019">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Join the disjoint component trees, retaining their bags and internal paths. A hyperedge lies in a single component. Heredity gives the reverse bounds; passing to infima avoids requiring optimal decompositions to be attained. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0002.html" title="Finite hypergraphs and structural parameters"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0004.html" title="Balanced separators"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

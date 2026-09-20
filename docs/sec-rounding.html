@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = {
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rounding and its consequences</title>
+<link rel="next" href="sect0006.html" title="The main comparison" />
+<link rel="prev" href="sect0005.html" title="Adaptive width controls fractional separators" />
+<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Scope</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Finite hypergraphs and structural parameters</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Covers, tree decompositions, and widths</span></a>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref">4</span> <span class="toc_entry">Balanced separators</span></a>
+ </li>
+<li class="">
+  <a href="sect0005.html"><span class="toc_ref">5</span> <span class="toc_entry">Adaptive width controls fractional separators</span></a>
+ </li>
+<li class=" active current">
+  <a href="sec-rounding.html"><span class="toc_ref">6</span> <span class="toc_entry">Rounding and its consequences</span></a>
+ </li>
+<li class="">
+  <a href="sect0006.html"><span class="toc_ref">7</span> <span class="toc_entry">The main comparison</span></a>
+ </li>
+<li class="">
+  <a href="sec-lean-route.html"><span class="toc_ref">8</span> <span class="toc_entry">The Lean route to the same comparison</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:rounding">6 Rounding and its consequences</h1>
+
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:external-rounding">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">6.1</span>
+    <span class="theorem_thmtitle">The proved rounding input</span>
+    <div class="thm_header_extras">
+
+
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-rounding.html#thm:external-rounding">#</a>
+
+    <a class="icon proof" href="sec-rounding.html#a0000000033"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sect0004.html#eq:fractional-balance">Definition 4.1</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
+
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.ExternalRounding" class="lean_decl">Paper.Hypergraph.ExternalRounding</a></li>
+
+          <li><a href="lean/find/#doc/Paper.Hypergraph.external_rounding" class="lean_decl">Paper.Hypergraph.external_rounding</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   Let \(0{\lt}\varphi {\lt}1\), let \(0\le \gamma _e\le 1\), and let \(x\) be fractionally \((\gamma ,\varphi )\)-balanced. Put \(c=\rho _H^*(x)\), \(T=\{ v\in V(H):x(v)\ne 0\} \), and \(\eta =(1+3\varphi )/(2+2\varphi )\). Assume the empty set is not already integrally \((\gamma ,\eta )\)-balanced. Then there is \(S\subseteq T\) that is integrally \((\gamma ,\eta )\)-balanced with </p>
+<div class="displaymath" id="a0000000034">
+  \[  \rho _H^*(S)\le \bigl(\min \{ 8+4\ln \alpha (H[T]),\, 6\mu (H)\} +1\bigr) \frac{44+8\log _2(c/(1-\varphi ))}{1-\varphi }\, c.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000033">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The Lean proof establishes the existence conclusion of Theorem 5.6 in Korchemna–Lokshtanov–Saurabh–Surianarayanan–Xue, <a href ="https://arxiv.org/abs/2409.20172v1">arXiv:2409.20172v1</a>. The nontrivial-branch hypothesis is an additional restriction of our use of the cited result. It avoids the printed expression’s negative-logarithm issue at small positive costs. The proof includes both bounds in their two-terminal Theorem 4.1. It repairs the radius budget in Lemma 5.9 while preserving the constants. The cited running-time guarantee is not formalized here. </p>
+
+  </div>
+</div>
+<div class="proposition_thmwrapper theorem-style-plain" id="thm:rounding">
+  <div class="proposition_thmheading">
+    <span class="proposition_thmcaption">
+    Proposition
+    </span>
+    <span class="proposition_thmlabel">6.2</span>
+    <span class="proposition_thmtitle">The manuscript’s rounding bound</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sec-rounding.html#thm:rounding">#</a>
+
+    <a class="icon proof" href="sec-rounding.html#a0000000035"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+
+
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+
+        <ul class="uses">
+
+          <li><a href="sec-rounding.html#thm:external-rounding">Theorem 6.1</a></li>
+
+          <li><a href="sect0004.html#lem:indicator-equivalence">Lemma 4.4</a></li>
+
+          <li><a href="sect0002.html#eq:lambda-intro">Definition 2.3</a></li>
+
+          <li><a href="sec-rounding.html#thm:external-rounding">Theorem 6.1</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+        </div>
+  </div>
+  <div class="proposition_thmcontent">
+  <p>   There is a universal \(C_0{\gt}0\) such that for every \(J\), nonzero weighting \(\gamma :E(J)\to [0,1]\), and fractional \((\gamma ,1/2)\)-balanced \(x\), there is an integral \((\gamma ,5/6)\)-balanced \(S\subseteq V(J)\) with </p>
+<div class="displaymath" id="a0000000036">
+  \[  \rho _J^*(S)\le C_0\lambda (J)\rho _J^*(x) \log _2\max \{ 2,\rho _J^*(x)\} .  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000035">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> If \(\varnothing \) is already balanced, take \(S=\varnothing \). Otherwise \(q=\rho _J^*(x){\gt}0\), since \(q=0\) forces \(x=0\) and Lemma&#160;<a href="sect0004.html#lem:indicator-equivalence">4.4</a> makes \(\varnothing \) balanced. Specialize Theorem&#160;<a href="sec-rounding.html#thm:external-rounding">6.1</a> to \(\varphi =1/2\). Its structural factor is at most \(7\mu (J)\) and at most \(9+4\ln \alpha (J)\), hence at most a constant times \(\lambda (J)\). Also \(88+16\log _2(2q)=O(\log _2\max \{ 2,q\} )\) on this nontrivial branch. This sharper specialization is the manuscript’s argument. Lean proves the rounding input and a regularized consequence, but has no separate declaration for this displayed bound. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0005.html" title="Adaptive width controls fractional separators"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0006.html" title="The main comparison"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

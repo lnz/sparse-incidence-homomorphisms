@@ -1,0 +1,1162 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dependency graph</title>
+  <meta name="generator" content="plasTeX" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles/theme-white.css" />
+  <link rel="stylesheet" href="styles/dep_graph.css" />
+
+  <script type="text/x-mathjax-config">
+
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+
+  </script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">  </script>
+
+
+<link rel="stylesheet" href="styles/extra_styles.css" />
+
+</head>
+
+<body>
+<header>
+  <a class="toc" href="index.html">Home</a>
+  <h1 id="doc_title">Dependencies</h1>
+</header>
+<div class="wrapper">
+<div class="content">
+  <div id="Legend">
+    <span id="legend_title" class="title">Legend
+    <div class="btn">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+    </div></span>
+    <dl class="legend">
+
+      <dt>Boxes</dt><dd>definitions</dd>
+
+      <dt>Ellipses</dt><dd>theorems and lemmas</dd>
+
+      <dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+
+      <dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+
+      <dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+
+      <dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+
+      <dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+
+      <dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+
+      <dt>Dark green border</dt><dd>this is in Mathlib</dd>
+
+    </dl>
+  </div>
+    <div id="graph"></div>
+<div id="statements">
+
+
+    <div class="dep-modal-container" id="cor:quantitative-reverse_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="cor:quantitative-reverse" style="display: none">
+    <div class="thm_thmheading">
+      <span class="corollary_thmcaption">
+      Corollary
+      </span>
+      <span class="corollary_thmlabel">8.6</span><span class="corollary_thmtitle">Auxiliary quantitative reverse comparison</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal constant \(c{\gt}0\) such that every finite hypergraph \(H\) satisfies </p>
+<div class="displaymath" id="a0000000051">
+  \[  \mathsf{subw}(H)+1\ge \mathsf{adw}(H)+1 \ge c\frac{\mathsf{fhw}(H)}{L(H)\ln (2+\mathsf{fhw}(H))}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#cor:quantitative-reverse">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.quantitative_reverse_comparison">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="def:cover_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="def:cover" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">3.1</span><span class="definition_thmtitle">Fractional edge-cover cost</span></div>
+    <div class="thm_thmcontent"><p>   For a demand \(x\), a cover is a nonnegative edge vector \(y\) with \(\sum _{e\ni v}y_e\ge x(v)\) for every vertex. Its optimum cost is </p>
+<div class="displaymath" id="a0000000013">
+  \[  \rho _H^*(x)=\inf _y\sum _e y_e, \qquad \rho _H^*(X)=\rho _H^*(\mathbf1_X).  \]
+</div>
+<p> An edge-dominated modular weighting is a nonnegative vertex vector \(w\) with \(\sum _{v\in e}w_v\le 1\) on each hyperedge; write \(b_w(X)=\sum _{v\in X}w_v\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:cover">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.Cover" class="lean_decl">Paper.Hypergraph.Cover</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.coverCost" class="lean_decl">Paper.Hypergraph.coverCost</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.indicator" class="lean_decl">Paper.Hypergraph.indicator</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.setCoverCost" class="lean_decl">Paper.Hypergraph.setCoverCost</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.ModularWeight" class="lean_decl">Paper.Hypergraph.ModularWeight</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.modularValue" class="lean_decl">Paper.Hypergraph.modularValue</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="def:hypergraph_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="def:hypergraph" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2.1</span><span class="definition_thmtitle">Hypergraphs</span></div>
+    <div class="thm_thmcontent"><p>   A manuscript hypergraph is finite, has nonempty edges, and has no isolated vertices. Its edges form a set of vertex sets. The input convention takes \(H\) to be nonempty and connected, while restrictions may be empty or disconnected. The primal graph joins distinct vertices in a common edge, and the incidence graph joins a vertex to an edge containing it. For \(W\subseteq V(H)\), \(H[W]\) intersects each edge with \(W\), discards empty intersections, and merges equal intersections. Lean instead retains distinct edge labels that describe the same vertex set, including after restriction. </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#def:hypergraph">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph" class="lean_decl">Paper.Hypergraph</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.induce" class="lean_decl">Paper.Hypergraph.induce</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.primal" class="lean_decl">Paper.Hypergraph.primal</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.incidence" class="lean_decl">Paper.Hypergraph.incidence</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="def:separator-costs_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="def:separator-costs" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">4.2</span><span class="definition_thmtitle">Hereditary separator costs</span></div>
+    <div class="thm_thmcontent"><p>   Let \(\beta _H^\theta (\gamma )\) be the infimum of \(\rho _H^*(x)\) over fractional balanced separators. Define \(\mathsf{fsep}_\theta (H)\) by taking the supremum over all \(H[W]\) and admissible positive edge weights. Define \(\mathsf{sep}_\theta (H)\) analogously using integral separators and their fractional cover cost. Both hereditary suprema explicitly include zero. </p>
+</div>
+
+    <a class="latex_link" href="sect0004.html#def:separator-costs">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.beta" class="lean_decl">Paper.Hypergraph.beta</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.integralOptimum" class="lean_decl">Paper.Hypergraph.integralOptimum</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.fsep" class="lean_decl">Paper.Hypergraph.fsep</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.sep" class="lean_decl">Paper.Hypergraph.sep</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="def:structure_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="def:structure" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2.2</span><span class="definition_thmtitle">Incidence degeneracy and primal independence</span></div>
+    <div class="thm_thmcontent"><p>   Let \(\mathcal C(H)\) consist of the nonempty primal connected components, let \(d(H)\) be the degeneracy of the incidence graph, and let \(\alpha (H)\) be the maximum size of a primal independent set. In the manuscript, \(d(H)\) is denoted \(\mu (H)\). Lean’s auxiliary structural factor is \(A(H)=1+\min \{ d(H),\ln (2+\alpha (H))\} \). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#def:structure">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.components" class="lean_decl">Paper.Hypergraph.components</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.Connected" class="lean_decl">Paper.Hypergraph.Connected</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.degeneracy" class="lean_decl">Paper.Hypergraph.degeneracy</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.independenceNumber" class="lean_decl">Paper.Hypergraph.independenceNumber</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.structuralFactor" class="lean_decl">Paper.Hypergraph.structuralFactor</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="def:widths_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="def:widths" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">3.4</span><span class="definition_thmtitle">Tree decompositions and width parameters</span></div>
+    <div class="thm_thmcontent"><p>   A tree decomposition is a finite nonempty tree with vertex-subset bags, covering every hyperedge and vertex, such that the bags containing any fixed vertex form a connected subtree. For a bag cost \(b\), set </p>
+<div class="displaymath" id="a0000000017">
+  \[  \operatorname {opt}_H(b)=\inf _D\max _{t\in D}b(B_t).  \]
+</div>
+<p> Then \(\mathsf{fhw}(H)=\operatorname {opt}_H(\rho _H^*)\) and \(\mathsf{adw}(H)=\sup _w\operatorname {opt}_H(b_w)\) over admissible modular weights. For \(\mathsf{subw}(H)\) take the supremum instead over normalized, monotone, submodular, edge-dominated set functions. </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#def:widths">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.TreeDecomposition" class="lean_decl">Paper.Hypergraph.TreeDecomposition</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.TreeDecomposition.bagWidth" class="lean_decl">Paper.Hypergraph.TreeDecomposition.bagWidth</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.optimalWidth" class="lean_decl">Paper.Hypergraph.optimalWidth</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.fhw" class="lean_decl">Paper.Hypergraph.fhw</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.adw" class="lean_decl">Paper.Hypergraph.adw</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.subw" class="lean_decl">Paper.Hypergraph.subw</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.SubmodularWeight" class="lean_decl">Paper.Hypergraph.SubmodularWeight</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="eq:cover-dual_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="eq:cover-dual" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">3.2</span><span class="lemma_thmtitle">Cover duality</span></div>
+    <div class="thm_thmcontent"><p>  For a unit demand \(x:V(H)\to [0,1]\) there is an edge-dominated modular \(w\) such that </p>
+<div class="displaymath" id="a0000000015">
+  \[  \rho _H^*(x)=\sum _v w_vx(v), \qquad \sum _v w'_vx(v)\le \rho _H^*(x) \quad \hbox{for every admissible }w'.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sect0003.html#eq:cover-dual">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.cover_duality">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="eq:cover-restriction_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="eq:cover-restriction" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">3.3</span><span class="lemma_thmtitle">Restriction preserves cover cost</span></div>
+    <div class="thm_thmcontent"><p>  If \(X\subseteq W\), then \(\rho _{H[W]}^*(X)=\rho _H^*(X)\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#eq:cover-restriction">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.cover_restriction">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="eq:fractional-balance_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="eq:fractional-balance" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">4.1</span><span class="definition_thmtitle">Fractional and integral balance</span></div>
+    <div class="thm_thmcontent"><p>   Let \(\gamma :E(H)\to [0,1]\) have positive total mass \(M=\sum _e\gamma _e\). For a unit demand \(x\), the distance between vertices is the minimum of \(1\) and the \(x\)-length of a simple primal path, counting both endpoints; absent paths have distance \(1\). The distance \(d_x(e,f)\) is the minimum over endpoint choices in \(e\) and \(f\). The vector \(x\) is fractionally \((\gamma ,\theta )\)-balanced if </p>
+<div class="displaymath" id="a0000000020">
+  \[  \sum _f\gamma _fd_x(e,f)\ge (1-\theta )M \qquad (e\in E(H)).  \]
+</div>
+<p> A set \(S\subseteq V(H)\) is integrally balanced if every component \(K\) of \(H[V(H)\setminus S]\) satisfies </p>
+<div class="displaymath" id="a0000000021">
+  \[  \sum _{e:e\cap K\ne \varnothing }\gamma _e\le \theta M.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sect0004.html#eq:fractional-balance">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.UnitDemand" class="lean_decl">Paper.Hypergraph.UnitDemand</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.EdgeWeight" class="lean_decl">Paper.Hypergraph.EdgeWeight</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.vertexDistance" class="lean_decl">Paper.Hypergraph.vertexDistance</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.edgeDistance" class="lean_decl">Paper.Hypergraph.edgeDistance</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.FractionalBalanced" class="lean_decl">Paper.Hypergraph.FractionalBalanced</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.IntegralBalanced" class="lean_decl">Paper.Hypergraph.IntegralBalanced</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="eq:hereditary-structure_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="eq:hereditary-structure" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">2.4</span><span class="lemma_thmtitle">Structural heredity</span></div>
+    <div class="thm_thmcontent"><p>   For every restriction, \(d(H[W])\le d(H)\) and \(\alpha (H[W])\le \alpha (H)\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#eq:hereditary-structure">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.structure_hereditary">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="eq:lambda-intro_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="eq:lambda-intro" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2.3</span><span class="definition_thmtitle">The manuscript parameter</span></div>
+    <div class="thm_thmcontent">
+<div class="displaymath" id="a0000000010">
+  \[  \lambda (H)=\min \{ \mu (H),\max \{ 1,\log _2\alpha (H)\} \} .  \]
+</div>
+<p> All unqualified logarithms in the manuscript are binary. Lean also uses </p>
+<div class="displaymath" id="a0000000011">
+  \[  L(H)=1+\max _{K\in \mathcal C(H)} \min \{ d(H[K]),\ln (2+\alpha (H[K]))\} ,  \]
+</div>
+<p> with maximum zero when \(H\) is empty. For nonempty \(H\) it proves \(L(H)\le A(H)\le 4\lambda (H)\). The componentwise factor is internal to the Lean proof and is not the manuscript’s \(\lambda \). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#eq:lambda-intro">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.componentFactor" class="lean_decl">Paper.Hypergraph.componentFactor</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.lambda" class="lean_decl">Paper.Hypergraph.lambda</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:balanced-bag_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:balanced-bag" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">4.5</span><span class="lemma_thmtitle">Balanced bag</span></div>
+    <div class="thm_thmcontent"><p>   Every tree decomposition and every admissible \(\gamma \) have a bag that is an integral \((\gamma ,1/2)\)-balanced separator. </p>
+</div>
+
+    <a class="latex_link" href="sect0004.html#lem:balanced-bag">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.balanced_bag">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:components_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:components" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">3.6</span><span class="lemma_thmtitle">Component reduction</span></div>
+    <div class="thm_thmcontent"><p>   Each of \(\mathsf{fhw}(H)\) and \(\mathsf{adw}(H)\) is the maximum of its values on \(H[K]\) for \(K\in \mathcal C(H)\), with value zero in the empty case. </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#lem:components">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.component_reduction">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:cover-minimax_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:cover-minimax" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">5.1</span><span class="lemma_thmtitle">Fractional-cover minimax</span></div>
+    <div class="thm_thmcontent"><p>   For admissible \(\gamma \) and \(0{\lt}\theta {\lt}1\), there is an admissible modular weight \(w\) such that every fractional \((\gamma ,\theta )\)-balanced \(x\) obeys </p>
+<div class="displaymath" id="a0000000030">
+  \[  \beta _H^\theta (\gamma )\le \sum _v w_vx(v).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sect0005.html#lem:cover-minimax">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.fractional_cover_minimax">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:fractional-separator-convexity_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:fractional-separator-convexity" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">4.3</span><span class="lemma_thmtitle">Convex fractional separators</span></div>
+    <div class="thm_thmcontent"><p>   For a nonzero weighting \(\gamma \) and \(0{\lt}\theta {\lt}1\), the set of fractional \((\gamma ,\theta )\)-balanced separators is nonempty, compact, and convex. </p>
+</div>
+
+    <a class="latex_link" href="sect0004.html#lem:fractional-separator-convexity">LaTeX</a>
+
+
+
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:indicator-equivalence_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:indicator-equivalence" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">4.4</span><span class="lemma_thmtitle">Indicator equivalence</span></div>
+    <div class="thm_thmcontent"><p>   For \(S\subseteq V(H)\), admissible \(\gamma \), and \(0{\lt}\theta {\lt}1\), \(S\) is integrally \((\gamma ,\theta )\)-balanced exactly when \(\mathbf1_S\) is fractionally \((\gamma ,\theta )\)-balanced. </p>
+</div>
+
+    <a class="latex_link" href="sect0004.html#lem:indicator-equivalence">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.indicator_equivalence">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:lean-recursive-decomposition_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:lean-recursive-decomposition" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">8.3</span><span class="lemma_thmtitle">Lean’s recursive separator bound</span></div>
+    <div class="thm_thmcontent"><p>   For \(0{\lt}\eta {\lt}1\), </p>
+<div class="displaymath" id="a0000000045">
+  \[  \mathsf{fhw}(H)\le \frac{2-\eta }{1-\eta }(\mathsf{sep}_\eta (H)+1).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#lem:lean-recursive-decomposition">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.recursive_separator_decomposition">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:recursive-decomposition_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:recursive-decomposition" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">4.6</span><span class="lemma_thmtitle">Recursive separator decomposition</span></div>
+    <div class="thm_thmcontent"><p>   Suppose \(0{\lt}\eta {\lt}1\) and \(r\ge 0\). If every restriction \(H[W]\) and every nonzero edge weighting on \(H[W]\) admit an integral \((\gamma ,\eta )\)-balanced separator \(S\) with \(\rho _{H[W]}^*(S)\le r\), then </p>
+<div class="displaymath" id="a0000000026">
+  \[  \mathsf{fhw}(H)\le \frac{2(2-\eta )}{1-\eta }r.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sect0004.html#lem:recursive-decomposition">LaTeX</a>
+
+
+
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:regularized-rounding_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:regularized-rounding" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">8.1</span><span class="lemma_thmtitle">Regularized balanced-separator rounding</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal \(C_0{\gt}0\) such that a fractional \((\gamma ,1/2)\)-balanced \(x\) admits an integral \((\gamma ,5/6)\)-balanced \(S\subseteq \operatorname {supp}x\) with </p>
+<div class="displaymath" id="a0000000042">
+  \[  \rho _H^*(S)\le C_0 \bigl(1+\min \{ d(H),\ln (2+\alpha (H[\operatorname {supp}x]))\} \bigr) (\rho _H^*(x)+1)\ln (2+\rho _H^*(x)).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#lem:regularized-rounding">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.balanced_separator_rounding">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:rooted-invariant_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:rooted-invariant" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">8.2</span><span class="lemma_thmtitle">Lean’s rooted recursion</span></div>
+    <div class="thm_thmcontent"><p>   Fix \(0{\lt}\eta {\lt}1\) and \(r{\gt}\mathsf{sep}_\eta (H)\), and put \(\Lambda =(r+1)/(1-\eta )\). For \(Z\subseteq W\subseteq V(H)\) with \(\rho _H^*(Z)\le \Lambda \), there is a decomposition of \(H[W]\) with one bag containing \(Z\) and all bags of \(H\)-cover cost at most \(\Lambda +r+1\). </p>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#lem:rooted-invariant">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.recursive_rooted_decomposition" class="lean_decl">Paper.Hypergraph.recursive_rooted_decomposition</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.recursive_bag_step" class="lean_decl">Paper.Hypergraph.recursive_bag_step</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.child_geometry" class="lean_decl">Paper.Hypergraph.child_geometry</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.child_card_lt" class="lean_decl">Paper.Hypergraph.child_card_lt</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.edge_in_child" class="lean_decl">Paper.Hypergraph.edge_in_child</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.rooted_forest_tree" class="lean_decl">Paper.Hypergraph.rooted_forest_tree</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.glue_rooted_bags" class="lean_decl">Paper.Hypergraph.glue_rooted_bags</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="lem:round-hereditary_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="lem:round-hereditary" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">8.4</span><span class="lemma_thmtitle">Hereditary rounding in Lean</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal \(C_1{\gt}0\) such that every connected \(H\) satisfies </p>
+<div class="displaymath" id="a0000000047">
+  \[  \mathsf{sep}_{5/6}(H)\le C_1 A(H) (\mathsf{fsep}_{1/2}(H)+1)\ln (2+\mathsf{fsep}_{1/2}(H)).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#lem:round-hereditary">LaTeX</a>
+
+
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.round_hereditary">Lean</a>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="prop:width-hierarchy_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="prop:width-hierarchy" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">3.5</span><span class="lemma_thmtitle">Width hierarchy and heredity</span></div>
+    <div class="thm_thmcontent"><p>   One has \(\mathsf{adw}(H)\le \mathsf{subw}(H)\le \mathsf{fhw}(H)\), and \(\mathsf{adw}(H[W])\le \mathsf{adw}(H)\) and \(\mathsf{fhw}(H[W])\le \mathsf{fhw}(H)\). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#prop:width-hierarchy">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.width_hierarchy" class="lean_decl">Paper.Hypergraph.width_hierarchy</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.width_hereditary" class="lean_decl">Paper.Hypergraph.width_hereditary</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="thm:external-rounding_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="thm:external-rounding" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">6.1</span><span class="theorem_thmtitle">The proved rounding input</span></div>
+    <div class="thm_thmcontent"><p>   Let \(0{\lt}\varphi {\lt}1\), let \(0\le \gamma _e\le 1\), and let \(x\) be fractionally \((\gamma ,\varphi )\)-balanced. Put \(c=\rho _H^*(x)\), \(T=\{ v\in V(H):x(v)\ne 0\} \), and \(\eta =(1+3\varphi )/(2+2\varphi )\). Assume the empty set is not already integrally \((\gamma ,\eta )\)-balanced. Then there is \(S\subseteq T\) that is integrally \((\gamma ,\eta )\)-balanced with </p>
+<div class="displaymath" id="a0000000034">
+  \[  \rho _H^*(S)\le \bigl(\min \{ 8+4\ln \alpha (H[T]),\, 6\mu (H)\} +1\bigr) \frac{44+8\log _2(c/(1-\varphi ))}{1-\varphi }\, c.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-rounding.html#thm:external-rounding">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.ExternalRounding" class="lean_decl">Paper.Hypergraph.ExternalRounding</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.external_rounding" class="lean_decl">Paper.Hypergraph.external_rounding</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="thm:fsep-adw_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="thm:fsep-adw" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">5.2</span><span class="lemma_thmtitle">Hereditary fractional separator bound</span></div>
+    <div class="thm_thmcontent"><p>   In particular, for \(\theta =1/2\), </p>
+<div class="displaymath" id="a0000000032">
+  \[  \mathsf{fsep}_{1/2}(H)\le \mathsf{adw}(H).  \]
+</div>
+<p> The Lean declaration proves this for every \(1/2\le \theta {\lt}1\). </p>
+</div>
+
+    <a class="latex_link" href="sect0005.html#thm:fsep-adw">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.beta_le_adw" class="lean_decl">Paper.Hypergraph.beta_le_adw</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.fractional_separators_le_adw" class="lean_decl">Paper.Hypergraph.fractional_separators_le_adw</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="thm:intro-width_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="thm:intro-width" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">7.1</span><span class="theorem_thmtitle">Theorem 1.1: main width comparison</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal constant \(C{\gt}0\) such that every input hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
+<div class="displaymath" id="a0000000038">
+  \[  \mathsf{fhw}(H)\le C\lambda (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H).  \]
+</div>
+<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\lambda (H)\) with the same constant. The Lean statement assumes nonemptiness and does not require connectivity. </p>
+</div>
+
+    <a class="latex_link" href="sect0006.html#thm:intro-width">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.MainWidthComparison" class="lean_decl">Paper.Hypergraph.MainWidthComparison</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.main_width_comparison" class="lean_decl">Paper.Hypergraph.main_width_comparison</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="thm:regularized-comparison_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="thm:regularized-comparison" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">8.5</span><span class="theorem_thmtitle">Regularized Lean comparison</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal \(C'{\gt}0\) such that every \(H\) satisfies </p>
+<div class="displaymath" id="a0000000049">
+  \[  \mathsf{fhw}(H)\le C'L(H)(\mathsf{adw}(H)+1)\ln (2+\mathsf{adw}(H)).  \]
+</div>
+<p> For nonempty \(H\), \(L(H)\le A(H)\le 4\lambda (H)\). These inequalities, with separate estimates for \(\mathsf{adw}(H)\ge 2\) and \(\mathsf{adw}(H){\lt}2\), give the statement of Theorem&#160;<a href="sect0006.html#thm:intro-width">7.1</a>. </p>
+</div>
+
+    <a class="latex_link" href="sec-lean-route.html#thm:regularized-comparison">LaTeX</a>
+
+
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.regularized_main_width_comparison" class="lean_decl">Paper.Hypergraph.regularized_main_width_comparison</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.componentFactor_le_structuralFactor" class="lean_decl">Paper.Hypergraph.componentFactor_le_structuralFactor</a></li>
+
+           <li><a href="lean/find/#doc/Paper.Hypergraph.structuralFactor_le_lambda" class="lean_decl">Paper.Hypergraph.structuralFactor_le_lambda</a></li>
+
+      </ul>
+  </div>
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="dep-modal-container" id="thm:rounding_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+
+  <div class="thm" id="thm:rounding" style="display: none">
+    <div class="thm_thmheading">
+      <span class="proposition_thmcaption">
+      Proposition
+      </span>
+      <span class="proposition_thmlabel">6.2</span><span class="proposition_thmtitle">The manuscript’s rounding bound</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal \(C_0{\gt}0\) such that for every \(J\), nonzero weighting \(\gamma :E(J)\to [0,1]\), and fractional \((\gamma ,1/2)\)-balanced \(x\), there is an integral \((\gamma ,5/6)\)-balanced \(S\subseteq V(J)\) with </p>
+<div class="displaymath" id="a0000000036">
+  \[  \rho _J^*(S)\le C_0\lambda (J)\rho _J^*(x) \log _2\max \{ 2,\rho _J^*(x)\} .  \]
+</div>
+</div>
+
+    <a class="latex_link" href="sec-rounding.html#thm:rounding">LaTeX</a>
+
+
+
+
+
+
+
+  </div>
+
+      </div>
+    </div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:quantitative-reverse"	[color=green,		fillcolor="#9CEC8B",		label="quantitative-reverse",		shape=ellipse,		style=filled];	"def:cover"	[color=green,		fillcolor="#B0ECA3",		label=cover,		shape=box,		style=filled];	"def:cover" -> "def:separator-costs"	[style=dashed];	"def:cover" -> "def:widths"	[style=dashed];	"def:cover" -> "eq:cover-dual"	[style=dashed];	"def:cover" -> "eq:cover-restriction"	[style=dashed];	"def:cover" -> "thm:external-rounding"	[style=dashed];	"def:hypergraph"	[color=blue,		fillcolor="#A3D6FF",		label=hypergraph,		shape=box,		style=filled];	"def:hypergraph" -> "def:cover"	[style=dashed];	"def:hypergraph" -> "def:structure"	[style=dashed];	"def:separator-costs"	[color=green,		fillcolor="#B0ECA3",		label="separator-costs",		shape=box,		style=filled];	"def:separator-costs" -> "lem:cover-minimax"	[style=dashed];	"def:separator-costs" -> "lem:recursive-decomposition"	[style=dashed];	"def:separator-costs" -> "lem:rooted-invariant"	[style=dashed];	"def:structure"	[color=green,		fillcolor="#B0ECA3",		label=structure,		shape=box,		style=filled];	"def:structure" -> "eq:fractional-balance"	[style=dashed];	"def:structure" -> "eq:hereditary-structure"	[style=dashed];	"def:structure" -> "eq:lambda-intro"	[style=dashed];	"def:structure" -> "lem:components"	[style=dashed];	"def:widths"	[color=green,		fillcolor="#B0ECA3",		label=widths,		shape=box,		style=filled];	"def:widths" -> "lem:balanced-bag"	[style=dashed];	"def:widths" -> "lem:recursive-decomposition"	[style=dashed];	"def:widths" -> "lem:rooted-invariant"	[style=dashed];	"def:widths" -> "prop:width-hierarchy"	[style=dashed];	"eq:cover-dual"	[color=green,		fillcolor="#1CAC78",		label="cover-dual",		shape=ellipse,		style=filled];	"eq:cover-dual" -> "lem:cover-minimax";	"eq:cover-restriction"	[color=green,		fillcolor="#1CAC78",		label="cover-restriction",		shape=ellipse,		style=filled];	"eq:cover-restriction" -> "lem:recursive-decomposition";	"eq:cover-restriction" -> "lem:rooted-invariant";	"eq:cover-restriction" -> "lem:round-hereditary"	[style=dashed];	"eq:cover-restriction" -> "prop:width-hierarchy";	"eq:fractional-balance"	[color=green,		fillcolor="#B0ECA3",		label="fractional-balance",		shape=box,		style=filled];	"eq:fractional-balance" -> "def:separator-costs"	[style=dashed];	"eq:fractional-balance" -> "lem:balanced-bag"	[style=dashed];	"eq:fractional-balance" -> "lem:fractional-separator-convexity"	[style=dashed];	"eq:fractional-balance" -> "lem:indicator-equivalence"	[style=dashed];	"eq:fractional-balance" -> "thm:external-rounding"	[style=dashed];	"eq:hereditary-structure"	[color=green,		fillcolor="#1CAC78",		label="hereditary-structure",		shape=ellipse,		style=filled];	"eq:hereditary-structure" -> "lem:round-hereditary"	[style=dashed];	"eq:hereditary-structure" -> "thm:intro-width";	"eq:lambda-intro"	[color=green,		fillcolor="#B0ECA3",		label="lambda-intro",		shape=box,		style=filled];	"eq:lambda-intro" -> "cor:quantitative-reverse"	[style=dashed];	"eq:lambda-intro" -> "thm:rounding"	[style=dashed];	"lem:balanced-bag"	[color=green,		fillcolor="#1CAC78",		label="balanced-bag",		shape=ellipse,		style=filled];	"lem:balanced-bag" -> "thm:fsep-adw";	"lem:components"	[color=green,		fillcolor="#1CAC78",		label=components,		shape=ellipse,		style=filled];	"lem:components" -> "thm:regularized-comparison"	[style=dashed];	"lem:cover-minimax"	[color=green,		fillcolor="#9CEC8B",		label="cover-minimax",		shape=ellipse,		style=filled];	"lem:cover-minimax" -> "thm:fsep-adw";	"lem:fractional-separator-convexity"	[color=blue,		fillcolor="#A3D6FF",		label="fractional-separator-convexity",		shape=ellipse,		style=filled];	"lem:fractional-separator-convexity" -> "lem:cover-minimax"	[style=dashed];	"lem:indicator-equivalence"	[color=green,		fillcolor="#1CAC78",		label="indicator-equivalence",		shape=ellipse,		style=filled];	"lem:indicator-equivalence" -> "thm:fsep-adw";	"lem:indicator-equivalence" -> "thm:rounding"	[style=dashed];	"lem:lean-recursive-decomposition"	[color=green,		fillcolor="#1CAC78",		label="lean-recursive-decomposition",		shape=ellipse,		style=filled];	"lem:lean-recursive-decomposition" -> "thm:regularized-comparison"	[style=dashed];	"lem:recursive-decomposition"	[color=blue,		fillcolor="#A3D6FF",		label="recursive-decomposition",		shape=ellipse,		style=filled];	"lem:recursive-decomposition" -> "thm:intro-width";	"lem:regularized-rounding"	[color=green,		fillcolor="#1CAC78",		label="regularized-rounding",		shape=ellipse,		style=filled];	"lem:regularized-rounding" -> "lem:round-hereditary"	[style=dashed];	"lem:rooted-invariant"	[color=green,		fillcolor="#1CAC78",		label="rooted-invariant",		shape=ellipse,		style=filled];	"lem:rooted-invariant" -> "lem:lean-recursive-decomposition"	[style=dashed];	"lem:round-hereditary"	[color=green,		fillcolor="#1CAC78",		label="round-hereditary",		shape=ellipse,		style=filled];	"lem:round-hereditary" -> "thm:regularized-comparison"	[style=dashed];	"prop:width-hierarchy"	[color=green,		fillcolor="#1CAC78",		label="width-hierarchy",		shape=ellipse,		style=filled];	"prop:width-hierarchy" -> "lem:components";	"prop:width-hierarchy" -> "thm:fsep-adw";	"thm:external-rounding"	[color=green,		fillcolor="#1CAC78",		label="external-rounding",		shape=ellipse,		style=filled];	"thm:external-rounding" -> "lem:regularized-rounding"	[style=dashed];	"thm:external-rounding" -> "thm:rounding"	[style=dashed];	"thm:fsep-adw"	[color=green,		fillcolor="#9CEC8B",		label="fsep-adw",		shape=ellipse,		style=filled];	"thm:fsep-adw" -> "thm:intro-width";	"thm:fsep-adw" -> "thm:regularized-comparison"	[style=dashed];	"thm:intro-width"	[color=green,		label="intro-width",		shape=ellipse];	"thm:regularized-comparison"	[color=green,		fillcolor="#9CEC8B",		label="regularized-comparison",		shape=ellipse,		style=filled];	"thm:regularized-comparison" -> "cor:quantitative-reverse";	"thm:rounding"	[color=blue,		fillcolor="#A3D6FF",		label=rounding,		shape=ellipse,		style=filled];	"thm:rounding" -> "thm:intro-width";}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+
+<script src="js/blueprint-ui.js" defer></script>
+</body>
+</html>

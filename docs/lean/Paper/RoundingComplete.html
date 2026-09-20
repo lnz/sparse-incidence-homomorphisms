@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paper/RoundingComplete.lean — source</title><style>
+    body{margin:0;background:#fbfcfc;color:#18282b;font:15px system-ui,sans-serif}
+    header{position:sticky;top:0;padding:16px 24px;background:#eaf1f1;border-bottom:1px solid #cbd8d8;z-index:2}
+    header a{color:#21565e;margin-right:24px} h1{font-size:17px;display:inline;margin-right:28px}
+    pre{margin:0;padding:16px 24px;font:13px/1.65 ui-monospace,SFMono-Regular,monospace;overflow:auto}
+    .source-line{display:block;min-height:1.65em}.line-number{display:inline-block;width:4em;margin-right:1em;text-align:right;color:#6d8185;text-decoration:none;user-select:none}
+    .declaration-anchor{display:block;scroll-margin-top:74px}.declaration-anchor:target + .source-line,.source-line:target{background:#fff2b8}
+    .source-line{scroll-margin-top:74px}
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.code .hll { background-color: #ffffcc }
+.code { background: #f8f8f8; }
+.code .c { color: #3D7B7B; font-style: italic } /* Comment */
+.code .err { border: 1px solid #F00 } /* Error */
+.code .k { color: #008000; font-weight: bold } /* Keyword */
+.code .o { color: #666 } /* Operator */
+.code .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.code .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.code .cp { color: #9C6500 } /* Comment.Preproc */
+.code .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.code .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.code .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.code .gd { color: #A00000 } /* Generic.Deleted */
+.code .ge { font-style: italic } /* Generic.Emph */
+.code .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.code .gr { color: #E40000 } /* Generic.Error */
+.code .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.code .gi { color: #008400 } /* Generic.Inserted */
+.code .go { color: #717171 } /* Generic.Output */
+.code .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.code .gs { font-weight: bold } /* Generic.Strong */
+.code .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.code .gt { color: #04D } /* Generic.Traceback */
+.code .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.code .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.code .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.code .kp { color: #008000 } /* Keyword.Pseudo */
+.code .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.code .kt { color: #B00040 } /* Keyword.Type */
+.code .m { color: #666 } /* Literal.Number */
+.code .s { color: #BA2121 } /* Literal.String */
+.code .na { color: #687822 } /* Name.Attribute */
+.code .nb { color: #008000 } /* Name.Builtin */
+.code .nc { color: #00F; font-weight: bold } /* Name.Class */
+.code .no { color: #800 } /* Name.Constant */
+.code .nd { color: #A2F } /* Name.Decorator */
+.code .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.code .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.code .nf { color: #00F } /* Name.Function */
+.code .nl { color: #767600 } /* Name.Label */
+.code .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.code .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.code .nv { color: #19177C } /* Name.Variable */
+.code .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.code .w { color: #BBB } /* Text.Whitespace */
+.code .mb { color: #666 } /* Literal.Number.Bin */
+.code .mf { color: #666 } /* Literal.Number.Float */
+.code .mh { color: #666 } /* Literal.Number.Hex */
+.code .mi { color: #666 } /* Literal.Number.Integer */
+.code .mo { color: #666 } /* Literal.Number.Oct */
+.code .sa { color: #BA2121 } /* Literal.String.Affix */
+.code .sb { color: #BA2121 } /* Literal.String.Backtick */
+.code .sc { color: #BA2121 } /* Literal.String.Char */
+.code .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.code .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.code .s2 { color: #BA2121 } /* Literal.String.Double */
+.code .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.code .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.code .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.code .sx { color: #008000 } /* Literal.String.Other */
+.code .sr { color: #A45A77 } /* Literal.String.Regex */
+.code .s1 { color: #BA2121 } /* Literal.String.Single */
+.code .ss { color: #19177C } /* Literal.String.Symbol */
+.code .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.code .fm { color: #00F } /* Name.Function.Magic */
+.code .vc { color: #19177C } /* Name.Variable.Class */
+.code .vg { color: #19177C } /* Name.Variable.Global */
+.code .vi { color: #19177C } /* Name.Variable.Instance */
+.code .vm { color: #19177C } /* Name.Variable.Magic */
+.code .il { color: #666 } /* Literal.Number.Integer.Long */</style></head><body>
+    <header><h1>Paper/RoundingComplete.lean</h1><a href="../../index.html">Blueprint</a><a href="../../dep_graph_document.html">Dependency graph</a><a href="RoundingComplete.lean">Raw source</a></header>
+    <pre class="code"><span class="source-line" id="L1"><a class="line-number" href="#L1">1</a><span class="kn">import</span><span class="w"> </span><span class="n">Paper</span><span class="bp">.</span><span class="n">RoundingIndependence</span></span><span class="source-line" id="L2"><a class="line-number" href="#L2">2</a><span class="kn">import</span><span class="w"> </span><span class="n">Paper</span><span class="bp">.</span><span class="n">RoundingDegeneracy</span></span><span class="source-line" id="L3"><a class="line-number" href="#L3">3</a><span class="kn">import</span><span class="w"> </span><span class="n">Paper</span><span class="bp">.</span><span class="n">BalancedRounding</span></span><span class="source-line" id="L4"><a class="line-number" href="#L4">4</a></span><span class="source-line" id="L5"><a class="line-number" href="#L5">5</a><span class="kn">noncomputable</span><span class="w"> </span><span class="kn">section</span></span><span class="source-line" id="L6"><a class="line-number" href="#L6">6</a></span><span class="source-line" id="L7"><a class="line-number" href="#L7">7</a><span class="kn">namespace</span><span class="w"> </span><span class="n">Paper</span><span class="bp">.</span><span class="n">Hypergraph</span></span><span class="source-line" id="L8"><a class="line-number" href="#L8">8</a></span><span class="source-line" id="L9"><a class="line-number" href="#L9">9</a><span class="sd">/-- The existence part of Korchemna et al., Theorem 4.1. -/</span></span><a id="Paper.Hypergraph.twoTerminal_rounding" class="declaration-anchor"></a><span class="source-line" id="L10"><a class="line-number" href="#L10">10</a><span class="kn">theorem</span><span class="w"> </span><span class="n">twoTerminal_rounding</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TwoTerminalRounding</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">by</span></span><span class="source-line" id="L11"><a class="line-number" href="#L11">11</a><span class="w">  </span><span class="n">intro</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">hA</span><span class="w"> </span><span class="n">hB</span><span class="w"> </span><span class="n">hx</span></span><span class="source-line" id="L12"><a class="line-number" href="#L12">12</a><span class="w">  </span><span class="k">let</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">H</span><span class="bp">.</span><span class="n">vertices</span><span class="bp">.</span><span class="n">filter</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="bp">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="bp">≠</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span></span><span class="source-line" id="L13"><a class="line-number" href="#L13">13</a><span class="w">  </span><span class="n">by_cases</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">Real</span><span class="bp">.</span><span class="n">log</span><span class="w"> </span><span class="o">((</span><span class="n">H</span><span class="bp">.</span><span class="n">induce</span><span class="w"> </span><span class="n">R</span><span class="o">)</span><span class="bp">.</span><span class="n">independenceNumber</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span><span class="w"> </span><span class="bp">≤</span><span class="w"> </span><span class="o">(</span><span class="mi">6</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">H</span><span class="bp">.</span><span class="n">degeneracy</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span><span class="o">)</span></span><span class="source-line" id="L14"><a class="line-number" href="#L14">14</a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">dsimp</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">[</span><span class="n">R</span><span class="o">]</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h</span></span><span class="source-line" id="L15"><a class="line-number" href="#L15">15</a><span class="w">    </span><span class="k">obtain</span><span class="w"> </span><span class="bp">⟨</span><span class="n">S</span><span class="o">,</span><span class="w"> </span><span class="n">hS</span><span class="o">,</span><span class="w"> </span><span class="n">hsep</span><span class="o">,</span><span class="w"> </span><span class="n">hcost</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">H</span><span class="bp">.</span><span class="n">twoTerminal_independence_rounding</span><span class="w"> </span><span class="n">hA</span><span class="w"> </span><span class="n">hB</span><span class="w"> </span><span class="n">hx</span></span><span class="source-line" id="L16"><a class="line-number" href="#L16">16</a><span class="w">    </span><span class="n">refine</span><span class="w"> </span><span class="bp">⟨</span><span class="n">S</span><span class="o">,</span><span class="w"> </span><span class="n">hS</span><span class="o">,</span><span class="w"> </span><span class="n">hsep</span><span class="o">,</span><span class="w"> </span><span class="bp">?_⟩</span></span><span class="source-line" id="L17"><a class="line-number" href="#L17">17</a><span class="w">    </span><span class="n">simpa</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">[</span><span class="n">twoTerminalFactor</span><span class="o">,</span><span class="w"> </span><span class="n">min_eq_left</span><span class="w"> </span><span class="n">h</span><span class="o">]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">hcost</span></span><span class="source-line" id="L18"><a class="line-number" href="#L18">18</a><span class="w">  </span><span class="bp">·</span><span class="w"> </span><span class="n">dsimp</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">[</span><span class="n">R</span><span class="o">]</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">h</span></span><span class="source-line" id="L19"><a class="line-number" href="#L19">19</a><span class="w">    </span><span class="k">obtain</span><span class="w"> </span><span class="bp">⟨</span><span class="n">S</span><span class="o">,</span><span class="w"> </span><span class="n">hS</span><span class="o">,</span><span class="w"> </span><span class="n">hsep</span><span class="o">,</span><span class="w"> </span><span class="n">hcost</span><span class="bp">⟩</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">H</span><span class="bp">.</span><span class="n">twoTerminal_degeneracy_rounding</span><span class="w"> </span><span class="n">hA</span><span class="w"> </span><span class="n">hB</span><span class="w"> </span><span class="n">hx</span></span><span class="source-line" id="L20"><a class="line-number" href="#L20">20</a><span class="w">    </span><span class="n">refine</span><span class="w"> </span><span class="bp">⟨</span><span class="n">S</span><span class="o">,</span><span class="w"> </span><span class="n">hS</span><span class="o">,</span><span class="w"> </span><span class="n">hsep</span><span class="o">,</span><span class="w"> </span><span class="bp">?_⟩</span></span><span class="source-line" id="L21"><a class="line-number" href="#L21">21</a><span class="w">    </span><span class="n">simpa</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">[</span><span class="n">twoTerminalFactor</span><span class="o">,</span><span class="w"> </span><span class="n">min_eq_right</span><span class="w"> </span><span class="o">(</span><span class="n">le_of_not_ge</span><span class="w"> </span><span class="n">h</span><span class="o">)]</span><span class="w"> </span><span class="kn">using</span><span class="w"> </span><span class="n">hcost</span></span><span class="source-line" id="L22"><a class="line-number" href="#L22">22</a></span><span class="source-line" id="L23"><a class="line-number" href="#L23">23</a><span class="sd">/-- Theorem 5.6 with the repaired cut-off argument and the original constants. -/</span></span><a id="Paper.Hypergraph.external_rounding" class="declaration-anchor"></a><span class="source-line" id="L24"><a class="line-number" href="#L24">24</a><span class="kn">theorem</span><span class="w"> </span><span class="n">external_rounding</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ExternalRounding</span><span class="w"> </span><span class="o">:=</span></span><span class="source-line" id="L25"><a class="line-number" href="#L25">25</a><span class="w">  </span><span class="n">externalRounding_of_twoTerminalRounding</span><span class="w"> </span><span class="n">twoTerminal_rounding</span></span><span class="source-line" id="L26"><a class="line-number" href="#L26">26</a></span><span class="source-line" id="L27"><a class="line-number" href="#L27">27</a><span class="sd">/-- The manuscript's main width comparison, with no external theorem hypothesis. -/</span></span><a id="Paper.Hypergraph.main_width_comparison" class="declaration-anchor"></a><span class="source-line" id="L28"><a class="line-number" href="#L28">28</a><span class="kn">theorem</span><span class="w"> </span><span class="n">main_width_comparison</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">MainWidthComparison</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">theorem_1_1</span><span class="w"> </span><span class="n">external_rounding</span></span><span class="source-line" id="L29"><a class="line-number" href="#L29">29</a></span><span class="source-line" id="L30"><a class="line-number" href="#L30">30</a><span class="kn">end</span><span class="w"> </span><span class="n">Paper</span><span class="bp">.</span><span class="n">Hypergraph</span></span></pre></body></html>
