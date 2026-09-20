@@ -1,6 +1,7 @@
 {
   "format": 1,
   "files": [
+    ".github/workflows/pages.yml",
     ".gitignore",
     "Paper.lean",
     "Paper/Audit.lean",
