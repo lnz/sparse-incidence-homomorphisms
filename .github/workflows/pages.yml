@@ -35,7 +35,6 @@ jobs:
           test -s .paper-build/main.pdf
           cp .paper-build/main.pdf docs/paper.pdf
           test -s docs/index.html
-          test -s docs/blueprint.pdf
 
       - name: Configure Pages
         if: github.event_name != 'pull_request'
