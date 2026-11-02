@@ -12,7 +12,7 @@
 <meta name="generator" content="plasTeX" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Theorem 1.1: a formalization blueprint</title>
+<title>FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns</title>
 <link rel="next" href="sect0001.html" title="Scope" />
 <link rel="stylesheet" href="styles/theme-white.css" />
 <link rel="stylesheet" href="styles/amsthm.css" />
@@ -81,9 +81,9 @@
   <div class="homepagewidth_thmcontent">
   <p>There is a universal constant \(C{\gt}0\) such that every finite hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
 <div class="displaymath" id="a0000000009">
-  \[  \mathsf{fhw}(H)\le C\lambda (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H).  \]
+  \[  \begin{aligned}  \mathsf{fhw}(H)& \le C\mu (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H),\\ \mathsf{fhw}(H)& \le C\max \{ 1,\log _2\alpha (H)\} \mathsf{adw}(H)\log _2\mathsf{adw}(H). \end{aligned}  \]
 </div>
-<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\lambda (H)\). </p>
+<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\mu (H)\) and \(\mathsf{fhw}(H)\le C\max \{ 1,\log _2\alpha (H)\} \) with the same constant. </p>
 
   </div>
 </div> <a href ="lean/Paper/TrustBoundary.html#Paper.Hypergraph.MainWidthComparison">Lean statement</a> &#8195;<a href ="lean/Paper/RoundingComplete.html#Paper.Hypergraph.main_width_comparison">Lean proof</a>

@@ -42,7 +42,7 @@ for name, entry in anchors.items():
     target=(WEB/f"lean/Paper/{entry['module']}.html").resolve()
     assert name in pages[target].ids, f'Missing declaration anchor for {name}'
     assert f"L{entry['line']}" in pages[target].ids, f'Missing source line for {name}'
-external=content.split('\\label{thm:external-rounding}',1)[1].split('\\end{theorem}',1)[0]
-assert 'external_rounding' in external
+rounding=content.split('\\label{thm:balanced-rounding}',1)[1].split('\\end{theorem}',1)[0]
+assert 'balanced_rounding' in rounding
 if errors:raise SystemExit('\n'.join(errors))
 print(f'Validated {len(pages)} HTML pages, all local links/assets, {len(labels)} labels, and {len(refs)} declaration links.')

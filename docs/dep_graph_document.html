@@ -76,7 +76,7 @@
       </span>
       <span class="corollary_thmlabel">8.6</span><span class="corollary_thmtitle">Auxiliary quantitative reverse comparison</span></div>
     <div class="thm_thmcontent"><p>   There is a universal constant \(c{\gt}0\) such that every finite hypergraph \(H\) satisfies </p>
-<div class="displaymath" id="a0000000051">
+<div class="displaymath" id="a0000000052">
   \[  \mathsf{subw}(H)+1\ge \mathsf{adw}(H)+1 \ge c\frac{\mathsf{fhw}(H)}{L(H)\ln (2+\mathsf{fhw}(H))}.  \]
 </div>
 </div>
@@ -489,16 +489,16 @@
       <span class="definition_thmcaption">
       Definition
       </span>
-      <span class="definition_thmlabel">2.3</span><span class="definition_thmtitle">The manuscript parameter</span></div>
+      <span class="definition_thmlabel">2.3</span><span class="definition_thmtitle">Lean’s combined structural factor</span></div>
     <div class="thm_thmcontent">
 <div class="displaymath" id="a0000000010">
   \[  \lambda (H)=\min \{ \mu (H),\max \{ 1,\log _2\alpha (H)\} \} .  \]
 </div>
-<p> All unqualified logarithms in the manuscript are binary. Lean also uses </p>
+<p> Lean uses \(\lambda (H)\) as shorthand for the minimum of the two structural factors displayed separately in the manuscript. A bound with factor \(\lambda (H)\) is equivalent to both bounds with the same constant. All unqualified logarithms in the manuscript are binary. Lean also uses </p>
 <div class="displaymath" id="a0000000011">
   \[  L(H)=1+\max _{K\in \mathcal C(H)} \min \{ d(H[K]),\ln (2+\alpha (H[K]))\} ,  \]
 </div>
-<p> with maximum zero when \(H\) is empty. For nonempty \(H\) it proves \(L(H)\le A(H)\le 4\lambda (H)\). The componentwise factor is internal to the Lean proof and is not the manuscript’s \(\lambda \). </p>
+<p> with maximum zero when \(H\) is empty. For nonempty \(H\) it proves \(L(H)\le A(H)\le 4\lambda (H)\). The componentwise factor \(L(H)\) is an auxiliary quantity in the Lean proof, distinct from \(\lambda (H)\). </p>
 </div>
 
     <a class="latex_link" href="sect0002.html#eq:lambda-intro">LaTeX</a>
@@ -598,7 +598,7 @@
       </span>
       <span class="lemma_thmlabel">5.1</span><span class="lemma_thmtitle">Fractional-cover minimax</span></div>
     <div class="thm_thmcontent"><p>   For admissible \(\gamma \) and \(0{\lt}\theta {\lt}1\), there is an admissible modular weight \(w\) such that every fractional \((\gamma ,\theta )\)-balanced \(x\) obeys </p>
-<div class="displaymath" id="a0000000030">
+<div class="displaymath" id="a0000000027">
   \[  \beta _H^\theta (\gamma )\le \sum _v w_vx(v).  \]
 </div>
 </div>
@@ -691,7 +691,7 @@
       </span>
       <span class="lemma_thmlabel">8.3</span><span class="lemma_thmtitle">Lean’s recursive separator bound</span></div>
     <div class="thm_thmcontent"><p>   For \(0{\lt}\eta {\lt}1\), </p>
-<div class="displaymath" id="a0000000045">
+<div class="displaymath" id="a0000000046">
   \[  \mathsf{fhw}(H)\le \frac{2-\eta }{1-\eta }(\mathsf{sep}_\eta (H)+1).  \]
 </div>
 </div>
@@ -722,10 +722,10 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">4.6</span><span class="lemma_thmtitle">Recursive separator decomposition</span></div>
-    <div class="thm_thmcontent"><p>   Suppose \(0{\lt}\eta {\lt}1\) and \(r\ge 0\). If every restriction \(H[W]\) and every nonzero edge weighting on \(H[W]\) admit an integral \((\gamma ,\eta )\)-balanced separator \(S\) with \(\rho _{H[W]}^*(S)\le r\), then </p>
-<div class="displaymath" id="a0000000026">
-  \[  \mathsf{fhw}(H)\le \frac{2(2-\eta )}{1-\eta }r.  \]
+      <span class="lemma_thmlabel">4.6</span><span class="lemma_thmtitle">Marx’s separator lemma</span></div>
+    <div class="thm_thmcontent"><p>   Let \(H\) be a hypergraph, \(0{\lt}\eta {\lt}1\), \(r{\gt}0\), and let \(f:2^{V(H)}\to \mathbb R_{\ge 0}\) be monotone and subadditive. Suppose that for every \(X\subseteq V(H)\) there is a set \(S\subseteq V(H)\) with \(f(S)\le r\) such that every component \(C\) of \(H-S\) satisfies \(f(C\cap X)\le \eta f(X)\). Then \(H\) has a tree decomposition \((T,B)\) with </p>
+<div class="displaymath" id="a0000000025">
+  \[  f(B_t)\le \frac{2r}{1-\eta }+r \qquad \text{for every }t\in V(T).  \]
 </div>
 </div>
 
@@ -757,7 +757,7 @@
       </span>
       <span class="lemma_thmlabel">8.1</span><span class="lemma_thmtitle">Regularized balanced-separator rounding</span></div>
     <div class="thm_thmcontent"><p>   There is a universal \(C_0{\gt}0\) such that a fractional \((\gamma ,1/2)\)-balanced \(x\) admits an integral \((\gamma ,5/6)\)-balanced \(S\subseteq \operatorname {supp}x\) with </p>
-<div class="displaymath" id="a0000000042">
+<div class="displaymath" id="a0000000043">
   \[  \rho _H^*(S)\le C_0 \bigl(1+\min \{ d(H),\ln (2+\alpha (H[\operatorname {supp}x]))\} \bigr) (\rho _H^*(x)+1)\ln (2+\rho _H^*(x)).  \]
 </div>
 </div>
@@ -839,7 +839,7 @@
       </span>
       <span class="lemma_thmlabel">8.4</span><span class="lemma_thmtitle">Hereditary rounding in Lean</span></div>
     <div class="thm_thmcontent"><p>   There is a universal \(C_1{\gt}0\) such that every connected \(H\) satisfies </p>
-<div class="displaymath" id="a0000000047">
+<div class="displaymath" id="a0000000048">
   \[  \mathsf{sep}_{5/6}(H)\le C_1 A(H) (\mathsf{fsep}_{1/2}(H)+1)\ln (2+\mathsf{fsep}_{1/2}(H)).  \]
 </div>
 </div>
@@ -898,34 +898,34 @@
 
 
 
-    <div class="dep-modal-container" id="thm:external-rounding_modal">
+    <div class="dep-modal-container" id="thm:balanced-rounding_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
 <svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
 </button>
 
-  <div class="thm" id="thm:external-rounding" style="display: none">
+  <div class="thm" id="thm:balanced-rounding" style="display: none">
     <div class="thm_thmheading">
       <span class="theorem_thmcaption">
       Theorem
       </span>
       <span class="theorem_thmlabel">6.1</span><span class="theorem_thmtitle">The proved rounding input</span></div>
     <div class="thm_thmcontent"><p>   Let \(0{\lt}\varphi {\lt}1\), let \(0\le \gamma _e\le 1\), and let \(x\) be fractionally \((\gamma ,\varphi )\)-balanced. Put \(c=\rho _H^*(x)\), \(T=\{ v\in V(H):x(v)\ne 0\} \), and \(\eta =(1+3\varphi )/(2+2\varphi )\). Assume the empty set is not already integrally \((\gamma ,\eta )\)-balanced. Then there is \(S\subseteq T\) that is integrally \((\gamma ,\eta )\)-balanced with </p>
-<div class="displaymath" id="a0000000034">
+<div class="displaymath" id="a0000000031">
   \[  \rho _H^*(S)\le \bigl(\min \{ 8+4\ln \alpha (H[T]),\, 6\mu (H)\} +1\bigr) \frac{44+8\log _2(c/(1-\varphi ))}{1-\varphi }\, c.  \]
 </div>
 </div>
 
-    <a class="latex_link" href="sec-rounding.html#thm:external-rounding">LaTeX</a>
+    <a class="latex_link" href="sec-rounding.html#thm:balanced-rounding">LaTeX</a>
 
 
   <div class="tooltip">
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
 
-           <li><a href="lean/find/#doc/Paper.Hypergraph.ExternalRounding" class="lean_decl">Paper.Hypergraph.ExternalRounding</a></li>
+           <li><a href="lean/find/#doc/Paper.Hypergraph.BalancedRounding" class="lean_decl">Paper.Hypergraph.BalancedRounding</a></li>
 
-           <li><a href="lean/find/#doc/Paper.Hypergraph.external_rounding" class="lean_decl">Paper.Hypergraph.external_rounding</a></li>
+           <li><a href="lean/find/#doc/Paper.Hypergraph.balanced_rounding" class="lean_decl">Paper.Hypergraph.balanced_rounding</a></li>
 
       </ul>
   </div>
@@ -953,7 +953,7 @@
       </span>
       <span class="lemma_thmlabel">5.2</span><span class="lemma_thmtitle">Hereditary fractional separator bound</span></div>
     <div class="thm_thmcontent"><p>   In particular, for \(\theta =1/2\), </p>
-<div class="displaymath" id="a0000000032">
+<div class="displaymath" id="a0000000029">
   \[  \mathsf{fsep}_{1/2}(H)\le \mathsf{adw}(H).  \]
 </div>
 <p> The Lean declaration proves this for every \(1/2\le \theta {\lt}1\). </p>
@@ -994,12 +994,12 @@
       <span class="theorem_thmcaption">
       Theorem
       </span>
-      <span class="theorem_thmlabel">7.1</span><span class="theorem_thmtitle">Theorem 1.1: main width comparison</span></div>
-    <div class="thm_thmcontent"><p>   There is a universal constant \(C{\gt}0\) such that every input hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
-<div class="displaymath" id="a0000000038">
-  \[  \mathsf{fhw}(H)\le C\lambda (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H).  \]
+      <span class="theorem_thmlabel">7.1</span><span class="theorem_thmtitle">Theorem 1.1</span></div>
+    <div class="thm_thmcontent"><p>   There is a universal constant \(C{\gt}0\) such that every finite hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
+<div class="displaymath" id="a0000000036">
+  \[  \begin{aligned}  \mathsf{fhw}(H)& \le C\mu (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H),\\ \mathsf{fhw}(H)& \le C\max \{ 1,\log _2\alpha (H)\} \mathsf{adw}(H)\log _2\mathsf{adw}(H). \end{aligned}  \]
 </div>
-<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\lambda (H)\) with the same constant. The Lean statement assumes nonemptiness and does not require connectivity. </p>
+<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\mu (H)\) and \(\mathsf{fhw}(H)\le C\max \{ 1,\log _2\alpha (H)\} \) with the same constant. </p>
 </div>
 
     <a class="latex_link" href="sect0006.html#thm:intro-width">LaTeX</a>
@@ -1039,10 +1039,10 @@
       </span>
       <span class="theorem_thmlabel">8.5</span><span class="theorem_thmtitle">Regularized Lean comparison</span></div>
     <div class="thm_thmcontent"><p>   There is a universal \(C'{\gt}0\) such that every \(H\) satisfies </p>
-<div class="displaymath" id="a0000000049">
+<div class="displaymath" id="a0000000050">
   \[  \mathsf{fhw}(H)\le C'L(H)(\mathsf{adw}(H)+1)\ln (2+\mathsf{adw}(H)).  \]
 </div>
-<p> For nonempty \(H\), \(L(H)\le A(H)\le 4\lambda (H)\). These inequalities, with separate estimates for \(\mathsf{adw}(H)\ge 2\) and \(\mathsf{adw}(H){\lt}2\), give the statement of Theorem&#160;<a href="sect0006.html#thm:intro-width">7.1</a>. </p>
+<p> For nonempty \(H\), \(L(H)\le A(H)\le 4\lambda (H)\). For \(\mathsf{adw}(H)\ge 2\), these inequalities give both bounds in Theorem&#160;<a href="sect0006.html#thm:intro-width">7.1</a>. For \(\mathsf{adw}(H){\lt}2\), they give the remaining case \(\mathsf{fhw}(H)\le C\lambda (H)\) with the same universal constant. </p>
 </div>
 
     <a class="latex_link" href="sec-lean-route.html#thm:regularized-comparison">LaTeX</a>
@@ -1084,15 +1084,15 @@
       </span>
       <span class="proposition_thmlabel">6.2</span><span class="proposition_thmtitle">The manuscript’s rounding bound</span></div>
     <div class="thm_thmcontent"><p>   There is a universal \(C_0{\gt}0\) such that for every \(J\), nonzero weighting \(\gamma :E(J)\to [0,1]\), and fractional \((\gamma ,1/2)\)-balanced \(x\), there is an integral \((\gamma ,5/6)\)-balanced \(S\subseteq V(J)\) with </p>
-<div class="displaymath" id="a0000000036">
-  \[  \rho _J^*(S)\le C_0\lambda (J)\rho _J^*(x) \log _2\max \{ 2,\rho _J^*(x)\} .  \]
+<div class="displaymath" id="a0000000033">
+  \[  \begin{aligned}  \rho _J^*(S)& \le C_0\mu (J)\rho _J^*(x) \log _2\max \{ 2,\rho _J^*(x)\} ,\\ \rho _J^*(S)& \le C_0\max \{ 1,\log _2\alpha (J)\} \rho _J^*(x) \log _2\max \{ 2,\rho _J^*(x)\} . \end{aligned}  \]
 </div>
 </div>
 
     <a class="latex_link" href="sec-rounding.html#thm:rounding">LaTeX</a>
 
 
-
+  <a class="lean_link lean_decl" href="lean/find/#doc/Paper.Hypergraph.manuscript_balanced_separator_rounding">Lean</a>
 
 
 
@@ -1120,7 +1120,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:quantitative-reverse"	[color=green,		fillcolor="#9CEC8B",		label="quantitative-reverse",		shape=ellipse,		style=filled];	"def:cover"	[color=green,		fillcolor="#B0ECA3",		label=cover,		shape=box,		style=filled];	"def:cover" -> "def:separator-costs"	[style=dashed];	"def:cover" -> "def:widths"	[style=dashed];	"def:cover" -> "eq:cover-dual"	[style=dashed];	"def:cover" -> "eq:cover-restriction"	[style=dashed];	"def:cover" -> "thm:external-rounding"	[style=dashed];	"def:hypergraph"	[color=blue,		fillcolor="#A3D6FF",		label=hypergraph,		shape=box,		style=filled];	"def:hypergraph" -> "def:cover"	[style=dashed];	"def:hypergraph" -> "def:structure"	[style=dashed];	"def:separator-costs"	[color=green,		fillcolor="#B0ECA3",		label="separator-costs",		shape=box,		style=filled];	"def:separator-costs" -> "lem:cover-minimax"	[style=dashed];	"def:separator-costs" -> "lem:recursive-decomposition"	[style=dashed];	"def:separator-costs" -> "lem:rooted-invariant"	[style=dashed];	"def:structure"	[color=green,		fillcolor="#B0ECA3",		label=structure,		shape=box,		style=filled];	"def:structure" -> "eq:fractional-balance"	[style=dashed];	"def:structure" -> "eq:hereditary-structure"	[style=dashed];	"def:structure" -> "eq:lambda-intro"	[style=dashed];	"def:structure" -> "lem:components"	[style=dashed];	"def:widths"	[color=green,		fillcolor="#B0ECA3",		label=widths,		shape=box,		style=filled];	"def:widths" -> "lem:balanced-bag"	[style=dashed];	"def:widths" -> "lem:recursive-decomposition"	[style=dashed];	"def:widths" -> "lem:rooted-invariant"	[style=dashed];	"def:widths" -> "prop:width-hierarchy"	[style=dashed];	"eq:cover-dual"	[color=green,		fillcolor="#1CAC78",		label="cover-dual",		shape=ellipse,		style=filled];	"eq:cover-dual" -> "lem:cover-minimax";	"eq:cover-restriction"	[color=green,		fillcolor="#1CAC78",		label="cover-restriction",		shape=ellipse,		style=filled];	"eq:cover-restriction" -> "lem:recursive-decomposition";	"eq:cover-restriction" -> "lem:rooted-invariant";	"eq:cover-restriction" -> "lem:round-hereditary"	[style=dashed];	"eq:cover-restriction" -> "prop:width-hierarchy";	"eq:fractional-balance"	[color=green,		fillcolor="#B0ECA3",		label="fractional-balance",		shape=box,		style=filled];	"eq:fractional-balance" -> "def:separator-costs"	[style=dashed];	"eq:fractional-balance" -> "lem:balanced-bag"	[style=dashed];	"eq:fractional-balance" -> "lem:fractional-separator-convexity"	[style=dashed];	"eq:fractional-balance" -> "lem:indicator-equivalence"	[style=dashed];	"eq:fractional-balance" -> "thm:external-rounding"	[style=dashed];	"eq:hereditary-structure"	[color=green,		fillcolor="#1CAC78",		label="hereditary-structure",		shape=ellipse,		style=filled];	"eq:hereditary-structure" -> "lem:round-hereditary"	[style=dashed];	"eq:hereditary-structure" -> "thm:intro-width";	"eq:lambda-intro"	[color=green,		fillcolor="#B0ECA3",		label="lambda-intro",		shape=box,		style=filled];	"eq:lambda-intro" -> "cor:quantitative-reverse"	[style=dashed];	"eq:lambda-intro" -> "thm:rounding"	[style=dashed];	"lem:balanced-bag"	[color=green,		fillcolor="#1CAC78",		label="balanced-bag",		shape=ellipse,		style=filled];	"lem:balanced-bag" -> "thm:fsep-adw";	"lem:components"	[color=green,		fillcolor="#1CAC78",		label=components,		shape=ellipse,		style=filled];	"lem:components" -> "thm:regularized-comparison"	[style=dashed];	"lem:cover-minimax"	[color=green,		fillcolor="#9CEC8B",		label="cover-minimax",		shape=ellipse,		style=filled];	"lem:cover-minimax" -> "thm:fsep-adw";	"lem:fractional-separator-convexity"	[color=blue,		fillcolor="#A3D6FF",		label="fractional-separator-convexity",		shape=ellipse,		style=filled];	"lem:fractional-separator-convexity" -> "lem:cover-minimax"	[style=dashed];	"lem:indicator-equivalence"	[color=green,		fillcolor="#1CAC78",		label="indicator-equivalence",		shape=ellipse,		style=filled];	"lem:indicator-equivalence" -> "thm:fsep-adw";	"lem:indicator-equivalence" -> "thm:rounding"	[style=dashed];	"lem:lean-recursive-decomposition"	[color=green,		fillcolor="#1CAC78",		label="lean-recursive-decomposition",		shape=ellipse,		style=filled];	"lem:lean-recursive-decomposition" -> "thm:regularized-comparison"	[style=dashed];	"lem:recursive-decomposition"	[color=blue,		fillcolor="#A3D6FF",		label="recursive-decomposition",		shape=ellipse,		style=filled];	"lem:recursive-decomposition" -> "thm:intro-width";	"lem:regularized-rounding"	[color=green,		fillcolor="#1CAC78",		label="regularized-rounding",		shape=ellipse,		style=filled];	"lem:regularized-rounding" -> "lem:round-hereditary"	[style=dashed];	"lem:rooted-invariant"	[color=green,		fillcolor="#1CAC78",		label="rooted-invariant",		shape=ellipse,		style=filled];	"lem:rooted-invariant" -> "lem:lean-recursive-decomposition"	[style=dashed];	"lem:round-hereditary"	[color=green,		fillcolor="#1CAC78",		label="round-hereditary",		shape=ellipse,		style=filled];	"lem:round-hereditary" -> "thm:regularized-comparison"	[style=dashed];	"prop:width-hierarchy"	[color=green,		fillcolor="#1CAC78",		label="width-hierarchy",		shape=ellipse,		style=filled];	"prop:width-hierarchy" -> "lem:components";	"prop:width-hierarchy" -> "thm:fsep-adw";	"thm:external-rounding"	[color=green,		fillcolor="#1CAC78",		label="external-rounding",		shape=ellipse,		style=filled];	"thm:external-rounding" -> "lem:regularized-rounding"	[style=dashed];	"thm:external-rounding" -> "thm:rounding"	[style=dashed];	"thm:fsep-adw"	[color=green,		fillcolor="#9CEC8B",		label="fsep-adw",		shape=ellipse,		style=filled];	"thm:fsep-adw" -> "thm:intro-width";	"thm:fsep-adw" -> "thm:regularized-comparison"	[style=dashed];	"thm:intro-width"	[color=green,		label="intro-width",		shape=ellipse];	"thm:regularized-comparison"	[color=green,		fillcolor="#9CEC8B",		label="regularized-comparison",		shape=ellipse,		style=filled];	"thm:regularized-comparison" -> "cor:quantitative-reverse";	"thm:rounding"	[color=blue,		fillcolor="#A3D6FF",		label=rounding,		shape=ellipse,		style=filled];	"thm:rounding" -> "thm:intro-width";}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"cor:quantitative-reverse"	[color=green,		fillcolor="#9CEC8B",		label="quantitative-reverse",		shape=ellipse,		style=filled];	"def:cover"	[color=green,		fillcolor="#B0ECA3",		label=cover,		shape=box,		style=filled];	"def:cover" -> "def:separator-costs"	[style=dashed];	"def:cover" -> "def:widths"	[style=dashed];	"def:cover" -> "eq:cover-dual"	[style=dashed];	"def:cover" -> "eq:cover-restriction"	[style=dashed];	"def:cover" -> "thm:balanced-rounding"	[style=dashed];	"def:hypergraph"	[color=blue,		fillcolor="#A3D6FF",		label=hypergraph,		shape=box,		style=filled];	"def:hypergraph" -> "def:cover"	[style=dashed];	"def:hypergraph" -> "def:structure"	[style=dashed];	"def:separator-costs"	[color=green,		fillcolor="#B0ECA3",		label="separator-costs",		shape=box,		style=filled];	"def:separator-costs" -> "lem:cover-minimax"	[style=dashed];	"def:separator-costs" -> "lem:rooted-invariant"	[style=dashed];	"def:structure"	[color=green,		fillcolor="#B0ECA3",		label=structure,		shape=box,		style=filled];	"def:structure" -> "eq:fractional-balance"	[style=dashed];	"def:structure" -> "eq:hereditary-structure"	[style=dashed];	"def:structure" -> "eq:lambda-intro"	[style=dashed];	"def:structure" -> "lem:components"	[style=dashed];	"def:widths"	[color=green,		fillcolor="#B0ECA3",		label=widths,		shape=box,		style=filled];	"def:widths" -> "lem:balanced-bag"	[style=dashed];	"def:widths" -> "lem:recursive-decomposition"	[style=dashed];	"def:widths" -> "lem:rooted-invariant"	[style=dashed];	"def:widths" -> "prop:width-hierarchy"	[style=dashed];	"eq:cover-dual"	[color=green,		fillcolor="#1CAC78",		label="cover-dual",		shape=ellipse,		style=filled];	"eq:cover-dual" -> "lem:cover-minimax";	"eq:cover-restriction"	[color=green,		fillcolor="#1CAC78",		label="cover-restriction",		shape=ellipse,		style=filled];	"eq:cover-restriction" -> "lem:rooted-invariant";	"eq:cover-restriction" -> "lem:round-hereditary"	[style=dashed];	"eq:cover-restriction" -> "prop:width-hierarchy";	"eq:fractional-balance"	[color=green,		fillcolor="#B0ECA3",		label="fractional-balance",		shape=box,		style=filled];	"eq:fractional-balance" -> "def:separator-costs"	[style=dashed];	"eq:fractional-balance" -> "lem:balanced-bag"	[style=dashed];	"eq:fractional-balance" -> "lem:fractional-separator-convexity"	[style=dashed];	"eq:fractional-balance" -> "lem:indicator-equivalence"	[style=dashed];	"eq:fractional-balance" -> "thm:balanced-rounding"	[style=dashed];	"eq:hereditary-structure"	[color=green,		fillcolor="#1CAC78",		label="hereditary-structure",		shape=ellipse,		style=filled];	"eq:hereditary-structure" -> "lem:round-hereditary"	[style=dashed];	"eq:lambda-intro"	[color=green,		fillcolor="#B0ECA3",		label="lambda-intro",		shape=box,		style=filled];	"eq:lambda-intro" -> "cor:quantitative-reverse"	[style=dashed];	"lem:balanced-bag"	[color=green,		fillcolor="#1CAC78",		label="balanced-bag",		shape=ellipse,		style=filled];	"lem:balanced-bag" -> "thm:fsep-adw";	"lem:components"	[color=green,		fillcolor="#1CAC78",		label=components,		shape=ellipse,		style=filled];	"lem:components" -> "thm:regularized-comparison"	[style=dashed];	"lem:cover-minimax"	[color=green,		fillcolor="#9CEC8B",		label="cover-minimax",		shape=ellipse,		style=filled];	"lem:cover-minimax" -> "thm:fsep-adw";	"lem:fractional-separator-convexity"	[color=blue,		fillcolor="#A3D6FF",		label="fractional-separator-convexity",		shape=ellipse,		style=filled];	"lem:fractional-separator-convexity" -> "lem:cover-minimax"	[style=dashed];	"lem:indicator-equivalence"	[color=green,		fillcolor="#1CAC78",		label="indicator-equivalence",		shape=ellipse,		style=filled];	"lem:indicator-equivalence" -> "thm:fsep-adw";	"lem:indicator-equivalence" -> "thm:rounding"	[style=dashed];	"lem:lean-recursive-decomposition"	[color=green,		fillcolor="#1CAC78",		label="lean-recursive-decomposition",		shape=ellipse,		style=filled];	"lem:lean-recursive-decomposition" -> "thm:regularized-comparison"	[style=dashed];	"lem:recursive-decomposition"	[color=blue,		label="recursive-decomposition",		shape=ellipse];	"lem:recursive-decomposition" -> "thm:intro-width";	"lem:regularized-rounding"	[color=green,		fillcolor="#1CAC78",		label="regularized-rounding",		shape=ellipse,		style=filled];	"lem:regularized-rounding" -> "lem:round-hereditary"	[style=dashed];	"lem:rooted-invariant"	[color=green,		fillcolor="#1CAC78",		label="rooted-invariant",		shape=ellipse,		style=filled];	"lem:rooted-invariant" -> "lem:lean-recursive-decomposition"	[style=dashed];	"lem:round-hereditary"	[color=green,		fillcolor="#1CAC78",		label="round-hereditary",		shape=ellipse,		style=filled];	"lem:round-hereditary" -> "thm:regularized-comparison"	[style=dashed];	"prop:width-hierarchy"	[color=green,		fillcolor="#1CAC78",		label="width-hierarchy",		shape=ellipse,		style=filled];	"prop:width-hierarchy" -> "lem:components";	"prop:width-hierarchy" -> "thm:fsep-adw";	"thm:balanced-rounding"	[color=green,		fillcolor="#1CAC78",		label="balanced-rounding",		shape=ellipse,		style=filled];	"thm:balanced-rounding" -> "lem:regularized-rounding"	[style=dashed];	"thm:balanced-rounding" -> "thm:rounding"	[style=dashed];	"thm:fsep-adw"	[color=green,		fillcolor="#9CEC8B",		label="fsep-adw",		shape=ellipse,		style=filled];	"thm:fsep-adw" -> "thm:intro-width";	"thm:fsep-adw" -> "thm:regularized-comparison"	[style=dashed];	"thm:intro-width"	[color=green,		label="intro-width",		shape=ellipse];	"thm:regularized-comparison"	[color=green,		fillcolor="#9CEC8B",		label="regularized-comparison",		shape=ellipse,		style=filled];	"thm:regularized-comparison" -> "cor:quantitative-reverse";	"thm:rounding"	[color=green,		fillcolor="#1CAC78",		label=rounding,		shape=ellipse,		style=filled];	"thm:rounding" -> "thm:intro-width";}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

@@ -15,7 +15,7 @@
 <title>Balanced separators</title>
 <link rel="next" href="sect0005.html" title="Adaptive width controls fractional separators" />
 <link rel="prev" href="sect0003.html" title="Covers, tree decompositions, and widths" />
-<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="up" href="index.html" title="FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns" />
 <link rel="stylesheet" href="styles/theme-white.css" />
 <link rel="stylesheet" href="styles/amsthm.css" />
 <link rel="stylesheet" href="styles/showmore.css" />
@@ -26,7 +26,7 @@
 <body>
 <header>
 <svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
-<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+<h1 id="doc_title"><a href="index.html">FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns</a></h1>
 </header>
 
 <div class="wrapper">
@@ -451,16 +451,13 @@
     Lemma
     </span>
     <span class="lemma_thmlabel">4.6</span>
-    <span class="lemma_thmtitle">Recursive separator decomposition</span>
+    <span class="lemma_thmtitle">Marx’s separator lemma</span>
     <div class="thm_header_extras">
 
         </div>
     <div class="thm_header_hidden_extras">
 
     <a class="icon proof" href="sect0004.html#lem:recursive-decomposition">#</a>
-
-    <a class="icon proof" href="sect0004.html#a0000000025"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
-</a>
 
 
     <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
@@ -475,13 +472,7 @@
 
         <ul class="uses">
 
-          <li><a href="sect0004.html#def:separator-costs">Definition 4.2</a></li>
-
           <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
-
-          <li><a href="sect0003.html#eq:cover-restriction">Lemma 3.3</a></li>
-
-          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
 
         </ul>
 
@@ -493,35 +484,15 @@
         </div>
   </div>
   <div class="lemma_thmcontent">
-  <p>   Suppose \(0{\lt}\eta {\lt}1\) and \(r\ge 0\). If every restriction \(H[W]\) and every nonzero edge weighting on \(H[W]\) admit an integral \((\gamma ,\eta )\)-balanced separator \(S\) with \(\rho _{H[W]}^*(S)\le r\), then </p>
-<div class="displaymath" id="a0000000026">
-  \[  \mathsf{fhw}(H)\le \frac{2(2-\eta )}{1-\eta }r.  \]
+  <p>   Let \(H\) be a hypergraph, \(0{\lt}\eta {\lt}1\), \(r{\gt}0\), and let \(f:2^{V(H)}\to \mathbb R_{\ge 0}\) be monotone and subadditive. Suppose that for every \(X\subseteq V(H)\) there is a set \(S\subseteq V(H)\) with \(f(S)\le r\) such that every component \(C\) of \(H-S\) satisfies \(f(C\cap X)\le \eta f(X)\). Then \(H\) has a tree decomposition \((T,B)\) with </p>
+<div class="displaymath" id="a0000000025">
+  \[  f(B_t)\le \frac{2r}{1-\eta }+r \qquad \text{for every }t\in V(T).  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000025">
-  <div class="proof_heading">
-    <span class="proof_caption">
-    Proof
-    </span>
-    <span class="expand-proof">▶</span>
-  </div>
-  <div class="proof_content">
-  <p> Put \(\Lambda =2r/(1-\eta )\) and induct on \(|W\setminus Z|\) for \(Z\subseteq W\subseteq V(H)\) with \(\rho _H^*(Z)\le \Lambda \). Construct a decomposition of \(H[W]\) containing \(Z\) in one bag and with every bag of \(H\)-cover cost at most \(\Lambda +2r\). If \(W=Z\), one bag suffices. </p>
-<p>Otherwise, if \(Z\ne \varnothing \), cover \(Z\) optimally and use the resulting edge weights \(\gamma \) to choose a separator \(S\) of cost at most \(r\). If \(Z=\varnothing \), take \(S=\varnothing \). Choose for each \(v\in W\setminus Z\) an incident edge \(e_v\) and put </p>
-<div class="displaymath" id="a0000000027">
-  \[  \pi (e)=\frac{|\{ v\in W\setminus Z:e_v=e\} |}{|W\setminus Z|}.  \]
-</div>
-<p> The weighting \(\pi \) has total mass \(1\). Choose a \((\pi ,\eta )\)-balanced separator \(R\) of cost at most \(r\) and set \(B=Z\cup S\cup R\). Then \(\rho _H^*(B)\le \Lambda +2r\). </p>
-<p>For each component \(K\) of \(H[W]-B\) set \(Z_K=B\cap N_{P(H[W])}(K)\) and \(W_K=K\cup Z_K\). If \(Z=\varnothing \), \(Z_K\subseteq R\), so \(\rho _H^*(Z_K)\le r\le \Lambda \). Otherwise let \(C\) be the component of \(H[W]-S\) containing \(K\). The inclusion \(Z_K\subseteq S\cup R\cup (Z\cap C)\) and the balance of \(S\) give </p>
-<div class="displaymath" id="a0000000028">
-  \[  \rho _H^*(Z_K)\le 2r+\eta \rho _H^*(Z) \le 2r+\eta \Lambda =\Lambda .  \]
-</div>
-<p> If \(D\) is the component of \(H[W]-R\) containing \(K\), the balance of \(R\) gives \(|K|/|W\setminus Z|\le \sum _{e\cap D\ne \varnothing }\pi (e) \le \eta {\lt}1\). Hence \(|W_K\setminus Z_K|=|K|{\lt}|W\setminus Z|\). Apply induction to each \((W_K,Z_K)\) and attach its designated bag to the new bag \(B\). Running intersection follows from \(B\cap W_K=Z_K\). An edge not contained in \(B\) lies in one child because it is a primal clique. Finally apply the invariant with \((W,Z)=(V(H),\varnothing )\) to obtain \(\Lambda +2r=2(2-\eta )r/(1-\eta )\). </p>
-
-  </div>
-</div>
+<p> This is the separator lemma from Section&#160;5.2 of <a href ="https://doi.org/10.1007/s00224-009-9248-9">Marx’s <em>Tractable Structures for Constraint Satisfaction with Truth Tables</em></a>. </p>
+<p>The manuscript applies this general lemma. Lean proves the specialized recursive bound in Section&#160;<a href="sec-lean-route.html">8</a>, using one additional vertex to ensure that each recursive call has fewer vertices outside its boundary. </p>
 
 </div> <!--main-text -->
 </div> <!-- content-wrapper -->
@@ -535,7 +506,7 @@
 
   <a href="sect0003.html" title="Covers, tree decompositions, and widths"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
 </a>
-  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+  <a href="index.html" title="FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
 </a>
   <a href="sect0005.html" title="Adaptive width controls fractional separators"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
 </a>

@@ -1,300 +1,354 @@
-\begin{thebibliography}{37}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{AKCM{\etalchar{+}}20}
 
-\bibitem[Bodirsky and Grohe(2008)]{BodirskyGrohe2008}
+\bibitem[AB09]{AroraBarak2009}
+Sanjeev Arora and Boaz Barak.
+\newblock {\em Computational Complexity: A Modern Approach}.
+\newblock Cambridge University Press, 2009.
+\newblock URL: \url{https://theory.cs.princeton.edu/complexity/}.
+
+\bibitem[AKC26]{jaguar}
+Mahmoud Abo~Khamis and Hubie Chen.
+\newblock {Jaguar}: A primal algorithm for conjunctive query evaluation in
+  submodular-width time.
+\newblock {\em Proceedings of the ACM on Management of Data},
+  4(2):108:1--108:21, 2026.
+\newblock URL: \url{https://arxiv.org/abs/2603.13624}, \href
+  {https://doi.org/10.1145/3801904} {\path{doi:10.1145/3801904}}.
+
+\bibitem[AKCM{\etalchar{+}}20]{KhamisEtAl2019FAQAI}
+Mahmoud Abo~Khamis, Ryan~R. Curtin, Benjamin Moseley, Hung~Q. Ngo, XuanLong
+  Nguyen, Dan Olteanu, and Maximilian Schleich.
+\newblock Functional aggregate queries with additive inequalities.
+\newblock {\em ACM Transactions on Database Systems}, 45(4):17:1--17:41, 2020.
+\newblock URL: \url{https://arxiv.org/abs/1812.09526}, \href
+  {https://doi.org/10.1145/3426865} {\path{doi:10.1145/3426865}}.
+
+\bibitem[AKKNS21]{KhamisEtAl2020BagContainment}
+Mahmoud Abo~Khamis, Phokion~G. Kolaitis, Hung~Q. Ngo, and Dan Suciu.
+\newblock Bag query containment and information theory.
+\newblock {\em ACM Transactions on Database Systems}, 46(3):12:1--12:39, 2021.
+\newblock URL: \url{https://arxiv.org/abs/1906.09727}, \href
+  {https://doi.org/10.1145/3472391} {\path{doi:10.1145/3472391}}.
+
+\bibitem[AKNOS24]{KhamisEtAl2024LpBounds}
+Mahmoud Abo~Khamis, Vasileios Nakos, Dan Olteanu, and Dan Suciu.
+\newblock Join size bounds using {$\ell_p$}-norms on degree sequences.
+\newblock {\em Proceedings of the ACM on Management of Data}, 2(2):96:1--96:24,
+  2024.
+\newblock URL: \url{https://arxiv.org/abs/2306.14075}, \href
+  {https://doi.org/10.1145/3651597} {\path{doi:10.1145/3651597}}.
+
+\bibitem[AKNS17]{pandaexpress}
+Mahmoud Abo~Khamis, Hung~Q. Ngo, and Dan Suciu.
+\newblock What do {Shannon}-type inequalities, submodular width, and
+  disjunctive {Datalog} have to do with one another?
+\newblock In {\em Proceedings of the 36th ACM SIGMOD-SIGACT-SIGAI Symposium on
+  Principles of Database Systems (PODS)}, pages 429--444, 2017.
+\newblock \href {https://doi.org/10.1145/3034786.3056105}
+  {\path{doi:10.1145/3034786.3056105}}.
+
+\bibitem[AKNS25]{KhamisNgoSuciu2025PANDA}
+Mahmoud Abo~Khamis, Hung~Q. Ngo, and Dan Suciu.
+\newblock {PANDA}: Query evaluation in submodular width.
+\newblock {\em TheoretiCS}, 4:1--42, 2025.
+\newblock Article 12.
+\newblock \href {https://doi.org/10.46298/theoretics.25.12}
+  {\path{doi:10.46298/theoretics.25.12}}.
+
+\bibitem[AKNS26]{KhamisNgoSuciu2026PANDAExpress}
+Mahmoud Abo~Khamis, Hung~Q. Ngo, and Dan Suciu.
+\newblock {PANDAExpress}: A simpler and faster {PANDA} algorithm.
+\newblock {\em Proceedings of the ACM on Management of Data},
+  4(2):114:1--114:26, 2026.
+\newblock URL: \url{https://arxiv.org/abs/2512.10217}, \href
+  {https://doi.org/10.1145/3801910} {\path{doi:10.1145/3801910}}.
+
+\bibitem[{Ant}26]{anthropiceth}
+{Anthropic}.
+\newblock A {$2^{o(n)}$} time algorithm for {3-SAT}, October 2026.
+\newblock Preprint.
+\newblock URL:
+  \url{https://github.com/anthropics/formal-math/blob/main/eth/paper.pdf}.
+
+\bibitem[BG08]{BodirskyGrohe2008}
 Manuel Bodirsky and Martin Grohe.
 \newblock Non-dichotomies in constraint satisfaction complexity.
-\newblock In \emph{Automata, Languages and Programming (ICALP), Part II},
-  volume 5126 of \emph{Lecture Notes in Computer Science}, pages 184--196,
-  2008.
-\newblock \doi{10.1007/978-3-540-70583-3_16}.
+\newblock In {\em Automata, Languages and Programming (ICALP), Part II}, volume
+  5126 of {\em Lecture Notes in Computer Science}, pages 184--196, 2008.
+\newblock \href {https://doi.org/10.1007/978-3-540-70583-3_16}
+  {\path{doi:10.1007/978-3-540-70583-3_16}}.
 
-\bibitem[Bollob{\'a}s and Thomason(1998)]{BollobasThomason1998}
-B{\'e}la Bollob{\'a}s and Andrew Thomason.
-\newblock Proof of a conjecture of {Mader, Erd\H{o}s and Hajnal} on topological
-  complete subgraphs.
-\newblock \emph{European Journal of Combinatorics}, 19\penalty0 (8):\penalty0
-  883--887, 1998.
-\newblock \doi{10.1006/eujc.1997.0188}.
-
-\bibitem[Bringmann and Gorbachev(2025)]{BringmannGorbachev2025}
+\bibitem[BG25]{BringmannGorbachev2025}
 Karl Bringmann and Egor Gorbachev.
 \newblock A fine-grained classification of subquadratic patterns for subgraph
   listing and friends.
-\newblock In \emph{Proceedings of the 57th Annual ACM Symposium on Theory of
+\newblock In {\em Proceedings of the 57th Annual ACM Symposium on Theory of
   Computing (STOC)}, pages 2145--2156, 2025.
-\newblock \doi{10.1145/3717823.3718141}.
-\newblock URL \url{https://arxiv.org/abs/2404.04369}.
+\newblock URL: \url{https://arxiv.org/abs/2404.04369}, \href
+  {https://doi.org/10.1145/3717823.3718141}
+  {\path{doi:10.1145/3717823.3718141}}.
 
-\bibitem[Bringmann et~al.(2016)Bringmann, Kozma, Moran, and
-  Narayanaswamy]{BringmannKozmaMoranNarayanaswamy2016}
+\bibitem[BKMN16]{BringmannKozmaMoranNarayanaswamy2016}
 Karl Bringmann, L{\'a}szl{\'o} Kozma, Shay Moran, and N.~S. Narayanaswamy.
 \newblock Hitting set for hypergraphs of low {VC}-dimension.
-\newblock In \emph{24th Annual European Symposium on Algorithms (ESA 2016)},
-  volume~57 of \emph{Leibniz International Proceedings in Informatics
-  (LIPIcs)}, pages 23:1--23:18. Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
-  Informatik, 2016.
-\newblock \doi{10.4230/LIPIcs.ESA.2016.23}.
+\newblock In {\em 24th Annual European Symposium on Algorithms (ESA 2016)},
+  volume~57 of {\em Leibniz International Proceedings in Informatics (LIPIcs)},
+  pages 23:1--23:18. Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik,
+  2016.
+\newblock \href {https://doi.org/10.4230/LIPIcs.ESA.2016.23}
+  {\path{doi:10.4230/LIPIcs.ESA.2016.23}}.
 
-\bibitem[Bulatov(2017)]{Bulatov2017}
+\bibitem[BLR23]{BressanLanzingerRoth2023}
+Marco Bressan, Matthias Lanzinger, and Marc Roth.
+\newblock The complexity of pattern counting in directed graphs, parameterised
+  by the outdegree.
+\newblock In {\em Proceedings of the 55th Annual ACM Symposium on Theory of
+  Computing (STOC)}, pages 542--552. ACM, 2023.
+\newblock \href {https://doi.org/10.1145/3564246.3585204}
+  {\path{doi:10.1145/3564246.3585204}}.
+
+\bibitem[BT98]{BollobasThomason1998}
+B{\'e}la Bollob{\'a}s and Andrew Thomason.
+\newblock Proof of a conjecture of {Mader, Erd\H{o}s and Hajnal} on topological
+  complete subgraphs.
+\newblock {\em European Journal of Combinatorics}, 19(8):883--887, 1998.
+\newblock \href {https://doi.org/10.1006/eujc.1997.0188}
+  {\path{doi:10.1006/eujc.1997.0188}}.
+
+\bibitem[Bul17]{Bulatov2017}
 Andrei~A. Bulatov.
 \newblock A dichotomy theorem for nonuniform {CSPs}.
-\newblock In \emph{Proceedings of the 58th IEEE Symposium on Foundations of
+\newblock In {\em Proceedings of the 58th IEEE Symposium on Foundations of
   Computer Science (FOCS)}, pages 319--330, 2017.
-\newblock \doi{10.1109/FOCS.2017.37}.
-\newblock URL \url{https://arxiv.org/abs/1703.03021}.
+\newblock URL: \url{https://arxiv.org/abs/1703.03021}, \href
+  {https://doi.org/10.1109/FOCS.2017.37} {\path{doi:10.1109/FOCS.2017.37}}.
 
-\bibitem[Chandra and Merlin(1977)]{ChandraMerlin77}
-Ashok~K. Chandra and Philip~M. Merlin.
-\newblock Optimal implementation of conjunctive queries in relational data
-  bases.
-\newblock In \emph{Proceedings of the 9th Annual ACM Symposium on Theory of
-  Computing (STOC)}, pages 77--90, 1977.
-\newblock \doi{10.1145/800105.803397}.
-
-\bibitem[Chen and Dalmau(2005)]{ChenDalmau2005}
+\bibitem[CD05]{ChenDalmau2005}
 Hubie Chen and V{\'i}ctor Dalmau.
 \newblock Beyond hypertree width: Decomposition methods without decompositions.
-\newblock In \emph{Principles and Practice of Constraint Programming (CP)},
-  volume 3709 of \emph{Lecture Notes in Computer Science}, pages 167--181,
-  2005.
-\newblock \doi{10.1007/11564751_15}.
-\newblock URL \url{https://arxiv.org/abs/cs/0505035}.
-\newblock Full version at arXiv:cs/0505035.
+\newblock In {\em Principles and Practice of Constraint Programming (CP)},
+  volume 3709 of {\em Lecture Notes in Computer Science}, pages 167--181, 2005.
+\newblock Full version.
+\newblock URL: \url{https://arxiv.org/abs/cs/0505035}, \href
+  {https://doi.org/10.1007/11564751_15} {\path{doi:10.1007/11564751_15}}.
 
-\bibitem[Chen et~al.(2020)Chen, Gottlob, Lanzinger, and
-  Pichler]{ChenGottlobLanzingerPichler2020}
+\bibitem[CGLP20]{ChenGottlobLanzingerPichler2020}
 Hubie Chen, Georg Gottlob, Matthias Lanzinger, and Reinhard Pichler.
 \newblock Semantic width and the fixed-parameter tractability of constraint
   satisfaction problems.
-\newblock In \emph{Proceedings of the Twenty-Ninth International Joint
+\newblock In {\em Proceedings of the Twenty-Ninth International Joint
   Conference on Artificial Intelligence, {IJCAI-20}}, pages 1726--1733, 2020.
-\newblock \doi{10.24963/ijcai.2020/239}.
+\newblock \href {https://doi.org/10.24963/ijcai.2020/239}
+  {\path{doi:10.24963/ijcai.2020/239}}.
 
-\bibitem[Dalmau et~al.(2002)Dalmau, Kolaitis, and
-  Vardi]{DalmauKolaitisVardi2002}
+\bibitem[CM77]{ChandraMerlin77}
+Ashok~K. Chandra and Philip~M. Merlin.
+\newblock Optimal implementation of conjunctive queries in relational data
+  bases.
+\newblock In {\em Proceedings of the 9th Annual ACM Symposium on Theory of
+  Computing (STOC)}, pages 77--90, 1977.
+\newblock \href {https://doi.org/10.1145/800105.803397}
+  {\path{doi:10.1145/800105.803397}}.
+
+\bibitem[DKV02]{DalmauKolaitisVardi2002}
 V{\'i}ctor Dalmau, Phokion~G. Kolaitis, and Moshe~Y. Vardi.
 \newblock Constraint satisfaction, bounded treewidth, and finite-variable
   logics.
-\newblock In \emph{Principles and Practice of Constraint Programming (CP)},
-  volume 2470 of \emph{Lecture Notes in Computer Science}, pages 310--326,
-  2002.
-\newblock \doi{10.1007/3-540-46135-3_21}.
+\newblock In {\em Principles and Practice of Constraint Programming (CP)},
+  volume 2470 of {\em Lecture Notes in Computer Science}, pages 310--326, 2002.
+\newblock \href {https://doi.org/10.1007/3-540-46135-3_21}
+  {\path{doi:10.1007/3-540-46135-3_21}}.
 
-\bibitem[Durand and Mengel(2015)]{DurandMengel2015}
+\bibitem[DM15]{DurandMengel2015}
 Arnaud Durand and Stefan Mengel.
 \newblock Structural tractability of counting of solutions to conjunctive
   queries.
-\newblock \emph{Theory of Computing Systems}, 57\penalty0 (4):\penalty0
-  1202--1249, 2015.
-\newblock \doi{10.1007/s00224-014-9543-y}.
+\newblock {\em Theory of Computing Systems}, 57(4):1202--1249, 2015.
+\newblock \href {https://doi.org/10.1007/s00224-014-9543-y}
+  {\path{doi:10.1007/s00224-014-9543-y}}.
 
-\bibitem[Even et~al.(1999)Even, Naor, Rao, and
-  Schieber]{EvenNaorRaoSchieber1999}
+\bibitem[ELW23]{EppsteinLincolnWilliams2023}
+David Eppstein, Andrea Lincoln, and Virginia~Vassilevska Williams.
+\newblock Quasipolynomiality of the smallest missing induced subgraph.
+\newblock {\em Journal of Graph Algorithms and Applications}, 27(5):329--339,
+  2023.
+\newblock \href {https://doi.org/10.7155/jgaa.00625}
+  {\path{doi:10.7155/jgaa.00625}}.
+
+\bibitem[ENRS99]{EvenNaorRaoSchieber1999}
 Guy Even, Joseph~(Seffi) Naor, Satish Rao, and Baruch Schieber.
 \newblock Fast approximate graph partitioning algorithms.
-\newblock \emph{SIAM Journal on Computing}, 28\penalty0 (6):\penalty0
-  2187--2214, 1999.
-\newblock \doi{10.1137/S0097539796308217}.
+\newblock {\em SIAM Journal on Computing}, 28(6):2187--2214, 1999.
+\newblock \href {https://doi.org/10.1137/S0097539796308217}
+  {\path{doi:10.1137/S0097539796308217}}.
 
-\bibitem[Gottlob et~al.(2002)Gottlob, Leone, and
-  Scarcello]{DBLP:journals/jcss/GottlobLS02}
-Georg Gottlob, Nicola Leone, and Francesco Scarcello.
-\newblock Hypertree decompositions and tractable queries.
-\newblock \emph{Journal of Computer and System Sciences}, 64\penalty0
-  (3):\penalty0 579--627, 2002.
-\newblock \doi{10.1006/jcss.2001.1809}.
+\bibitem[FKZ23]{stocCliqueEmbedding2023}
+Austen~Z. Fan, Paraschos Koutris, and Hangdong Zhao.
+\newblock The fine-grained complexity of boolean conjunctive queries and
+  sum-product problems.
+\newblock In {\em 50th International Colloquium on Automata, Languages, and
+  Programming (ICALP)}, volume 261 of {\em Leibniz International Proceedings in
+  Informatics}, pages 127:1--127:20, 2023.
+\newblock \href {https://doi.org/10.4230/LIPIcs.ICALP.2023.127}
+  {\path{doi:10.4230/LIPIcs.ICALP.2023.127}}.
 
-\bibitem[Gottlob et~al.(2021)Gottlob, Lanzinger, Pichler, and
-  Razgon]{DBLP:journals/jacm/GottlobLPR21}
+\bibitem[GLPR21]{DBLP:journals/jacm/GottlobLPR21}
 Georg Gottlob, Matthias Lanzinger, Reinhard Pichler, and Igor Razgon.
 \newblock Complexity analysis of generalized and fractional hypertree
   decompositions.
-\newblock \emph{Journal of the ACM}, 68\penalty0 (5):\penalty0 38:1--38:50,
-  2021.
-\newblock \doi{10.1145/3457374}.
+\newblock {\em Journal of the ACM}, 68(5):38:1--38:50, 2021.
+\newblock \href {https://doi.org/10.1145/3457374} {\path{doi:10.1145/3457374}}.
 
-\bibitem[Grohe(2007)]{DBLP:journals/jacm/Grohe07}
+\bibitem[GLS02]{DBLP:journals/jcss/GottlobLS02}
+Georg Gottlob, Nicola Leone, and Francesco Scarcello.
+\newblock Hypertree decompositions and tractable queries.
+\newblock {\em Journal of Computer and System Sciences}, 64(3):579--627, 2002.
+\newblock \href {https://doi.org/10.1006/jcss.2001.1809}
+  {\path{doi:10.1006/jcss.2001.1809}}.
+
+\bibitem[GM14]{fhw}
+Martin Grohe and D{\'a}niel Marx.
+\newblock Constraint solving via fractional edge covers.
+\newblock {\em ACM Transactions on Algorithms}, 11(1):4:1--4:20, 2014.
+\newblock \href {https://doi.org/10.1145/2636918} {\path{doi:10.1145/2636918}}.
+
+\bibitem[Gro07]{DBLP:journals/jacm/Grohe07}
 Martin Grohe.
 \newblock The complexity of homomorphism and constraint satisfaction problems
   seen from the other side.
-\newblock \emph{Journal of the ACM}, 54\penalty0 (1):\penalty0 1:1--1:24, 2007.
-\newblock \doi{10.1145/1206035.1206036}.
+\newblock {\em Journal of the ACM}, 54(1):1:1--1:24, 2007.
+\newblock \href {https://doi.org/10.1145/1206035.1206036}
+  {\path{doi:10.1145/1206035.1206036}}.
 
-\bibitem[Grohe and Marx(2014)]{fhw}
-Martin Grohe and D{\'a}niel Marx.
-\newblock Constraint solving via fractional edge covers.
-\newblock \emph{ACM Transactions on Algorithms}, 11\penalty0 (1):\penalty0
-  4:1--4:20, 2014.
-\newblock \doi{10.1145/2636918}.
-
-\bibitem[Im et~al.(2025)Im, Moseley, Ngo, and Pruhs]{ImEtAl2025SimpleDegree}
+\bibitem[IMNP25]{ImEtAl2025SimpleDegree}
 Sungjin Im, Benjamin Moseley, Hung~Q. Ngo, and Kirk Pruhs.
 \newblock Efficient algorithms for cardinality estimation and conjunctive query
   evaluation with simple degree constraints.
-\newblock \emph{Proceedings of the ACM on Management of Data}, 3\penalty0
-  (2):\penalty0 96:1--96:26, 2025.
-\newblock \doi{10.1145/3725233}.
-\newblock URL \url{https://arxiv.org/abs/2504.02770}.
+\newblock {\em Proceedings of the ACM on Management of Data}, 3(2):96:1--96:26,
+  2025.
+\newblock URL: \url{https://arxiv.org/abs/2504.02770}, \href
+  {https://doi.org/10.1145/3725233} {\path{doi:10.1145/3725233}}.
 
-\bibitem[Khamis and Chen(2026)]{jaguar}
-Mahmoud~Abo Khamis and Hubie Chen.
-\newblock {Jaguar}: A primal algorithm for conjunctive query evaluation in
-  submodular-width time, 2026.
-\newblock URL \url{https://arxiv.org/abs/2603.13624}.
+\bibitem[KDFZ25]{KoutrisEtAl2025FasterJoins}
+Paraschos Koutris, Shaleen Deep, Austen Fan, and Hangdong Zhao.
+\newblock The quest for faster join algorithms.
+\newblock In {\em 28th International Conference on Database Theory (ICDT
+  2025)}, volume 328 of {\em Leibniz International Proceedings in Informatics},
+  pages 1:1--1:12, 2025.
+\newblock \href {https://doi.org/10.4230/LIPIcs.ICDT.2025.1}
+  {\path{doi:10.4230/LIPIcs.ICDT.2025.1}}.
 
-\bibitem[Khamis et~al.(2017)Khamis, Ngo, and Suciu]{pandaexpress}
-Mahmoud~Abo Khamis, Hung~Q. Ngo, and Dan Suciu.
-\newblock What do {Shannon}-type inequalities, submodular width, and
-  disjunctive {Datalog} have to do with one another?
-\newblock In \emph{Proceedings of the 36th ACM SIGMOD-SIGACT-SIGAI Symposium on
-  Principles of Database Systems (PODS)}, pages 429--444, 2017.
-\newblock \doi{10.1145/3034786.3056105}.
-
-\bibitem[Khamis et~al.(2019)Khamis, Curtin, Moseley, Ngo, Nguyen, Olteanu, and
-  Schleich]{KhamisEtAl2019FAQAI}
-Mahmoud~Abo Khamis, Ryan~R. Curtin, Benjamin Moseley, Hung~Q. Ngo, XuanLong
-  Nguyen, Dan Olteanu, and Maximilian Schleich.
-\newblock On functional aggregate queries with additive inequalities.
-\newblock In \emph{Proceedings of the 38th ACM SIGMOD-SIGACT-SIGAI Symposium on
-  Principles of Database Systems (PODS)}, pages 414--431, 2019.
-\newblock \doi{10.1145/3294052.3319694}.
-
-\bibitem[Khamis et~al.(2020)Khamis, Kolaitis, Ngo, and
-  Suciu]{KhamisEtAl2020BagContainment}
-Mahmoud~Abo Khamis, Phokion~G. Kolaitis, Hung~Q. Ngo, and Dan Suciu.
-\newblock Bag query containment and information theory.
-\newblock In \emph{Proceedings of the 39th ACM SIGMOD-SIGACT-SIGAI Symposium on
-  Principles of Database Systems}, pages 95--112, 2020.
-\newblock \doi{10.1145/3375395.3387645}.
-
-\bibitem[Khamis et~al.(2024)Khamis, Nakos, Olteanu, and
-  Suciu]{KhamisEtAl2024LpBounds}
-Mahmoud~Abo Khamis, Vasileios Nakos, Dan Olteanu, and Dan Suciu.
-\newblock Join size bounds using {$\ell_p$}-norms on degree sequences.
-\newblock \emph{Proceedings of the ACM on Management of Data}, 2\penalty0
-  (2):\penalty0 96:1--96:24, 2024.
-\newblock \doi{10.1145/3651597}.
-\newblock URL \url{https://arxiv.org/abs/2306.14075}.
-
-\bibitem[Khamis et~al.(2025)Khamis, Ngo, and Suciu]{KhamisNgoSuciu2025PANDA}
-Mahmoud~Abo Khamis, Hung~Q. Ngo, and Dan Suciu.
-\newblock {PANDA}: Query evaluation in submodular width.
-\newblock \emph{TheoretiCS}, 4\penalty0 (12):\penalty0 1--42, 2025.
-\newblock \doi{10.46298/theoretics.25.12}.
-
-\bibitem[Korchemna et~al.(2024)Korchemna, Lokshtanov, Saurabh, Surianarayanan,
-  and Xue]{KorchemnaEtAl2024}
+\bibitem[KLS{\etalchar{+}}24]{KorchemnaEtAl2024}
 Viktoriia Korchemna, Daniel Lokshtanov, Saket Saurabh, Vaishali Surianarayanan,
   and Jie Xue.
 \newblock Efficient approximation of fractional hypertree width.
-\newblock In \emph{Proceedings of the 65th IEEE Symposium on Foundations of
+\newblock In {\em Proceedings of the 65th IEEE Symposium on Foundations of
   Computer Science (FOCS)}, pages 754--779, 2024.
-\newblock \doi{10.1109/FOCS61266.2024.00053}.
-\newblock URL \url{https://arxiv.org/abs/2409.20172}.
-\newblock Full version at arXiv:2409.20172.
+\newblock Full version.
+\newblock URL: \url{https://arxiv.org/abs/2409.20172}, \href
+  {https://doi.org/10.1109/FOCS61266.2024.00053}
+  {\path{doi:10.1109/FOCS61266.2024.00053}}.
 
-\bibitem[Koutris et~al.(2025)Koutris, Deep, Fan, and
-  Zhao]{KoutrisEtAl2025FasterJoins}
-Paraschos Koutris, Shaleen Deep, Austen Fan, and Hangdong Zhao.
-\newblock The quest for faster join algorithms.
-\newblock In \emph{28th International Conference on Database Theory (ICDT
-  2025)}, volume 328 of \emph{Leibniz International Proceedings in
-  Informatics}, pages 1:1--1:12, 2025.
-\newblock \doi{10.4230/LIPIcs.ICDT.2025.1}.
-
-\bibitem[Lanzinger(2022)]{LanzingerPODS22}
+\bibitem[Lan22]{LanzingerPODS22}
 Matthias Lanzinger.
 \newblock The complexity of conjunctive queries with degree 2.
-\newblock In \emph{Proceedings of the 41st ACM SIGMOD-SIGACT-SIGAI Symposium on
+\newblock In {\em Proceedings of the 41st ACM SIGMOD-SIGACT-SIGAI Symposium on
   Principles of Database Systems (PODS)}, pages 91--102, 2022.
-\newblock \doi{10.1145/3517804.3524152}.
+\newblock \href {https://doi.org/10.1145/3517804.3524152}
+  {\path{doi:10.1145/3517804.3524152}}.
 
-\bibitem[Lanzinger(2026)]{Lanzinger2026Cuts}
+\bibitem[Lan26]{Lanzinger2026Cuts}
 Matthias Lanzinger.
 \newblock Cuts and gauges for submodular width, 2026.
-\newblock URL \url{https://arxiv.org/abs/2604.22663}.
+\newblock URL: \url{https://arxiv.org/abs/2604.22663}, \href
+  {https://arxiv.org/abs/2604.22663} {\path{arXiv:2604.22663}}.
 
-\bibitem[Leighton and Rao(1999)]{LeightonRao1999}
+\bibitem[LR99]{LeightonRao1999}
 Tom Leighton and Satish Rao.
 \newblock Multicommodity max-flow min-cut theorems and their use in designing
   approximation algorithms.
-\newblock \emph{Journal of the ACM}, 46\penalty0 (6):\penalty0 787--832, 1999.
-\newblock \doi{10.1145/331524.331526}.
+\newblock {\em Journal of the ACM}, 46(6):787--832, 1999.
+\newblock \href {https://doi.org/10.1145/331524.331526}
+  {\path{doi:10.1145/331524.331526}}.
 
-\bibitem[Marx(2010)]{MarxFHW2010}
+\bibitem[Mar10]{MarxFHW2010}
 D{\'a}niel Marx.
 \newblock Approximating fractional hypertree width.
-\newblock \emph{ACM Transactions on Algorithms}, 6\penalty0 (2):\penalty0
-  29:1--29:17, 2010.
-\newblock \doi{10.1145/1721837.1721845}.
+\newblock {\em ACM Transactions on Algorithms}, 6(2):29:1--29:17, 2010.
+\newblock \href {https://doi.org/10.1145/1721837.1721845}
+  {\path{doi:10.1145/1721837.1721845}}.
 
-\bibitem[Marx(2011)]{adw}
+\bibitem[Mar11]{adw}
 D{\'a}niel Marx.
 \newblock Tractable structures for constraint satisfaction with truth tables.
-\newblock \emph{Theory of Computing Systems}, 48\penalty0 (3):\penalty0
-  444--464, 2011.
-\newblock \doi{10.1007/s00224-009-9248-9}.
+\newblock {\em Theory of Computing Systems}, 48(3):444--464, 2011.
+\newblock \href {https://doi.org/10.1007/s00224-009-9248-9}
+  {\path{doi:10.1007/s00224-009-9248-9}}.
 
-\bibitem[Marx(2013)]{Marx13}
+\bibitem[Mar13]{Marx13}
 D{\'a}niel Marx.
 \newblock Tractable hypergraph properties for constraint satisfaction and
   conjunctive queries.
-\newblock \emph{Journal of the ACM}, 60\penalty0 (6):\penalty0 42:1--42:51,
-  2013.
-\newblock \doi{10.1145/2535926}.
+\newblock {\em Journal of the ACM}, 60(6):42:1--42:51, 2013.
+\newblock \href {https://doi.org/10.1145/2535926} {\path{doi:10.1145/2535926}}.
 
-\bibitem[Matula and Beck(1983)]{MatulaBeck1983}
+\bibitem[MB83]{MatulaBeck1983}
 David~W. Matula and Leland~L. Beck.
 \newblock Smallest-last ordering and clustering and graph coloring algorithms.
-\newblock \emph{Journal of the ACM}, 30\penalty0 (3):\penalty0 417--427, 1983.
-\newblock \doi{10.1145/2402.322385}.
+\newblock {\em Journal of the ACM}, 30(3):417--427, 1983.
+\newblock \href {https://doi.org/10.1145/2402.322385}
+  {\path{doi:10.1145/2402.322385}}.
 
-\bibitem[Pichler and Skritek(2013)]{PichlerSkritek2013}
+\bibitem[{Ope}26]{openaieth}
+{OpenAI}.
+\newblock The exponential time hypothesis is false, October 2026.
+\newblock Preprint, revised 25 October 2026.
+\newblock URL:
+  \url{https://github.com/openai/math/blob/main/preprints/The-Exponential-Time-Hypothesis-is-False-October-25-2026/paper.pdf}.
+
+\bibitem[PS13]{PichlerSkritek2013}
 Reinhard Pichler and Sebastian Skritek.
 \newblock Tractable counting of the answers to conjunctive queries.
-\newblock \emph{Journal of Computer and System Sciences}, 79\penalty0
-  (6):\penalty0 984--1001, 2013.
-\newblock \doi{10.1016/j.jcss.2013.01.012}.
+\newblock {\em Journal of Computer and System Sciences}, 79(6):984--1001, 2013.
+\newblock \href {https://doi.org/10.1016/j.jcss.2013.01.012}
+  {\path{doi:10.1016/j.jcss.2013.01.012}}.
 
-\bibitem[Robertson and Seymour(1995)]{RobertsonSeymour1995}
-Neil Robertson and Paul~D. Seymour.
-\newblock Graph minors. {XIII}. {The} disjoint paths problem.
-\newblock \emph{Journal of Combinatorial Theory, Series B}, 63\penalty0
-  (1):\penalty0 65--110, 1995.
-\newblock \doi{10.1006/jctb.1995.1006}.
+\bibitem[{Sim}26]{SimonsInstituteAITCS2026}
+{Simons Institute for the Theory of Computing}.
+\newblock {AI + TCS Working Group}.
+\newblock
+  \url{https://simons.berkeley.edu/news-publications-videos/ai-tcs-working-group},
+  2026.
+\newblock Accessed: October 28, 2026.
 
-\bibitem[Sion(1958)]{Sion58}
+\bibitem[Sio58]{Sion58}
 Maurice Sion.
 \newblock On general minimax theorems.
-\newblock \emph{Pacific Journal of Mathematics}, 8\penalty0 (1):\penalty0
-  171--176, 1958.
-\newblock \doi{10.2140/pjm.1958.8.171}.
+\newblock {\em Pacific Journal of Mathematics}, 8(1):171--176, 1958.
+\newblock \href {https://doi.org/10.2140/pjm.1958.8.171}
+  {\path{doi:10.2140/pjm.1958.8.171}}.
 
-\bibitem[Suciu(2023)]{Suciu2023InformationInequalities}
+\bibitem[Suc23]{Suciu2023InformationInequalities}
 Dan Suciu.
 \newblock Applications of information inequalities to database theory problems.
-\newblock In \emph{38th Annual ACM/IEEE Symposium on Logic in Computer Science
+\newblock In {\em 38th Annual ACM/IEEE Symposium on Logic in Computer Science
   (LICS)}, pages 1--30, 2023.
-\newblock \doi{10.1109/LICS56636.2023.10175769}.
-\newblock URL \url{https://arxiv.org/abs/2304.11996}.
+\newblock URL: \url{https://arxiv.org/abs/2304.11996}, \href
+  {https://doi.org/10.1109/LICS56636.2023.10175769}
+  {\path{doi:10.1109/LICS56636.2023.10175769}}.
 
-\bibitem[Zhuk(2020)]{Zhuk2020}
+\bibitem[Zhu20]{Zhuk2020}
 Dmitriy Zhuk.
 \newblock A proof of the {CSP} dichotomy conjecture.
-\newblock \emph{Journal of the ACM}, 67\penalty0 (5):\penalty0 30:1--30:78,
-  2020.
-\newblock \doi{10.1145/3402029}.
+\newblock {\em Journal of the ACM}, 67(5):30:1--30:78, 2020.
+\newblock \href {https://doi.org/10.1145/3402029} {\path{doi:10.1145/3402029}}.
 
-\bibitem[Zykov(1974)]{Zykov1974}
+\bibitem[Zyk74]{Zykov1974}
 A.~A. Zykov.
 \newblock Hypergraphs.
-\newblock \emph{Russian Mathematical Surveys}, 29\penalty0 (6):\penalty0
-  89--156, 1974.
-\newblock \doi{10.1070/RM1974v029n06ABEH001303}.
+\newblock {\em Russian Mathematical Surveys}, 29(6):89--156, 1974.
+\newblock \href {https://doi.org/10.1070/RM1974v029n06ABEH001303}
+  {\path{doi:10.1070/RM1974v029n06ABEH001303}}.
 
 \end{thebibliography}

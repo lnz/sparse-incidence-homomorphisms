@@ -11,8 +11,8 @@ body > header {
 }
 body > header #doc_title { display:none }
 body > header .site-brand {
-  color:var(--ink); font:600 1rem/1 var(--serif);
-  text-decoration:none; white-space:nowrap;
+  color:var(--ink); font:600 1rem/1.3 var(--serif);
+  text-decoration:none; white-space:normal; padding:10px 0;
 }
 body > header .site-brand:hover { color:var(--link) }
 #toc-toggle { width:18px; height:18px; margin:0; color:#555; cursor:pointer }

@@ -1,7 +1,15 @@
 \section{Scope}
 
-The main path follows Theorem~1.1 of \texttt{main.tex}. Lean proves the final
-comparison by a different recursion, recorded in Section~\ref{sec:lean-route}.
+The main path follows Theorem~1.1 of \texttt{main.tex}, including both
+$\adw(H)\ge2$ and $\adw(H)<2$ with one universal constant.
+The manuscript and the Lean proof use the same standard
+separator-to-decomposition method. Both recursively split along balanced
+separators and combine the resulting decompositions. The manuscript invokes
+Marx's general separator lemma, while Lean proves the required fractional-cover
+bound by a direct recursive construction. The intermediate bounds differ,
+but yield the same final bound. Section~\ref{sec:lean-route} describes the
+Lean construction.
+
 Checkmarks identify checked Lean declarations. The article's algorithmic and
 complexity results are outside this blueprint.
 
@@ -37,20 +45,23 @@ $\mu(H)$. Lean's auxiliary structural factor is
 $A(H)=1+\min\{d(H),\ln(2+\alpha(H))\}$.
 \end{definition}
 
-\begin{definition}[The manuscript parameter]
+\begin{definition}[Lean's combined structural factor]
 \label{eq:lambda-intro}
 \lean{Paper.Hypergraph.componentFactor, Paper.Hypergraph.lambda}\uses{def:structure}\leanok
 \[
  \lambda(H)=\min\{\mu(H),\max\{1,\log_2\alpha(H)\}\}.
 \]
+Lean uses $\lambda(H)$ as shorthand for the minimum of the two structural
+factors displayed separately in the manuscript. A bound with factor
+$\lambda(H)$ is equivalent to both bounds with the same constant.
 All unqualified logarithms in the manuscript are binary. Lean also uses
 \[
  L(H)=1+\max_{K\in\cc(H)}
   \min\{d(H[K]),\ln(2+\alpha(H[K]))\},
 \]
 with maximum zero when $H$ is empty. For nonempty $H$ it proves
-$L(H)\le A(H)\le4\lambda(H)$. The componentwise factor is internal to the
-Lean proof and is not the manuscript's $\lambda$.
+$L(H)\le A(H)\le4\lambda(H)$. The componentwise factor $L(H)$ is an
+auxiliary quantity in the Lean proof, distinct from $\lambda(H)$.
 \end{definition}
 
 \begin{lemma}[Structural heredity]
@@ -232,52 +243,26 @@ of the tree. A residual primal component can meet bags in only one branch
 of the tree after deleting the median.
 \end{proof}
 
-\begin{lemma}[Recursive separator decomposition]
+\begin{lemma}[Marx's separator lemma]
 \label{lem:recursive-decomposition}
-\uses{def:separator-costs,def:widths}
-Suppose $0<\eta<1$ and $r\ge0$. If every restriction $H[W]$ and every
-nonzero edge weighting on $H[W]$ admit an integral $(\gamma,\eta)$-balanced
-separator $S$ with $\rho_{H[W]}^*(S)\le r$, then
+\uses{def:widths}
+Let $H$ be a hypergraph, $0<\eta<1$, $r>0$, and let
+$f:2^{V(H)}\to\mathbb R_{\ge0}$ be monotone and subadditive.
+Suppose that for every $X\subseteq V(H)$ there is a set $S\subseteq V(H)$
+with $f(S)\le r$ such that every component $C$ of $H-S$ satisfies
+$f(C\cap X)\le\eta f(X)$. Then $H$ has a tree decomposition $(T,B)$ with
 \[
- \fhw(H)\le\frac{2(2-\eta)}{1-\eta}r.
+ f(B_t)\le\frac{2r}{1-\eta}+r
+ \qquad\text{for every }t\in V(T).
 \]
 \end{lemma}
-\begin{proof}\uses{eq:cover-restriction,def:cover}
-Put $\Lambda=2r/(1-\eta)$ and induct on $|W\setminus Z|$ for
-$Z\subseteq W\subseteq V(H)$ with $\rho_H^*(Z)\le\Lambda$. Construct a
-decomposition of $H[W]$ containing $Z$ in one bag and with every bag of
-$H$-cover cost at most $\Lambda+2r$. If $W=Z$, one bag suffices.
+This is the separator lemma from Section~5.2 of
+\href{https://doi.org/10.1007/s00224-009-9248-9}{Marx's
+\emph{Tractable Structures for Constraint Satisfaction with Truth Tables}}.
 
-Otherwise, if $Z\ne\varnothing$, cover $Z$ optimally and use the resulting
-edge weights $\gamma$ to choose a separator $S$ of cost at most $r$.
-If $Z=\varnothing$, take $S=\varnothing$. Choose for each
-$v\in W\setminus Z$ an incident edge $e_v$ and put
-\[
- \pi(e)=\frac{|\{v\in W\setminus Z:e_v=e\}|}{|W\setminus Z|}.
-\]
-The weighting $\pi$ has total mass $1$. Choose a $(\pi,\eta)$-balanced
-separator $R$ of cost at most $r$ and set $B=Z\cup S\cup R$.
-Then $\rho_H^*(B)\le\Lambda+2r$.
-
-For each component $K$ of $H[W]-B$ set
-$Z_K=B\cap N_{P(H[W])}(K)$ and $W_K=K\cup Z_K$.
-If $Z=\varnothing$, $Z_K\subseteq R$, so $\rho_H^*(Z_K)\le r\le\Lambda$.
-Otherwise let $C$ be the component of $H[W]-S$ containing $K$.
-The inclusion $Z_K\subseteq S\cup R\cup(Z\cap C)$ and the balance of $S$
-give
-\[
- \rho_H^*(Z_K)\le 2r+\eta\rho_H^*(Z)
- \le2r+\eta\Lambda=\Lambda.
-\]
-If $D$ is the component of $H[W]-R$ containing $K$, the balance of $R$
-gives $|K|/|W\setminus Z|\le\sum_{e\cap D\ne\varnothing}\pi(e)
-\le\eta<1$. Hence $|W_K\setminus Z_K|=|K|<|W\setminus Z|$.
-Apply induction to each $(W_K,Z_K)$ and attach its designated bag to the
-new bag $B$. Running intersection follows from $B\cap W_K=Z_K$.
-An edge not contained in $B$ lies in one child because it is a primal clique.
-Finally apply the invariant with $(W,Z)=(V(H),\varnothing)$ to obtain
-$\Lambda+2r=2(2-\eta)r/(1-\eta)$.
-\end{proof}
+The manuscript applies this general lemma. Lean proves the specialized
+recursive bound in Section~\ref{sec:lean-route}, using one additional vertex
+to ensure that each recursive call has fewer vertices outside its boundary.
 
 \section{Adaptive width controls fractional separators}
 
@@ -319,8 +304,8 @@ use adaptive-width heredity and take the hereditary supremum.
 \label{sec:rounding}
 
 \begin{theorem}[The proved rounding input]
-\label{thm:external-rounding}
-\lean{Paper.Hypergraph.ExternalRounding, Paper.Hypergraph.external_rounding}
+\label{thm:balanced-rounding}
+\lean{Paper.Hypergraph.BalancedRounding, Paper.Hypergraph.balanced_rounding}
 \uses{eq:fractional-balance,def:cover,def:structure}\leanok
 Let $0<\varphi<1$, let $0\le\gamma_e\le1$, and let $x$ be fractionally
 $(\gamma,\varphi)$-balanced. Put $c=\rho_H^*(x)$,
@@ -349,78 +334,121 @@ The cited running-time guarantee is not formalized here.
 
 \begin{proposition}[The manuscript's rounding bound]
 \label{thm:rounding}
-\uses{thm:external-rounding,lem:indicator-equivalence,eq:lambda-intro}
+\lean{Paper.Hypergraph.manuscript_balanced_separator_rounding}
+\uses{thm:balanced-rounding,lem:indicator-equivalence,def:structure}\leanok
 There is a universal $C_0>0$ such that for every $J$, nonzero weighting
 $\gamma:E(J)\to[0,1]$, and fractional $(\gamma,1/2)$-balanced $x$,
 there is an integral $(\gamma,5/6)$-balanced $S\subseteq V(J)$ with
 \[
- \rho_J^*(S)\le C_0\lambda(J)\rho_J^*(x)
+ \begin{aligned}
+ \rho_J^*(S)&\le C_0\mu(J)\rho_J^*(x)
+      \log_2\max\{2,\rho_J^*(x)\},\\
+ \rho_J^*(S)&\le C_0\max\{1,\log_2\alpha(J)\}\rho_J^*(x)
       \log_2\max\{2,\rho_J^*(x)\}.
+ \end{aligned}
 \]
 \end{proposition}
-\begin{proof}\uses{thm:external-rounding}
+\begin{proof}\uses{thm:balanced-rounding}\leanok
 If $\varnothing$ is already balanced, take $S=\varnothing$. Otherwise
 $q=\rho_J^*(x)>0$, since $q=0$ forces $x=0$ and
 Lemma~\ref{lem:indicator-equivalence} makes $\varnothing$ balanced.
-Specialize Theorem~\ref{thm:external-rounding} to $\varphi=1/2$. Its
+Specialize Theorem~\ref{thm:balanced-rounding} to $\varphi=1/2$. Its
 structural factor is at most $7\mu(J)$ and at most
-$9+4\ln\alpha(J)$, hence at most a constant times $\lambda(J)$.
-Also $88+16\log_2(2q)=O(\log_2\max\{2,q\})$ on this nontrivial branch.
-This sharper specialization is the manuscript's argument. Lean proves the
-rounding input and a regularized consequence, but has no separate declaration
-for this displayed bound.
+$9+4\ln\alpha(J)$, giving the two structural factors.
+Also
+\[
+ 88+16\log_2(2q)\le120\log_2\max\{2,q\}.
+\]
+Since $9+4\ln\alpha(J)\le13\max\{1,\log_2\alpha(J)\}$,
+the same separator satisfies both bounds with $C_0=1560$.
 \end{proof}
+
+Lean derives Proposition~\ref{thm:rounding} directly from
+Theorem~\ref{thm:balanced-rounding}. The subsequent Lean width proof uses
+the regularized consequence in Lemma~\ref{lem:regularized-rounding}.
 
 \printbreak
 \section{The main comparison}
 
-\begin{theorem}[Theorem 1.1: main width comparison]
+\begin{theorem}[Theorem 1.1]
 \label{thm:intro-width}
 \lean{Paper.Hypergraph.MainWidthComparison, Paper.Hypergraph.main_width_comparison}
-\uses{def:widths,eq:lambda-intro}\leanok
-There is a universal constant $C>0$ such that every input hypergraph $H$
+\uses{def:widths,def:structure}\leanok
+There is a universal constant $C>0$ such that every finite hypergraph $H$
 with $\adw(H)\ge2$ satisfies
 \[
- \fhw(H)\le C\lambda(H)\adw(H)\log_2\adw(H).
+ \begin{aligned}
+ \fhw(H)&\le C\mu(H)\adw(H)\log_2\adw(H),\\
+ \fhw(H)&\le C\max\{1,\log_2\alpha(H)\}\adw(H)\log_2\adw(H).
+ \end{aligned}
 \]
-When $\adw(H)<2$, $\fhw(H)\le C\lambda(H)$ with the same constant.
-The Lean statement assumes nonemptiness and does not require connectivity.
+When $\adw(H)<2$, $\fhw(H)\le C\mu(H)$ and
+$\fhw(H)\le C\max\{1,\log_2\alpha(H)\}$ with the same constant.
 \end{theorem}
-\begin{proof}\uses{lem:recursive-decomposition,thm:fsep-adw,thm:rounding,eq:hereditary-structure,lem:fractional-separator-convexity}
-This is the manuscript's proof. Put $a=\max\{2,\adw(H)\}$. For any
-$J=H[W]$ and nonzero $\gamma$, compactness and continuity give a minimizing
-fractional half-balanced separator $x$. Lemma~\ref{thm:fsep-adw} gives
+\begin{proof}\uses{lem:recursive-decomposition,thm:fsep-adw,thm:rounding,lem:fractional-separator-convexity,def:cover}
+This is the manuscript's proof. Put $a=\max\{2,\adw(H)\}$ and
+$f(X)=\rho_H^*(X)$. Then $f$ is monotone and subadditive. For nonempty
+$X\subseteq V(H)$, choose an optimum fractional cover $\gamma$ of $X$.
+Compactness and continuity give a minimizing fractional half-balanced
+separator $x$. Lemma~\ref{thm:fsep-adw} gives
 \[
- \rho_J^*(x)=\beta_{J,1/2}(\gamma)
+ \rho_H^*(x)=\beta_{H,1/2}(\gamma)
  \le\fsep_{1/2}(H)\le\adw(H)\le a.
 \]
-Structural heredity gives $\lambda(J)\le\lambda(H)$.
 Proposition~\ref{thm:rounding} supplies an integral $5/6$-balanced
-separator of cost at most $r=C_0\lambda(H)a\log_2 a$.
-This follows from monotonicity of $q\log_2\max\{2,q\}$ for $q\ge0$.
-The recursive lemma with $\eta=5/6$ yields
+separator $S$ satisfying both
 \[
- \fhw(H)\le14r=14C_0\lambda(H)a\log_2 a.
+ \begin{aligned}
+ \rho_H^*(S)&\le C_0\mu(H)a\log_2 a,\\
+ \rho_H^*(S)&\le C_0\max\{1,\log_2\alpha(H)\}a\log_2 a.
+ \end{aligned}
 \]
-For $\adw(H)\ge2$ this is the first case. For $\adw(H)<2$ it is a
-constant times $\lambda(H)$. Lean proves the theorem statement through
+For every component $C$ of $H-S$, restricting $\gamma$ to edges meeting
+$C$ gives
+\[
+ f(X\cap C)\le\sum_{e\cap C\ne\varnothing}\gamma(e)
+ \le\frac56\sum_e\gamma(e)=\frac56 f(X).
+\]
+For $X=\varnothing$, take $S=\varnothing$.
+Apply Lemma~\ref{lem:recursive-decomposition} with $\eta=5/6$ and
+$r=C_0\mu(H)a\log_2 a$, then with
+$r=C_0\max\{1,\log_2\alpha(H)\}a\log_2 a$.
+Since $2r/(1-5/6)+r=13r$, this gives
+\[
+ \begin{aligned}
+ \fhw(H)&\le13C_0\mu(H)a\log_2 a,\\
+ \fhw(H)&\le13C_0\max\{1,\log_2\alpha(H)\}a\log_2 a.
+ \end{aligned}
+\]
+For $\adw(H)\ge2$, $a=\adw(H)$, giving the stated bounds.
+For $\adw(H)<2$, $a=2$. Taking $C=26C_0$ gives both ranges with
+the same constant.
+Lean proves the theorem statement through
 the alternative route in Section~\ref{sec:lean-route}. This proof has no
 separate Lean completion marker.
 \end{proof}
+
+The Lean declaration \texttt{main\_width\_comparison} combines the two
+bounds using $\lambda(H)$. It assumes nonemptiness and does not require
+connectivity. The $\adw(H)<2$ case is expressed as
+\[
+ \adw(H)<2\quad\Longrightarrow\quad\fhw(H)\le C\lambda(H).
+\]
+This is equivalent to the two bounds in the manuscript for that range.
 
 \section{The Lean route to the same comparison}
 \label{sec:lean-route}
 
 The checked Lean argument uses a regularized rounding estimate and a
-separator-plus-one-vertex recursion. Its intermediate inequality differs
-from Lemma~\ref{lem:recursive-decomposition}. The manuscript's two-separator
-induction and the sharper specialization in Proposition~\ref{thm:rounding}
-have no one-to-one Lean declarations.
+separator-plus-one-vertex recursion. It proves the final comparison directly.
+Marx's separator lemma, stated as Lemma~\ref{lem:recursive-decomposition},
+has no one-to-one Lean declaration. Proposition~\ref{thm:rounding} is
+formalized separately, but this route uses its regularized counterpart.
 
 \begin{lemma}[Regularized balanced-separator rounding]
 \label{lem:regularized-rounding}
 \lean{Paper.Hypergraph.balanced_separator_rounding}
-\uses{thm:external-rounding}\leanok
+\uses{thm:balanced-rounding}\leanok
 There is a universal $C_0>0$ such that a fractional
 $(\gamma,1/2)$-balanced $x$ admits an integral $(\gamma,5/6)$-balanced
 $S\subseteq\supp x$ with
@@ -430,7 +458,7 @@ $S\subseteq\supp x$ with
  (\rho_H^*(x)+1)\ln(2+\rho_H^*(x)).
 \]
 \end{lemma}
-\begin{proof}\uses{thm:external-rounding}\leanok
+\begin{proof}\uses{thm:balanced-rounding}\leanok
 Use the empty separator when it is balanced. In the other case specialize
 the proved rounding input at $\varphi=1/2$ and bound its factors. Lean
 chooses $C_0=9(120/\ln2)$.
@@ -494,9 +522,10 @@ There is a universal $C'>0$ such that every $H$ satisfies
 \[
  \fhw(H)\le C'L(H)(\adw(H)+1)\ln(2+\adw(H)).
 \]
-For nonempty $H$, $L(H)\le A(H)\le4\lambda(H)$. These inequalities,
-with separate estimates for $\adw(H)\ge2$ and $\adw(H)<2$, give the
-statement of Theorem~\ref{thm:intro-width}.
+For nonempty $H$, $L(H)\le A(H)\le4\lambda(H)$. For $\adw(H)\ge2$,
+these inequalities give both bounds in Theorem~\ref{thm:intro-width}.
+For $\adw(H)<2$, they give the remaining case
+$\fhw(H)\le C\lambda(H)$ with the same universal constant.
 \end{theorem}
 \begin{proof}\uses{lem:lean-recursive-decomposition,thm:fsep-adw,lem:round-hereditary,lem:components}\leanok
 First prove the connected bound and pass to primal components. Replace the

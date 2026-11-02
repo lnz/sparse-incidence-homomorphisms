@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const brand = document.createElement("a");
     brand.className = "site-brand";
     brand.href = "index.html";
-    brand.textContent = "Theorem 1.1";
+    brand.textContent = "FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns";
     header.insertBefore(brand, document.getElementById("doc_title"));
   }
 

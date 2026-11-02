@@ -8,17 +8,22 @@
 \newtheorem*{homepagewidth}{Theorem 1.1}
 \home{index.html}
 \dochome{lean}
-\title{Theorem 1.1: a formalization blueprint}
+\title{FPT iff PTIME for Homomorphism Problems
+on Sparse-Incidence and Bounded-Independence Patterns}
 \author{Sparse-incidence width comparison}
 \begin{document}
-% Reproduce the displayed statement of thm:intro-width in the frozen manuscript.
+% Reproduce the bounds in thm:intro-width of the active manuscript.
 \begin{homepagewidth}
 There is a universal constant $C>0$ such that every finite hypergraph $H$
 with $\adw(H)\ge2$ satisfies
 \[
-  \fhw(H)\le C\lambda(H)\adw(H)\log_2\adw(H).
+ \begin{aligned}
+  \fhw(H)&\le C\mu(H)\adw(H)\log_2\adw(H),\\
+  \fhw(H)&\le C\max\{1,\log_2\alpha(H)\}\adw(H)\log_2\adw(H).
+ \end{aligned}
 \]
-When $\adw(H)<2$, $\fhw(H)\le C\lambda(H)$.
+When $\adw(H)<2$, $\fhw(H)\le C\mu(H)$ and
+$\fhw(H)\le C\max\{1,\log_2\alpha(H)\}$ with the same constant.
 \end{homepagewidth}
 \noindent\href{lean/Paper/TrustBoundary.html\#Paper.Hypergraph.MainWidthComparison}{Lean statement}
 \quad\href{lean/Paper/RoundingComplete.html\#Paper.Hypergraph.main_width_comparison}{Lean proof}

@@ -4,7 +4,7 @@ import Paper.TrustBoundary
 # Checked deductions from the mathematical specification
 
 The specification is in `Paper/TrustBoundary.lean`. This module proves
-`ExternalRounding → MainWidthComparison` without admitted proofs or custom
+`BalancedRounding → MainWidthComparison` without admitted proofs or custom
 axioms. The existing internal proof uses the regularized separator bounds.
 -/
 
@@ -2376,28 +2376,6 @@ theorem fractional_separators_le_adw (H : Hypergraph) {θ : ℝ}
   · exact H.elementary_width_bounds.1
   · exact ((H.induce W).beta_le_adw hγ hθ).trans (H.width_hereditary W).1
 
-/-- Existence part of Korchemna--Lokshtanov--Saurabh--Surianarayanan--Xue,
-Theorem 5.6, arXiv:2409.20172v1. The numerical factors are literal:
-`Real.log` represents ln, and division by `Real.log 2` represents log base 2.
-We import only the nontrivial branch (the empty set is not already balanced).
-This restriction avoids the printed bound's negative-log small-cost issue;
-it is an additional hypothesis, not a claim that it appears in the source.
-The running-time conclusion is outside this existence formalization. -/
-theorem cited_rounding_theorem_5_6 (rounding : ExternalRounding) (H : Hypergraph) (γ x : ℕ → ℝ) (φ : ℝ)
-    (hφ : 0 < φ ∧ φ < 1)
-    (hγ : ∀ e ∈ H.edges, 0 ≤ γ e ∧ γ e ≤ 1)
-    (hx : H.FractionalBalanced γ φ x)
-    (hnontrivial : ¬ H.IntegralBalanced γ ((1 + 3 * φ) / (2 + 2 * φ)) ∅) :
-    ∃ S ⊆ H.vertices.filter (fun v => x v ≠ 0),
-      H.IntegralBalanced γ ((1 + 3 * φ) / (2 + 2 * φ)) S ∧
-      H.setCoverCost S ≤
-        (min (8 + 4 * Real.log
-          ((H.induce (H.vertices.filter (fun v => x v ≠ 0))).independenceNumber : ℝ))
-          (6 * (H.degeneracy : ℝ)) + 1) *
-        ((44 + 8 * (Real.log (H.coverCost x / (1 - φ)) / Real.log 2)) / (1 - φ)) *
-        H.coverCost x := by
-  exact rounding H γ x φ hφ hγ hx hnontrivial
-
 theorem rounding_structural_bound (d a : ℕ) :
     min (8 + 4 * Real.log (a : ℝ)) (6 * (d : ℝ)) + 1 ≤
       9 * (1 + min (d : ℝ) (Real.log (2 + (a : ℝ)))) := by
@@ -2445,9 +2423,10 @@ theorem rounding_cost_bound {q : ℝ} (hq : 0 ≤ q) :
       positivity
     _ = _ := by ring
 
-/-- The paper's regularized consequence of the external theorem.
-The specialization and numerical comparison must be proved locally. -/
-theorem balanced_separator_rounding (rounding : ExternalRounding) : ∃ C₀ : ℝ, 0 < C₀ ∧
+/-- The regularized rounding bound for every fractional half-balanced separator.
+If the empty separator is already balanced, its cover cost is zero.
+Otherwise the supplied rounding theorem applies with `φ = 1 / 2`. -/
+theorem balanced_separator_rounding (rounding : BalancedRounding) : ∃ C₀ : ℝ, 0 < C₀ ∧
     ∀ (H : Hypergraph) (γ x : ℕ → ℝ), H.EdgeWeight γ →
     H.FractionalBalanced γ (1 / 2) x →
     ∃ S ⊆ H.vertices.filter (fun v => x v ≠ 0), H.IntegralBalanced γ (5 / 6) S ∧
@@ -2482,7 +2461,7 @@ theorem balanced_separator_rounding (rounding : ExternalRounding) : ∃ C₀ : �
         ((1 + 3 * (1 / 2 : ℝ)) / (2 + 2 * (1 / 2 : ℝ))) ∅ := by
       norm_num
       exact hempty
-    obtain ⟨S, hS, hbal, hcost⟩ := cited_rounding_theorem_5_6 rounding H γ x (1 / 2)
+    obtain ⟨S, hS, hbal, hcost⟩ := rounding H γ x (1 / 2)
       (by norm_num) hγ.1 hx hn
     refine ⟨S, hS, by norm_num at hbal; exact hbal, ?_⟩
     have ha : 0 ≤ Real.log (a : ℝ) := by
@@ -2525,7 +2504,7 @@ theorem scale_infimum {A : Set ℝ} (hne : A.Nonempty) (hA : ∀ r ∈ A, 0 ≤ 
   intro a ha b hb hab
   convert mul_le_mul_of_nonneg_left (width_scale_mono (hA a ha) hab) hc using 1 <;> ring
 
-theorem round_hereditary (rounding : ExternalRounding) : ∃ C₁ : ℝ, 0 < C₁ ∧ ∀ H : Hypergraph,
+theorem round_hereditary (rounding : BalancedRounding) : ∃ C₁ : ℝ, 0 < C₁ ∧ ∀ H : Hypergraph,
     H.Connected → H.sep (5 / 6) ≤ C₁ * H.structuralFactor *
       (H.fsep (1 / 2) + 1) * Real.log (2 + H.fsep (1 / 2)) := by
   obtain ⟨C₀, hC₀, hround⟩ := balanced_separator_rounding rounding
@@ -2581,7 +2560,7 @@ theorem round_hereditary (rounding : ExternalRounding) : ∃ C₁ : ℝ, 0 < C�
     have hb := H.beta_le_fsep hW hγ (θ := 1 / 2) (by norm_num)
     convert mul_le_mul_of_nonneg_left (width_scale_mono hb0 hb) hcoeff using 1 <;> ring
 
-theorem connected_width_comparison (rounding : ExternalRounding) : ∃ C : ℝ, 0 < C ∧ ∀ H : Hypergraph,
+theorem connected_width_comparison (rounding : BalancedRounding) : ∃ C : ℝ, 0 < C ∧ ∀ H : Hypergraph,
     H.Connected → H.fhw ≤ C * H.structuralFactor *
       (H.adw + 1) * Real.log (2 + H.adw) := by
   obtain ⟨C₁, hC₁, hround⟩ := round_hereditary rounding
@@ -2626,7 +2605,7 @@ theorem connected_width_comparison (rounding : ExternalRounding) : ∃ C : ℝ, 
     _ = _ := by ring
 
 /-- The regularized comparison used to derive the manuscript statement. -/
-theorem regularized_main_width_comparison (rounding : ExternalRounding) : ∃ C : ℝ, 0 < C ∧ ∀ H : Hypergraph,
+theorem regularized_main_width_comparison (rounding : BalancedRounding) : ∃ C : ℝ, 0 < C ∧ ∀ H : Hypergraph,
     H.fhw ≤ C * H.componentFactor * (H.adw + 1) * Real.log (2 + H.adw) := by
   obtain ⟨C, hC, hconnected⟩ := connected_width_comparison rounding
   refine ⟨C, hC, ?_⟩
@@ -2651,7 +2630,7 @@ theorem regularized_main_width_comparison (rounding : ExternalRounding) : ∃ C 
       _ = _ := by ring
 
 /-- Auxiliary reverse comparison for the internal componentwise factor. -/
-theorem quantitative_reverse_comparison (rounding : ExternalRounding) : ∃ c : ℝ, 0 < c ∧ ∀ H : Hypergraph,
+theorem quantitative_reverse_comparison (rounding : BalancedRounding) : ∃ c : ℝ, 0 < c ∧ ∀ H : Hypergraph,
     H.adw + 1 ≤ H.subw + 1 ∧
     c * (H.fhw / (H.componentFactor * Real.log (2 + H.fhw))) ≤ H.adw + 1 := by
   obtain ⟨C, hC, hmain⟩ := regularized_main_width_comparison rounding
@@ -2675,7 +2654,7 @@ theorem quantitative_reverse_comparison (rounding : ExternalRounding) : ∃ c : 
     _ ≤ H.adw + 1 := (div_le_iff₀ (mul_pos hC (mul_pos hl hlog))).mpr (by nlinarith [hm])
 
 /-- The former combined statement, retained with its internal componentwise factor. -/
-theorem regularized_width_comparisons (rounding : ExternalRounding) :
+theorem regularized_width_comparisons (rounding : BalancedRounding) :
     (∃ C : ℝ, 0 < C ∧ ∀ H : Hypergraph,
       H.fhw ≤ C * H.componentFactor * (H.adw + 1) * Real.log (2 + H.adw)) ∧
     (∃ c : ℝ, 0 < c ∧ ∀ H : Hypergraph,
@@ -2762,9 +2741,9 @@ theorem componentFactor_le_structuralFactor (H : Hypergraph) :
     · apply Real.log_le_log (by positivity)
       exact_mod_cast Nat.add_le_add_left (H.structure_hereditary K).2 2
 
-/-- The current Theorem 1.1, with one constant for both width ranges.
-Nonemptiness matches the input convention in the manuscript. -/
-theorem theorem_1_1 (rounding : ExternalRounding) : MainWidthComparison := by
+/-- Derive Theorem 1.1 from balanced rounding, with one constant for both width
+ranges. Nonemptiness matches the input convention in the manuscript. -/
+theorem main_width_comparison_of_rounding (rounding : BalancedRounding) : MainWidthComparison := by
   obtain ⟨C, hC, hmain⟩ := regularized_main_width_comparison rounding
   refine ⟨48 * C, by positivity, ?_⟩
   intro H hne

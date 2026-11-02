@@ -15,7 +15,7 @@
 <title>The main comparison</title>
 <link rel="next" href="sec-lean-route.html" title="The Lean route to the same comparison" />
 <link rel="prev" href="sec-rounding.html" title="Rounding and its consequences" />
-<link rel="up" href="index.html" title="Theorem 1.1: a formalization blueprint" />
+<link rel="up" href="index.html" title="FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns" />
 <link rel="stylesheet" href="styles/theme-white.css" />
 <link rel="stylesheet" href="styles/amsthm.css" />
 <link rel="stylesheet" href="styles/showmore.css" />
@@ -26,7 +26,7 @@
 <body>
 <header>
 <svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
-<h1 id="doc_title"><a href="index.html">Theorem 1.1: a formalization blueprint</a></h1>
+<h1 id="doc_title"><a href="index.html">FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns</a></h1>
 </header>
 
 <div class="wrapper">
@@ -72,7 +72,7 @@
     Theorem
     </span>
     <span class="theorem_thmlabel">7.1</span>
-    <span class="theorem_thmtitle">Theorem 1.1: main width comparison</span>
+    <span class="theorem_thmtitle">Theorem 1.1</span>
     <div class="thm_header_extras">
 
         </div>
@@ -80,7 +80,7 @@
 
     <a class="icon proof" href="sect0006.html#thm:intro-width">#</a>
 
-    <a class="icon proof" href="sect0006.html#a0000000037"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="sect0006.html#a0000000035"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
 
 
@@ -98,7 +98,7 @@
 
           <li><a href="sect0003.html#def:widths">Definition 3.4</a></li>
 
-          <li><a href="sect0002.html#eq:lambda-intro">Definition 2.3</a></li>
+          <li><a href="sect0002.html#def:structure">Definition 2.2</a></li>
 
           <li><a href="sect0004.html#lem:recursive-decomposition">Lemma 4.6</a></li>
 
@@ -106,9 +106,9 @@
 
           <li><a href="sec-rounding.html#thm:rounding">Proposition 6.2</a></li>
 
-          <li><a href="sect0002.html#eq:hereditary-structure">Lemma 2.4</a></li>
-
           <li><a href="sect0004.html#lem:fractional-separator-convexity">Lemma 4.3</a></li>
+
+          <li><a href="sect0003.html#def:cover">Definition 3.1</a></li>
 
         </ul>
 
@@ -141,15 +141,15 @@
         </div>
   </div>
   <div class="theorem_thmcontent">
-  <p>   There is a universal constant \(C{\gt}0\) such that every input hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
-<div class="displaymath" id="a0000000038">
-  \[  \mathsf{fhw}(H)\le C\lambda (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H).  \]
+  <p>   There is a universal constant \(C{\gt}0\) such that every finite hypergraph \(H\) with \(\mathsf{adw}(H)\ge 2\) satisfies </p>
+<div class="displaymath" id="a0000000036">
+  \[  \begin{aligned}  \mathsf{fhw}(H)& \le C\mu (H)\mathsf{adw}(H)\log _2\mathsf{adw}(H),\\ \mathsf{fhw}(H)& \le C\max \{ 1,\log _2\alpha (H)\} \mathsf{adw}(H)\log _2\mathsf{adw}(H). \end{aligned}  \]
 </div>
-<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\lambda (H)\) with the same constant. The Lean statement assumes nonemptiness and does not require connectivity. </p>
+<p> When \(\mathsf{adw}(H){\lt}2\), \(\mathsf{fhw}(H)\le C\mu (H)\) and \(\mathsf{fhw}(H)\le C\max \{ 1,\log _2\alpha (H)\} \) with the same constant. </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000037">
+<div class="proof_wrapper" id="a0000000035">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -157,18 +157,31 @@
     <span class="expand-proof">▶</span>
   </div>
   <div class="proof_content">
-  <p> This is the manuscript’s proof. Put \(a=\max \{ 2,\mathsf{adw}(H)\} \). For any \(J=H[W]\) and nonzero \(\gamma \), compactness and continuity give a minimizing fractional half-balanced separator \(x\). Lemma&#160;<a href="sect0005.html#thm:fsep-adw">5.2</a> gives </p>
+  <p> This is the manuscript’s proof. Put \(a=\max \{ 2,\mathsf{adw}(H)\} \) and \(f(X)=\rho _H^*(X)\). Then \(f\) is monotone and subadditive. For nonempty \(X\subseteq V(H)\), choose an optimum fractional cover \(\gamma \) of \(X\). Compactness and continuity give a minimizing fractional half-balanced separator \(x\). Lemma&#160;<a href="sect0005.html#thm:fsep-adw">5.2</a> gives </p>
+<div class="displaymath" id="a0000000037">
+  \[  \rho _H^*(x)=\beta _{H,1/2}(\gamma ) \le \mathsf{fsep}_{1/2}(H)\le \mathsf{adw}(H)\le a.  \]
+</div>
+<p> Proposition&#160;<a href="sec-rounding.html#thm:rounding">6.2</a> supplies an integral \(5/6\)-balanced separator \(S\) satisfying both </p>
+<div class="displaymath" id="a0000000038">
+  \[  \begin{aligned}  \rho _H^*(S)& \le C_0\mu (H)a\log _2 a,\\ \rho _H^*(S)& \le C_0\max \{ 1,\log _2\alpha (H)\} a\log _2 a. \end{aligned}  \]
+</div>
+<p> For every component \(C\) of \(H-S\), restricting \(\gamma \) to edges meeting \(C\) gives </p>
 <div class="displaymath" id="a0000000039">
-  \[  \rho _J^*(x)=\beta _{J,1/2}(\gamma ) \le \mathsf{fsep}_{1/2}(H)\le \mathsf{adw}(H)\le a.  \]
+  \[  f(X\cap C)\le \sum _{e\cap C\ne \varnothing }\gamma (e) \le \frac56\sum _e\gamma (e)=\frac56 f(X).  \]
 </div>
-<p> Structural heredity gives \(\lambda (J)\le \lambda (H)\). Proposition&#160;<a href="sec-rounding.html#thm:rounding">6.2</a> supplies an integral \(5/6\)-balanced separator of cost at most \(r=C_0\lambda (H)a\log _2 a\). This follows from monotonicity of \(q\log _2\max \{ 2,q\} \) for \(q\ge 0\). The recursive lemma with \(\eta =5/6\) yields </p>
+<p> For \(X=\varnothing \), take \(S=\varnothing \). Apply Lemma&#160;<a href="sect0004.html#lem:recursive-decomposition">4.6</a> with \(\eta =5/6\) and \(r=C_0\mu (H)a\log _2 a\), then with \(r=C_0\max \{ 1,\log _2\alpha (H)\} a\log _2 a\). Since \(2r/(1-5/6)+r=13r\), this gives </p>
 <div class="displaymath" id="a0000000040">
-  \[  \mathsf{fhw}(H)\le 14r=14C_0\lambda (H)a\log _2 a.  \]
+  \[  \begin{aligned}  \mathsf{fhw}(H)& \le 13C_0\mu (H)a\log _2 a,\\ \mathsf{fhw}(H)& \le 13C_0\max \{ 1,\log _2\alpha (H)\} a\log _2 a. \end{aligned}  \]
 </div>
-<p> For \(\mathsf{adw}(H)\ge 2\) this is the first case. For \(\mathsf{adw}(H){\lt}2\) it is a constant times \(\lambda (H)\). Lean proves the theorem statement through the alternative route in Section&#160;<a href="sec-lean-route.html">8</a>. This proof has no separate Lean completion marker. </p>
+<p> For \(\mathsf{adw}(H)\ge 2\), \(a=\mathsf{adw}(H)\), giving the stated bounds. For \(\mathsf{adw}(H){\lt}2\), \(a=2\). Taking \(C=26C_0\) gives both ranges with the same constant. Lean proves the theorem statement through the alternative route in Section&#160;<a href="sec-lean-route.html">8</a>. This proof has no separate Lean completion marker. </p>
 
   </div>
 </div>
+<p>The Lean declaration <span class="ttfamily">main_width_comparison</span> combines the two bounds using \(\lambda (H)\). It assumes nonemptiness and does not require connectivity. The \(\mathsf{adw}(H){\lt}2\) case is expressed as </p>
+<div class="displaymath" id="a0000000041">
+  \[  \mathsf{adw}(H){\lt}2\quad \Longrightarrow \quad \mathsf{fhw}(H)\le C\lambda (H).  \]
+</div>
+<p> This is equivalent to the two bounds in the manuscript for that range. </p>
 
 </div> <!--main-text -->
 </div> <!-- content-wrapper -->
@@ -182,7 +195,7 @@
 
   <a href="sec-rounding.html" title="Rounding and its consequences"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
 </a>
-  <a href="index.html" title="Theorem 1.1: a formalization blueprint"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+  <a href="index.html" title="FPT iff PTIME for Homomorphism Problems on Sparse-Incidence and Bounded-Independence Patterns"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
 </a>
   <a href="sec-lean-route.html" title="The Lean route to the same comparison"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
 </a>

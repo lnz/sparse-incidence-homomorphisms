@@ -62,7 +62,7 @@ theorem rounding_coefficient_identity {K φ : ℝ} (hK : 0 < K) (hφ : φ < 1) :
 
 /-- The repaired proof of Theorem 5.6, with Theorem 4.1 as its sole
 remaining mathematical input. This does not assert an unconditional theorem. -/
-theorem externalRounding_of_twoTerminalRounding (round : TwoTerminalRounding) : ExternalRounding := by
+theorem balancedRounding_of_twoTerminalRounding (round : TwoTerminalRounding) : BalancedRounding := by
   intro H γ x φ hφ hγ hx hnontrivial
   have hγ0 : ∀ e ∈ H.edges, 0 ≤ γ e := fun e he => (hγ e he).1
   have hn : ∀ v ∈ H.vertices, 0 ≤ x v := fun v hv => (hx.1 v hv).1

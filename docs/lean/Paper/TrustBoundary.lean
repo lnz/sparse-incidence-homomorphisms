@@ -7,14 +7,16 @@ import Mathlib.Topology.Sion
 import Mathlib.Tactic
 
 /-!
-# Mathematical specification and trust boundary
+# Mathematical specification
 
 Review this file to decide whether the formal claim matches the paper.
-It contains the finite hypergraph model, all definitions used by the external
-input and the conclusion, the proposition `ExternalRounding`, and the target
+It contains the finite hypergraph model, all definitions used by the rounding
+statement and the conclusion, the proposition `BalancedRounding`, and the target
 `MainWidthComparison`. It imports Mathlib but no application proof module.
+Separating the specification from the proofs allows independent review of the
+definitions and theorem statements.
 
-`Paper/Formalized.lean` proves `ExternalRounding → MainWidthComparison`.
+`Paper/Formalized.lean` proves `BalancedRounding → MainWidthComparison`.
 `Paper/RoundingComplete.lean` proves both propositions without an external
 theorem hypothesis. Neither is asserted as an axiom. The rounding statement
 encodes the existence part of Korchemna et al., Theorem 5.6, arXiv 2409.20172v1.
@@ -201,9 +203,12 @@ def sep (H : Hypergraph) (θ : ℝ) : ℝ :=
   sSup (insert 0 {r | ∃ W ⊆ H.vertices, ∃ γ, (H.induce W).EdgeWeight γ ∧
     r = (H.induce W).integralOptimum θ γ})
 
-/-- The external mathematical input. This proposition has no proof supplied here.
-Its exact translation from the cited result remains a human review obligation. -/
-def ExternalRounding : Prop :=
+/-- Balanced-separator rounding with the constants of Korchemna et al.,
+Theorem 5.6, restricted to the case where the empty separator is not balanced.
+Proved by `balanced_rounding` in `Paper/RoundingComplete.lean`.
+The proof repairs the radius argument in Lemma 5.9.
+Algorithmic running time is outside this statement. -/
+def BalancedRounding : Prop :=
   ∀ (H : Hypergraph) (γ x : ℕ → ℝ) (φ : ℝ)
     (_hφ : 0 < φ ∧ φ < 1)
     (_hγ : ∀ e ∈ H.edges, 0 ≤ γ e ∧ γ e ≤ 1)

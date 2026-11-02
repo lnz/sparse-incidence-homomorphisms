@@ -1,3 +1,3 @@
 import Paper.Formalized
-import Paper.ExternalRounding
+import Paper.RoundingEstimates
 import Paper.RoundingComplete

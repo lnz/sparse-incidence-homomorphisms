@@ -2,13 +2,15 @@ import Paper.Formalized
 import Mathlib.Analysis.SpecialFunctions.Log.Base
 
 /-!
-# Towards the external rounding theorem
+# Estimates for balanced-separator rounding
 
 This module follows Section 5.1 of Korchemna et al., arXiv 2409.20172v1.
 It proves Observation 5.7, the cover accounting in Observation 5.12, and
 the cost estimate of Observation 5.13 from supplied cut-off pieces.
-The two-terminal rounding theorem and the cut-off construction remain unproved.
-In particular, this module does not yet prove `ExternalRounding`.
+It also proves the numerical layer budget for the repaired cut-off argument.
+`Paper/RoundingCutoff.lean` constructs the cut-off pieces.
+`Paper/RoundingComplete.lean` assembles the two-terminal and balanced rounding
+proofs and supplies the rounding theorem to the main width comparison.
 -/
 
 noncomputable section

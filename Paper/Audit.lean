@@ -1,10 +1,24 @@
 import Paper.RoundingComplete
 
+-- Check the expanded conclusion without supplying a rounding hypothesis.
+open Paper.Hypergraph in
+example : ∃ C : ℝ, 0 < C ∧ ∀ H : Paper.Hypergraph,
+    H.vertices.Nonempty →
+    (2 ≤ H.adw → H.fhw ≤ C *
+      min (H.degeneracy : ℝ)
+        (max 1 (Real.log (H.independenceNumber : ℝ) / Real.log 2)) *
+      H.adw * (Real.log H.adw / Real.log 2)) ∧
+    (H.adw < 2 → H.fhw ≤ C *
+      min (H.degeneracy : ℝ)
+        (max 1 (Real.log (H.independenceNumber : ℝ) / Real.log 2))) := by
+  exact main_width_comparison
+
 #print axioms Paper.Hypergraph.twoTerminal_minimum_weight_rounding
 #print axioms Paper.Hypergraph.twoTerminal_independence_rounding
 #print axioms Paper.Hypergraph.twoTerminal_degeneracy_rounding
 #print axioms Paper.Hypergraph.twoTerminal_rounding
-#print axioms Paper.Hypergraph.external_rounding
+#print axioms Paper.Hypergraph.balanced_rounding
+#print axioms Paper.Hypergraph.manuscript_balanced_separator_rounding
 #print axioms Paper.Hypergraph.main_width_comparison
 
 #print axioms Paper.Hypergraph.roundingBall_volume_le
@@ -54,12 +68,12 @@ import Paper.RoundingComplete
 #print axioms Paper.Hypergraph.structuralFactor_le_lambda
 #print axioms Paper.Hypergraph.componentFactor_le_structuralFactor
 
--- These deductions take ExternalRounding as an explicit hypothesis.
+-- These deductions take BalancedRounding as an explicit hypothesis.
 #print axioms Paper.Hypergraph.balanced_separator_rounding
 #print axioms Paper.Hypergraph.round_hereditary
 
 -- The final implication must also use only standard axioms.
-#print axioms Paper.Hypergraph.theorem_1_1
+#print axioms Paper.Hypergraph.main_width_comparison_of_rounding
 
 -- Fail if any declaration in the paper namespace depends on another axiom.
 -- The check traverses dependencies, including imported declarations.

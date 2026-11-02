@@ -1,10 +1,10 @@
-import Paper.ExternalRounding
+import Paper.RoundingEstimates
 
 /-!
 # Geometry of the rounding construction
 
 Weighted paths, annular fractional separators, and separated balls use the
-same vertex distance as the external theorem's specification.
+same vertex distance as the balanced rounding specification.
 -/
 
 noncomputable section
